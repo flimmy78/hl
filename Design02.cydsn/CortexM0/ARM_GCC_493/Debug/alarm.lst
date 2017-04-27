@@ -1,0 +1,1215 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"alarm.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Alarm_Event,"ax",%progbits
+  18              		.align	2
+  19              		.global	Alarm_Event
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	Alarm_Event, %function
+  23              	Alarm_Event:
+  24              	.LFB37:
+  25              		.file 1 ".\\alarm.c"
+   1:.\alarm.c     **** /* ========================================
+   2:.\alarm.c     ****  *
+   3:.\alarm.c     ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\alarm.c     ****  * All Rights Reserved
+   5:.\alarm.c     ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\alarm.c     ****  *
+   7:.\alarm.c     ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\alarm.c     ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\alarm.c     ****  *
+  10:.\alarm.c     ****  * ========================================
+  11:.\alarm.c     **** */
+  12:.\alarm.c     **** #include "alarm.h"
+  13:.\alarm.c     **** 
+  14:.\alarm.c     **** /***********************************************************
+  15:.\alarm.c     ****  * @function_name: void Alarm_Event(u8* Data)
+  16:.\alarm.c     ****  * @function_file: Dr_Alarm.c
+  17:.\alarm.c     ****  * @描  述： 报警事件主程序
+  18:.\alarm.c     ****  *
+  19:.\alarm.c     ****  * @参  数： 报警事件
+  20:.\alarm.c     ****  * @返  回： 无
+  21:.\alarm.c     ****  * @作  者： ZhangQun (2014-9-2)
+  22:.\alarm.c     ****  *---------------------------------------------------------
+  23:.\alarm.c     ****  * @修改人： ZhangQun (2014-9-2)
+  24:.\alarm.c     **** ***********************************************************/
+  25:.\alarm.c     **** void Alarm_Event(uint8 Event)
+  26:.\alarm.c     **** {
+  26              		.loc 1 26 0
+  27              		.cfi_startproc
+  28 0000 80B5     		push	{r7, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 7, -8
+  31              		.cfi_offset 14, -4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 2
+
+
+  32 0002 82B0     		sub	sp, sp, #8
+  33              		.cfi_def_cfa_offset 16
+  34 0004 00AF     		add	r7, sp, #0
+  35              		.cfi_def_cfa_register 7
+  36 0006 021C     		mov	r2, r0
+  37 0008 FB1D     		add	r3, r7, #7
+  38 000a 1A70     		strb	r2, [r3]
+  27:.\alarm.c     ****    switch (Event)
+  39              		.loc 1 27 0
+  40 000c FB1D     		add	r3, r7, #7
+  41 000e 1B78     		ldrb	r3, [r3]
+  42 0010 022B     		cmp	r3, #2
+  43 0012 27D0     		beq	.L3
+  44 0014 02DC     		bgt	.L4
+  45 0016 012B     		cmp	r3, #1
+  46 0018 06D0     		beq	.L5
+  47 001a B9E0     		b	.L2
+  48              	.L4:
+  49 001c 032B     		cmp	r3, #3
+  50 001e 4CD0     		beq	.L6
+  51 0020 042B     		cmp	r3, #4
+  52 0022 00D1     		bne	.LCB30
+  53 0024 80E0     		b	.L7	@long jump
+  54              	.LCB30:
+  55 0026 B3E0     		b	.L2
+  56              	.L5:
+  28:.\alarm.c     ****     {
+  29:.\alarm.c     ****         case EVENT_1:	//蜂鸣器：嘀
+  30:.\alarm.c     ****             if (Delay_Time.Alarm_Count == 0)
+  57              		.loc 1 30 0
+  58 0028 604B     		ldr	r3, .L24
+  59 002a 9B88     		ldrh	r3, [r3, #4]
+  60 002c 002B     		cmp	r3, #0
+  61 002e 02D1     		bne	.L8
+  31:.\alarm.c     ****             {
+  32:.\alarm.c     ****                 BEEP_OPEN;
+  62              		.loc 1 32 0
+  63 0030 0120     		mov	r0, #1
+  64 0032 FFF7FEFF 		bl	Beep_Ctrl_Write
+  65              	.L8:
+  33:.\alarm.c     ****             }
+  34:.\alarm.c     ****             Delay_Time.Alarm_Count ++;
+  66              		.loc 1 34 0
+  67 0036 5D4B     		ldr	r3, .L24
+  68 0038 9B88     		ldrh	r3, [r3, #4]
+  69 003a 0133     		add	r3, r3, #1
+  70 003c 9AB2     		uxth	r2, r3
+  71 003e 5B4B     		ldr	r3, .L24
+  72 0040 9A80     		strh	r2, [r3, #4]
+  35:.\alarm.c     ****             if(Delay_Time.Alarm_Count > 100)
+  73              		.loc 1 35 0
+  74 0042 5A4B     		ldr	r3, .L24
+  75 0044 9B88     		ldrh	r3, [r3, #4]
+  76 0046 642B     		cmp	r3, #100
+  77 0048 0BD9     		bls	.L9
+  36:.\alarm.c     ****             {
+  37:.\alarm.c     ****                 Delay_Time.Alarm_Count = 0;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 3
+
+
+  78              		.loc 1 37 0
+  79 004a 584B     		ldr	r3, .L24
+  80 004c 0022     		mov	r2, #0
+  81 004e 9A80     		strh	r2, [r3, #4]
+  38:.\alarm.c     ****                 BEEP_CLOSE;
+  82              		.loc 1 38 0
+  83 0050 0020     		mov	r0, #0
+  84 0052 FFF7FEFF 		bl	Beep_Ctrl_Write
+  39:.\alarm.c     ****                 Flag.Alarm_Work_Step = EVENT_0;
+  85              		.loc 1 39 0
+  86 0056 564B     		ldr	r3, .L24+4
+  87 0058 5A78     		ldrb	r2, [r3, #1]
+  88 005a 1C21     		mov	r1, #28
+  89 005c 8A43     		bic	r2, r1
+  90 005e 5A70     		strb	r2, [r3, #1]
+  40:.\alarm.c     ****             }
+  41:.\alarm.c     ****             break;
+  91              		.loc 1 41 0
+  92 0060 A0E0     		b	.L1
+  93              	.L9:
+  94 0062 9FE0     		b	.L1
+  95              	.L3:
+  42:.\alarm.c     **** 
+  43:.\alarm.c     ****         case EVENT_2:   //蜂鸣器：嘀滴
+  44:.\alarm.c     ****             if (  (Delay_Time.Alarm_Count == 0) 
+  96              		.loc 1 44 0
+  97 0064 514B     		ldr	r3, .L24
+  98 0066 9B88     		ldrh	r3, [r3, #4]
+  99 0068 002B     		cmp	r3, #0
+ 100 006a 03D0     		beq	.L11
+  45:.\alarm.c     ****                || (Delay_Time.Alarm_Count == 200) )
+ 101              		.loc 1 45 0
+ 102 006c 4F4B     		ldr	r3, .L24
+ 103 006e 9B88     		ldrh	r3, [r3, #4]
+ 104 0070 C82B     		cmp	r3, #200
+ 105 0072 02D1     		bne	.L12
+ 106              	.L11:
+  46:.\alarm.c     ****             {
+  47:.\alarm.c     ****                 BEEP_OPEN;
+ 107              		.loc 1 47 0
+ 108 0074 0120     		mov	r0, #1
+ 109 0076 FFF7FEFF 		bl	Beep_Ctrl_Write
+ 110              	.L12:
+  48:.\alarm.c     ****             }
+  49:.\alarm.c     ****             if (Delay_Time.Alarm_Count == 100)
+ 111              		.loc 1 49 0
+ 112 007a 4C4B     		ldr	r3, .L24
+ 113 007c 9B88     		ldrh	r3, [r3, #4]
+ 114 007e 642B     		cmp	r3, #100
+ 115 0080 02D1     		bne	.L13
+  50:.\alarm.c     ****             {
+  51:.\alarm.c     ****                 BEEP_CLOSE;
+ 116              		.loc 1 51 0
+ 117 0082 0020     		mov	r0, #0
+ 118 0084 FFF7FEFF 		bl	Beep_Ctrl_Write
+ 119              	.L13:
+  52:.\alarm.c     ****             }            
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 4
+
+
+  53:.\alarm.c     ****             Delay_Time.Alarm_Count ++;
+ 120              		.loc 1 53 0
+ 121 0088 484B     		ldr	r3, .L24
+ 122 008a 9B88     		ldrh	r3, [r3, #4]
+ 123 008c 0133     		add	r3, r3, #1
+ 124 008e 9AB2     		uxth	r2, r3
+ 125 0090 464B     		ldr	r3, .L24
+ 126 0092 9A80     		strh	r2, [r3, #4]
+  54:.\alarm.c     ****             if (Delay_Time.Alarm_Count >= 300)
+ 127              		.loc 1 54 0
+ 128 0094 454B     		ldr	r3, .L24
+ 129 0096 9A88     		ldrh	r2, [r3, #4]
+ 130 0098 2C23     		mov	r3, #44
+ 131 009a FF33     		add	r3, r3, #255
+ 132 009c 9A42     		cmp	r2, r3
+ 133 009e 0BD9     		bls	.L14
+  55:.\alarm.c     ****             {
+  56:.\alarm.c     ****                 Delay_Time.Alarm_Count = 0;
+ 134              		.loc 1 56 0
+ 135 00a0 424B     		ldr	r3, .L24
+ 136 00a2 0022     		mov	r2, #0
+ 137 00a4 9A80     		strh	r2, [r3, #4]
+  57:.\alarm.c     ****                 BEEP_CLOSE;
+ 138              		.loc 1 57 0
+ 139 00a6 0020     		mov	r0, #0
+ 140 00a8 FFF7FEFF 		bl	Beep_Ctrl_Write
+  58:.\alarm.c     ****                 Flag.Alarm_Work_Step = EVENT_0;            
+ 141              		.loc 1 58 0
+ 142 00ac 404B     		ldr	r3, .L24+4
+ 143 00ae 5A78     		ldrb	r2, [r3, #1]
+ 144 00b0 1C21     		mov	r1, #28
+ 145 00b2 8A43     		bic	r2, r1
+ 146 00b4 5A70     		strb	r2, [r3, #1]
+  59:.\alarm.c     ****             }           
+  60:.\alarm.c     ****             break;
+ 147              		.loc 1 60 0
+ 148 00b6 75E0     		b	.L1
+ 149              	.L14:
+ 150 00b8 74E0     		b	.L1
+ 151              	.L6:
+  61:.\alarm.c     **** 
+  62:.\alarm.c     ****         case EVENT_3:
+  63:.\alarm.c     ****             if (  (Delay_Time.Alarm_Count == 0) 
+ 152              		.loc 1 63 0
+ 153 00ba 3C4B     		ldr	r3, .L24
+ 154 00bc 9B88     		ldrh	r3, [r3, #4]
+ 155 00be 002B     		cmp	r3, #0
+ 156 00c0 09D0     		beq	.L15
+  64:.\alarm.c     ****                || (Delay_Time.Alarm_Count == 200)
+ 157              		.loc 1 64 0
+ 158 00c2 3A4B     		ldr	r3, .L24
+ 159 00c4 9B88     		ldrh	r3, [r3, #4]
+ 160 00c6 C82B     		cmp	r3, #200
+ 161 00c8 05D0     		beq	.L15
+  65:.\alarm.c     ****                || (Delay_Time.Alarm_Count == 400))
+ 162              		.loc 1 65 0
+ 163 00ca 384B     		ldr	r3, .L24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 5
+
+
+ 164 00cc 9A88     		ldrh	r2, [r3, #4]
+ 165 00ce C823     		mov	r3, #200
+ 166 00d0 5B00     		lsl	r3, r3, #1
+ 167 00d2 9A42     		cmp	r2, r3
+ 168 00d4 02D1     		bne	.L16
+ 169              	.L15:
+  66:.\alarm.c     ****             {
+  67:.\alarm.c     ****                 BEEP_OPEN;
+ 170              		.loc 1 67 0
+ 171 00d6 0120     		mov	r0, #1
+ 172 00d8 FFF7FEFF 		bl	Beep_Ctrl_Write
+ 173              	.L16:
+  68:.\alarm.c     ****             }
+  69:.\alarm.c     ****             if (  (Delay_Time.Alarm_Count == 100)
+ 174              		.loc 1 69 0
+ 175 00dc 334B     		ldr	r3, .L24
+ 176 00de 9B88     		ldrh	r3, [r3, #4]
+ 177 00e0 642B     		cmp	r3, #100
+ 178 00e2 05D0     		beq	.L17
+  70:.\alarm.c     ****                || (Delay_Time.Alarm_Count == 300) ) 
+ 179              		.loc 1 70 0
+ 180 00e4 314B     		ldr	r3, .L24
+ 181 00e6 9A88     		ldrh	r2, [r3, #4]
+ 182 00e8 9623     		mov	r3, #150
+ 183 00ea 5B00     		lsl	r3, r3, #1
+ 184 00ec 9A42     		cmp	r2, r3
+ 185 00ee 02D1     		bne	.L18
+ 186              	.L17:
+  71:.\alarm.c     ****             {
+  72:.\alarm.c     ****                 BEEP_CLOSE;
+ 187              		.loc 1 72 0
+ 188 00f0 0020     		mov	r0, #0
+ 189 00f2 FFF7FEFF 		bl	Beep_Ctrl_Write
+ 190              	.L18:
+  73:.\alarm.c     ****             }            
+  74:.\alarm.c     ****             Delay_Time.Alarm_Count ++;
+ 191              		.loc 1 74 0
+ 192 00f6 2D4B     		ldr	r3, .L24
+ 193 00f8 9B88     		ldrh	r3, [r3, #4]
+ 194 00fa 0133     		add	r3, r3, #1
+ 195 00fc 9AB2     		uxth	r2, r3
+ 196 00fe 2B4B     		ldr	r3, .L24
+ 197 0100 9A80     		strh	r2, [r3, #4]
+  75:.\alarm.c     ****             if (Delay_Time.Alarm_Count >= 500)
+ 198              		.loc 1 75 0
+ 199 0102 2A4B     		ldr	r3, .L24
+ 200 0104 9A88     		ldrh	r2, [r3, #4]
+ 201 0106 F423     		mov	r3, #244
+ 202 0108 FF33     		add	r3, r3, #255
+ 203 010a 9A42     		cmp	r2, r3
+ 204 010c 0BD9     		bls	.L19
+  76:.\alarm.c     ****             {
+  77:.\alarm.c     ****                 Delay_Time.Alarm_Count = 0;
+ 205              		.loc 1 77 0
+ 206 010e 274B     		ldr	r3, .L24
+ 207 0110 0022     		mov	r2, #0
+ 208 0112 9A80     		strh	r2, [r3, #4]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 6
+
+
+  78:.\alarm.c     ****                 BEEP_CLOSE;
+ 209              		.loc 1 78 0
+ 210 0114 0020     		mov	r0, #0
+ 211 0116 FFF7FEFF 		bl	Beep_Ctrl_Write
+  79:.\alarm.c     ****                 Flag.Alarm_Work_Step = EVENT_0;            
+ 212              		.loc 1 79 0
+ 213 011a 254B     		ldr	r3, .L24+4
+ 214 011c 5A78     		ldrb	r2, [r3, #1]
+ 215 011e 1C21     		mov	r1, #28
+ 216 0120 8A43     		bic	r2, r1
+ 217 0122 5A70     		strb	r2, [r3, #1]
+  80:.\alarm.c     ****             }              
+  81:.\alarm.c     ****             break;
+ 218              		.loc 1 81 0
+ 219 0124 3EE0     		b	.L1
+ 220              	.L19:
+ 221 0126 3DE0     		b	.L1
+ 222              	.L7:
+  82:.\alarm.c     **** 
+  83:.\alarm.c     ****         case EVENT_4:
+  84:.\alarm.c     ****             if (  (Delay_Time.Alarm_Count == 0) 
+ 223              		.loc 1 84 0
+ 224 0128 204B     		ldr	r3, .L24
+ 225 012a 9B88     		ldrh	r3, [r3, #4]
+ 226 012c 002B     		cmp	r3, #0
+ 227 012e 03D0     		beq	.L20
+  85:.\alarm.c     ****                || (Delay_Time.Alarm_Count == 200) )
+ 228              		.loc 1 85 0
+ 229 0130 1E4B     		ldr	r3, .L24
+ 230 0132 9B88     		ldrh	r3, [r3, #4]
+ 231 0134 C82B     		cmp	r3, #200
+ 232 0136 05D1     		bne	.L21
+ 233              	.L20:
+  86:.\alarm.c     ****             {
+  87:.\alarm.c     ****                 BEEP_OPEN;
+ 234              		.loc 1 87 0
+ 235 0138 0120     		mov	r0, #1
+ 236 013a FFF7FEFF 		bl	Beep_Ctrl_Write
+  88:.\alarm.c     ****                 LOCK_LED_OPEN;
+ 237              		.loc 1 88 0
+ 238 013e 0120     		mov	r0, #1
+ 239 0140 FFF7FEFF 		bl	LED_Ctrl_Write
+ 240              	.L21:
+  89:.\alarm.c     ****             }
+  90:.\alarm.c     ****             if (Delay_Time.Alarm_Count == 100)
+ 241              		.loc 1 90 0
+ 242 0144 194B     		ldr	r3, .L24
+ 243 0146 9B88     		ldrh	r3, [r3, #4]
+ 244 0148 642B     		cmp	r3, #100
+ 245 014a 05D1     		bne	.L22
+  91:.\alarm.c     ****             {
+  92:.\alarm.c     ****                 BEEP_CLOSE;
+ 246              		.loc 1 92 0
+ 247 014c 0020     		mov	r0, #0
+ 248 014e FFF7FEFF 		bl	Beep_Ctrl_Write
+  93:.\alarm.c     ****                 LOCK_LED_CLOSE;
+ 249              		.loc 1 93 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 7
+
+
+ 250 0152 0020     		mov	r0, #0
+ 251 0154 FFF7FEFF 		bl	LED_Ctrl_Write
+ 252              	.L22:
+  94:.\alarm.c     ****             }     
+  95:.\alarm.c     ****             Delay_Time.Alarm_Count ++;
+ 253              		.loc 1 95 0
+ 254 0158 144B     		ldr	r3, .L24
+ 255 015a 9B88     		ldrh	r3, [r3, #4]
+ 256 015c 0133     		add	r3, r3, #1
+ 257 015e 9AB2     		uxth	r2, r3
+ 258 0160 124B     		ldr	r3, .L24
+ 259 0162 9A80     		strh	r2, [r3, #4]
+  96:.\alarm.c     ****             if (Delay_Time.Alarm_Count >= 300)
+ 260              		.loc 1 96 0
+ 261 0164 114B     		ldr	r3, .L24
+ 262 0166 9A88     		ldrh	r2, [r3, #4]
+ 263 0168 2C23     		mov	r3, #44
+ 264 016a FF33     		add	r3, r3, #255
+ 265 016c 9A42     		cmp	r2, r3
+ 266 016e 0ED9     		bls	.L23
+  97:.\alarm.c     ****             {
+  98:.\alarm.c     ****                 Delay_Time.Alarm_Count = 0;
+ 267              		.loc 1 98 0
+ 268 0170 0E4B     		ldr	r3, .L24
+ 269 0172 0022     		mov	r2, #0
+ 270 0174 9A80     		strh	r2, [r3, #4]
+  99:.\alarm.c     ****                 BEEP_CLOSE;
+ 271              		.loc 1 99 0
+ 272 0176 0020     		mov	r0, #0
+ 273 0178 FFF7FEFF 		bl	Beep_Ctrl_Write
+ 100:.\alarm.c     ****                 LOCK_LED_CLOSE;
+ 274              		.loc 1 100 0
+ 275 017c 0020     		mov	r0, #0
+ 276 017e FFF7FEFF 		bl	LED_Ctrl_Write
+ 101:.\alarm.c     ****                 Flag.Alarm_Work_Step = EVENT_0;            
+ 277              		.loc 1 101 0
+ 278 0182 0B4B     		ldr	r3, .L24+4
+ 279 0184 5A78     		ldrb	r2, [r3, #1]
+ 280 0186 1C21     		mov	r1, #28
+ 281 0188 8A43     		bic	r2, r1
+ 282 018a 5A70     		strb	r2, [r3, #1]
+ 102:.\alarm.c     ****             }    
+ 103:.\alarm.c     ****             break;      
+ 283              		.loc 1 103 0
+ 284 018c 0AE0     		b	.L1
+ 285              	.L23:
+ 286 018e 09E0     		b	.L1
+ 287              	.L2:
+ 104:.\alarm.c     **** 			
+ 105:.\alarm.c     ****         case EVENT_0:	//正常事件
+ 106:.\alarm.c     ****         default:
+ 107:.\alarm.c     ****             Delay_Time.Alarm_Count = 0;
+ 288              		.loc 1 107 0
+ 289 0190 064B     		ldr	r3, .L24
+ 290 0192 0022     		mov	r2, #0
+ 291 0194 9A80     		strh	r2, [r3, #4]
+ 108:.\alarm.c     ****             BEEP_CLOSE;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 8
+
+
+ 292              		.loc 1 108 0
+ 293 0196 0020     		mov	r0, #0
+ 294 0198 FFF7FEFF 		bl	Beep_Ctrl_Write
+ 109:.\alarm.c     ****             LOCK_LED_CLOSE;
+ 295              		.loc 1 109 0
+ 296 019c 0020     		mov	r0, #0
+ 297 019e FFF7FEFF 		bl	LED_Ctrl_Write
+ 110:.\alarm.c     ****             break;
+ 298              		.loc 1 110 0
+ 299 01a2 C046     		mov	r8, r8
+ 300              	.L1:
+ 111:.\alarm.c     ****     }
+ 112:.\alarm.c     **** }
+ 301              		.loc 1 112 0
+ 302 01a4 BD46     		mov	sp, r7
+ 303 01a6 02B0     		add	sp, sp, #8
+ 304              		@ sp needed
+ 305 01a8 80BD     		pop	{r7, pc}
+ 306              	.L25:
+ 307 01aa C046     		.align	2
+ 308              	.L24:
+ 309 01ac 00000000 		.word	Delay_Time
+ 310 01b0 00000000 		.word	Flag
+ 311              		.cfi_endproc
+ 312              	.LFE37:
+ 313              		.size	Alarm_Event, .-Alarm_Event
+ 314              		.text
+ 315              	.Letext0:
+ 316              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 317              		.file 3 ".\\struct.h"
+ 318              		.section	.debug_info,"",%progbits
+ 319              	.Ldebug_info0:
+ 320 0000 30020000 		.4byte	0x230
+ 321 0004 0400     		.2byte	0x4
+ 322 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 323 000a 04       		.byte	0x4
+ 324 000b 01       		.uleb128 0x1
+ 325 000c 51010000 		.4byte	.LASF42
+ 326 0010 01       		.byte	0x1
+ 327 0011 65020000 		.4byte	.LASF43
+ 328 0015 30020000 		.4byte	.LASF44
+ 329 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 330 001d 00000000 		.4byte	0
+ 331 0021 00000000 		.4byte	.Ldebug_line0
+ 332 0025 02       		.uleb128 0x2
+ 333 0026 01       		.byte	0x1
+ 334 0027 06       		.byte	0x6
+ 335 0028 D1020000 		.4byte	.LASF0
+ 336 002c 02       		.uleb128 0x2
+ 337 002d 01       		.byte	0x1
+ 338 002e 08       		.byte	0x8
+ 339 002f CD000000 		.4byte	.LASF1
+ 340 0033 02       		.uleb128 0x2
+ 341 0034 02       		.byte	0x2
+ 342 0035 05       		.byte	0x5
+ 343 0036 8C020000 		.4byte	.LASF2
+ 344 003a 02       		.uleb128 0x2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 9
+
+
+ 345 003b 02       		.byte	0x2
+ 346 003c 07       		.byte	0x7
+ 347 003d 3C000000 		.4byte	.LASF3
+ 348 0041 02       		.uleb128 0x2
+ 349 0042 04       		.byte	0x4
+ 350 0043 05       		.byte	0x5
+ 351 0044 B6020000 		.4byte	.LASF4
+ 352 0048 02       		.uleb128 0x2
+ 353 0049 04       		.byte	0x4
+ 354 004a 07       		.byte	0x7
+ 355 004b FF000000 		.4byte	.LASF5
+ 356 004f 02       		.uleb128 0x2
+ 357 0050 08       		.byte	0x8
+ 358 0051 05       		.byte	0x5
+ 359 0052 57020000 		.4byte	.LASF6
+ 360 0056 02       		.uleb128 0x2
+ 361 0057 08       		.byte	0x8
+ 362 0058 07       		.byte	0x7
+ 363 0059 A5000000 		.4byte	.LASF7
+ 364 005d 03       		.uleb128 0x3
+ 365 005e 04       		.byte	0x4
+ 366 005f 05       		.byte	0x5
+ 367 0060 696E7400 		.ascii	"int\000"
+ 368 0064 02       		.uleb128 0x2
+ 369 0065 04       		.byte	0x4
+ 370 0066 07       		.byte	0x7
+ 371 0067 4F000000 		.4byte	.LASF8
+ 372 006b 04       		.uleb128 0x4
+ 373 006c 1D010000 		.4byte	.LASF9
+ 374 0070 02       		.byte	0x2
+ 375 0071 3801     		.2byte	0x138
+ 376 0073 2C000000 		.4byte	0x2c
+ 377 0077 04       		.uleb128 0x4
+ 378 0078 39010000 		.4byte	.LASF10
+ 379 007c 02       		.byte	0x2
+ 380 007d 3901     		.2byte	0x139
+ 381 007f 3A000000 		.4byte	0x3a
+ 382 0083 02       		.uleb128 0x2
+ 383 0084 04       		.byte	0x4
+ 384 0085 04       		.byte	0x4
+ 385 0086 CB020000 		.4byte	.LASF11
+ 386 008a 02       		.uleb128 0x2
+ 387 008b 08       		.byte	0x8
+ 388 008c 04       		.byte	0x4
+ 389 008d 32010000 		.4byte	.LASF12
+ 390 0091 02       		.uleb128 0x2
+ 391 0092 01       		.byte	0x1
+ 392 0093 08       		.byte	0x8
+ 393 0094 13020000 		.4byte	.LASF13
+ 394 0098 02       		.uleb128 0x2
+ 395 0099 04       		.byte	0x4
+ 396 009a 07       		.byte	0x7
+ 397 009b 4E020000 		.4byte	.LASF14
+ 398 009f 05       		.uleb128 0x5
+ 399 00a0 18       		.byte	0x18
+ 400 00a1 03       		.byte	0x3
+ 401 00a2 55       		.byte	0x55
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 10
+
+
+ 402 00a3 44010000 		.4byte	0x144
+ 403 00a7 06       		.uleb128 0x6
+ 404 00a8 BF020000 		.4byte	.LASF15
+ 405 00ac 03       		.byte	0x3
+ 406 00ad 57       		.byte	0x57
+ 407 00ae 77000000 		.4byte	0x77
+ 408 00b2 00       		.byte	0
+ 409 00b3 06       		.uleb128 0x6
+ 410 00b4 10000000 		.4byte	.LASF16
+ 411 00b8 03       		.byte	0x3
+ 412 00b9 58       		.byte	0x58
+ 413 00ba 77000000 		.4byte	0x77
+ 414 00be 02       		.byte	0x2
+ 415 00bf 06       		.uleb128 0x6
+ 416 00c0 11010000 		.4byte	.LASF17
+ 417 00c4 03       		.byte	0x3
+ 418 00c5 59       		.byte	0x59
+ 419 00c6 77000000 		.4byte	0x77
+ 420 00ca 04       		.byte	0x4
+ 421 00cb 06       		.uleb128 0x6
+ 422 00cc 80020000 		.4byte	.LASF18
+ 423 00d0 03       		.byte	0x3
+ 424 00d1 5A       		.byte	0x5a
+ 425 00d2 77000000 		.4byte	0x77
+ 426 00d6 06       		.byte	0x6
+ 427 00d7 06       		.uleb128 0x6
+ 428 00d8 1E000000 		.4byte	.LASF19
+ 429 00dc 03       		.byte	0x3
+ 430 00dd 5B       		.byte	0x5b
+ 431 00de 77000000 		.4byte	0x77
+ 432 00e2 08       		.byte	0x8
+ 433 00e3 06       		.uleb128 0x6
+ 434 00e4 96020000 		.4byte	.LASF20
+ 435 00e8 03       		.byte	0x3
+ 436 00e9 5C       		.byte	0x5c
+ 437 00ea 77000000 		.4byte	0x77
+ 438 00ee 0A       		.byte	0xa
+ 439 00ef 06       		.uleb128 0x6
+ 440 00f0 5C000000 		.4byte	.LASF21
+ 441 00f4 03       		.byte	0x3
+ 442 00f5 5D       		.byte	0x5d
+ 443 00f6 77000000 		.4byte	0x77
+ 444 00fa 0C       		.byte	0xc
+ 445 00fb 06       		.uleb128 0x6
+ 446 00fc 96000000 		.4byte	.LASF22
+ 447 0100 03       		.byte	0x3
+ 448 0101 5E       		.byte	0x5e
+ 449 0102 77000000 		.4byte	0x77
+ 450 0106 0E       		.byte	0xe
+ 451 0107 06       		.uleb128 0x6
+ 452 0108 23010000 		.4byte	.LASF23
+ 453 010c 03       		.byte	0x3
+ 454 010d 60       		.byte	0x60
+ 455 010e 77000000 		.4byte	0x77
+ 456 0112 10       		.byte	0x10
+ 457 0113 06       		.uleb128 0x6
+ 458 0114 F4010000 		.4byte	.LASF24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 11
+
+
+ 459 0118 03       		.byte	0x3
+ 460 0119 61       		.byte	0x61
+ 461 011a 77000000 		.4byte	0x77
+ 462 011e 12       		.byte	0x12
+ 463 011f 06       		.uleb128 0x6
+ 464 0120 DB000000 		.4byte	.LASF25
+ 465 0124 03       		.byte	0x3
+ 466 0125 63       		.byte	0x63
+ 467 0126 6B000000 		.4byte	0x6b
+ 468 012a 14       		.byte	0x14
+ 469 012b 06       		.uleb128 0x6
+ 470 012c 24020000 		.4byte	.LASF26
+ 471 0130 03       		.byte	0x3
+ 472 0131 64       		.byte	0x64
+ 473 0132 6B000000 		.4byte	0x6b
+ 474 0136 15       		.byte	0x15
+ 475 0137 06       		.uleb128 0x6
+ 476 0138 40010000 		.4byte	.LASF27
+ 477 013c 03       		.byte	0x3
+ 478 013d 65       		.byte	0x65
+ 479 013e 6B000000 		.4byte	0x6b
+ 480 0142 16       		.byte	0x16
+ 481 0143 00       		.byte	0
+ 482 0144 07       		.uleb128 0x7
+ 483 0145 8C000000 		.4byte	.LASF28
+ 484 0149 03       		.byte	0x3
+ 485 014a 66       		.byte	0x66
+ 486 014b 9F000000 		.4byte	0x9f
+ 487 014f 05       		.uleb128 0x5
+ 488 0150 04       		.byte	0x4
+ 489 0151 03       		.byte	0x3
+ 490 0152 6C       		.byte	0x6c
+ 491 0153 EE010000 		.4byte	0x1ee
+ 492 0157 08       		.uleb128 0x8
+ 493 0158 F5000000 		.4byte	.LASF29
+ 494 015c 03       		.byte	0x3
+ 495 015d 6E       		.byte	0x6e
+ 496 015e 64000000 		.4byte	0x64
+ 497 0162 04       		.byte	0x4
+ 498 0163 01       		.byte	0x1
+ 499 0164 1F       		.byte	0x1f
+ 500 0165 00       		.byte	0
+ 501 0166 08       		.uleb128 0x8
+ 502 0167 18020000 		.4byte	.LASF30
+ 503 016b 03       		.byte	0x3
+ 504 016c 6F       		.byte	0x6f
+ 505 016d 64000000 		.4byte	0x64
+ 506 0171 04       		.byte	0x4
+ 507 0172 01       		.byte	0x1
+ 508 0173 1E       		.byte	0x1e
+ 509 0174 00       		.byte	0
+ 510 0175 08       		.uleb128 0x8
+ 511 0176 E5000000 		.4byte	.LASF31
+ 512 017a 03       		.byte	0x3
+ 513 017b 70       		.byte	0x70
+ 514 017c 64000000 		.4byte	0x64
+ 515 0180 04       		.byte	0x4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 12
+
+
+ 516 0181 01       		.byte	0x1
+ 517 0182 1D       		.byte	0x1d
+ 518 0183 00       		.byte	0
+ 519 0184 08       		.uleb128 0x8
+ 520 0185 2B000000 		.4byte	.LASF32
+ 521 0189 03       		.byte	0x3
+ 522 018a 71       		.byte	0x71
+ 523 018b 64000000 		.4byte	0x64
+ 524 018f 04       		.byte	0x4
+ 525 0190 02       		.byte	0x2
+ 526 0191 1B       		.byte	0x1b
+ 527 0192 00       		.byte	0
+ 528 0193 08       		.uleb128 0x8
+ 529 0194 03020000 		.4byte	.LASF33
+ 530 0198 03       		.byte	0x3
+ 531 0199 72       		.byte	0x72
+ 532 019a 64000000 		.4byte	0x64
+ 533 019e 04       		.byte	0x4
+ 534 019f 02       		.byte	0x2
+ 535 01a0 19       		.byte	0x19
+ 536 01a1 00       		.byte	0
+ 537 01a2 08       		.uleb128 0x8
+ 538 01a3 BC000000 		.4byte	.LASF34
+ 539 01a7 03       		.byte	0x3
+ 540 01a8 73       		.byte	0x73
+ 541 01a9 64000000 		.4byte	0x64
+ 542 01ad 04       		.byte	0x4
+ 543 01ae 03       		.byte	0x3
+ 544 01af 16       		.byte	0x16
+ 545 01b0 00       		.byte	0
+ 546 01b1 08       		.uleb128 0x8
+ 547 01b2 00000000 		.4byte	.LASF35
+ 548 01b6 03       		.byte	0x3
+ 549 01b7 74       		.byte	0x74
+ 550 01b8 64000000 		.4byte	0x64
+ 551 01bc 04       		.byte	0x4
+ 552 01bd 03       		.byte	0x3
+ 553 01be 13       		.byte	0x13
+ 554 01bf 00       		.byte	0
+ 555 01c0 08       		.uleb128 0x8
+ 556 01c1 E4010000 		.4byte	.LASF36
+ 557 01c5 03       		.byte	0x3
+ 558 01c6 76       		.byte	0x76
+ 559 01c7 64000000 		.4byte	0x64
+ 560 01cb 04       		.byte	0x4
+ 561 01cc 01       		.byte	0x1
+ 562 01cd 12       		.byte	0x12
+ 563 01ce 00       		.byte	0
+ 564 01cf 08       		.uleb128 0x8
+ 565 01d0 A5020000 		.4byte	.LASF37
+ 566 01d4 03       		.byte	0x3
+ 567 01d5 77       		.byte	0x77
+ 568 01d6 64000000 		.4byte	0x64
+ 569 01da 04       		.byte	0x4
+ 570 01db 01       		.byte	0x1
+ 571 01dc 11       		.byte	0x11
+ 572 01dd 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 13
+
+
+ 573 01de 08       		.uleb128 0x8
+ 574 01df 6B000000 		.4byte	.LASF38
+ 575 01e3 03       		.byte	0x3
+ 576 01e4 78       		.byte	0x78
+ 577 01e5 64000000 		.4byte	0x64
+ 578 01e9 04       		.byte	0x4
+ 579 01ea 01       		.byte	0x1
+ 580 01eb 10       		.byte	0x10
+ 581 01ec 00       		.byte	0
+ 582 01ed 00       		.byte	0
+ 583 01ee 07       		.uleb128 0x7
+ 584 01ef DF010000 		.4byte	.LASF39
+ 585 01f3 03       		.byte	0x3
+ 586 01f4 79       		.byte	0x79
+ 587 01f5 4F010000 		.4byte	0x14f
+ 588 01f9 09       		.uleb128 0x9
+ 589 01fa 74020000 		.4byte	.LASF45
+ 590 01fe 01       		.byte	0x1
+ 591 01ff 19       		.byte	0x19
+ 592 0200 00000000 		.4byte	.LFB37
+ 593 0204 B4010000 		.4byte	.LFE37-.LFB37
+ 594 0208 01       		.uleb128 0x1
+ 595 0209 9C       		.byte	0x9c
+ 596 020a 1D020000 		.4byte	0x21d
+ 597 020e 0A       		.uleb128 0xa
+ 598 020f 4B010000 		.4byte	.LASF46
+ 599 0213 01       		.byte	0x1
+ 600 0214 19       		.byte	0x19
+ 601 0215 6B000000 		.4byte	0x6b
+ 602 0219 02       		.uleb128 0x2
+ 603 021a 91       		.byte	0x91
+ 604 021b 77       		.sleb128 -9
+ 605 021c 00       		.byte	0
+ 606 021d 0B       		.uleb128 0xb
+ 607 021e 81000000 		.4byte	.LASF40
+ 608 0222 03       		.byte	0x3
+ 609 0223 67       		.byte	0x67
+ 610 0224 44010000 		.4byte	0x144
+ 611 0228 0B       		.uleb128 0xb
+ 612 0229 6F020000 		.4byte	.LASF41
+ 613 022d 03       		.byte	0x3
+ 614 022e 7A       		.byte	0x7a
+ 615 022f EE010000 		.4byte	0x1ee
+ 616 0233 00       		.byte	0
+ 617              		.section	.debug_abbrev,"",%progbits
+ 618              	.Ldebug_abbrev0:
+ 619 0000 01       		.uleb128 0x1
+ 620 0001 11       		.uleb128 0x11
+ 621 0002 01       		.byte	0x1
+ 622 0003 25       		.uleb128 0x25
+ 623 0004 0E       		.uleb128 0xe
+ 624 0005 13       		.uleb128 0x13
+ 625 0006 0B       		.uleb128 0xb
+ 626 0007 03       		.uleb128 0x3
+ 627 0008 0E       		.uleb128 0xe
+ 628 0009 1B       		.uleb128 0x1b
+ 629 000a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 14
+
+
+ 630 000b 55       		.uleb128 0x55
+ 631 000c 17       		.uleb128 0x17
+ 632 000d 11       		.uleb128 0x11
+ 633 000e 01       		.uleb128 0x1
+ 634 000f 10       		.uleb128 0x10
+ 635 0010 17       		.uleb128 0x17
+ 636 0011 00       		.byte	0
+ 637 0012 00       		.byte	0
+ 638 0013 02       		.uleb128 0x2
+ 639 0014 24       		.uleb128 0x24
+ 640 0015 00       		.byte	0
+ 641 0016 0B       		.uleb128 0xb
+ 642 0017 0B       		.uleb128 0xb
+ 643 0018 3E       		.uleb128 0x3e
+ 644 0019 0B       		.uleb128 0xb
+ 645 001a 03       		.uleb128 0x3
+ 646 001b 0E       		.uleb128 0xe
+ 647 001c 00       		.byte	0
+ 648 001d 00       		.byte	0
+ 649 001e 03       		.uleb128 0x3
+ 650 001f 24       		.uleb128 0x24
+ 651 0020 00       		.byte	0
+ 652 0021 0B       		.uleb128 0xb
+ 653 0022 0B       		.uleb128 0xb
+ 654 0023 3E       		.uleb128 0x3e
+ 655 0024 0B       		.uleb128 0xb
+ 656 0025 03       		.uleb128 0x3
+ 657 0026 08       		.uleb128 0x8
+ 658 0027 00       		.byte	0
+ 659 0028 00       		.byte	0
+ 660 0029 04       		.uleb128 0x4
+ 661 002a 16       		.uleb128 0x16
+ 662 002b 00       		.byte	0
+ 663 002c 03       		.uleb128 0x3
+ 664 002d 0E       		.uleb128 0xe
+ 665 002e 3A       		.uleb128 0x3a
+ 666 002f 0B       		.uleb128 0xb
+ 667 0030 3B       		.uleb128 0x3b
+ 668 0031 05       		.uleb128 0x5
+ 669 0032 49       		.uleb128 0x49
+ 670 0033 13       		.uleb128 0x13
+ 671 0034 00       		.byte	0
+ 672 0035 00       		.byte	0
+ 673 0036 05       		.uleb128 0x5
+ 674 0037 13       		.uleb128 0x13
+ 675 0038 01       		.byte	0x1
+ 676 0039 0B       		.uleb128 0xb
+ 677 003a 0B       		.uleb128 0xb
+ 678 003b 3A       		.uleb128 0x3a
+ 679 003c 0B       		.uleb128 0xb
+ 680 003d 3B       		.uleb128 0x3b
+ 681 003e 0B       		.uleb128 0xb
+ 682 003f 01       		.uleb128 0x1
+ 683 0040 13       		.uleb128 0x13
+ 684 0041 00       		.byte	0
+ 685 0042 00       		.byte	0
+ 686 0043 06       		.uleb128 0x6
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 15
+
+
+ 687 0044 0D       		.uleb128 0xd
+ 688 0045 00       		.byte	0
+ 689 0046 03       		.uleb128 0x3
+ 690 0047 0E       		.uleb128 0xe
+ 691 0048 3A       		.uleb128 0x3a
+ 692 0049 0B       		.uleb128 0xb
+ 693 004a 3B       		.uleb128 0x3b
+ 694 004b 0B       		.uleb128 0xb
+ 695 004c 49       		.uleb128 0x49
+ 696 004d 13       		.uleb128 0x13
+ 697 004e 38       		.uleb128 0x38
+ 698 004f 0B       		.uleb128 0xb
+ 699 0050 00       		.byte	0
+ 700 0051 00       		.byte	0
+ 701 0052 07       		.uleb128 0x7
+ 702 0053 16       		.uleb128 0x16
+ 703 0054 00       		.byte	0
+ 704 0055 03       		.uleb128 0x3
+ 705 0056 0E       		.uleb128 0xe
+ 706 0057 3A       		.uleb128 0x3a
+ 707 0058 0B       		.uleb128 0xb
+ 708 0059 3B       		.uleb128 0x3b
+ 709 005a 0B       		.uleb128 0xb
+ 710 005b 49       		.uleb128 0x49
+ 711 005c 13       		.uleb128 0x13
+ 712 005d 00       		.byte	0
+ 713 005e 00       		.byte	0
+ 714 005f 08       		.uleb128 0x8
+ 715 0060 0D       		.uleb128 0xd
+ 716 0061 00       		.byte	0
+ 717 0062 03       		.uleb128 0x3
+ 718 0063 0E       		.uleb128 0xe
+ 719 0064 3A       		.uleb128 0x3a
+ 720 0065 0B       		.uleb128 0xb
+ 721 0066 3B       		.uleb128 0x3b
+ 722 0067 0B       		.uleb128 0xb
+ 723 0068 49       		.uleb128 0x49
+ 724 0069 13       		.uleb128 0x13
+ 725 006a 0B       		.uleb128 0xb
+ 726 006b 0B       		.uleb128 0xb
+ 727 006c 0D       		.uleb128 0xd
+ 728 006d 0B       		.uleb128 0xb
+ 729 006e 0C       		.uleb128 0xc
+ 730 006f 0B       		.uleb128 0xb
+ 731 0070 38       		.uleb128 0x38
+ 732 0071 0B       		.uleb128 0xb
+ 733 0072 00       		.byte	0
+ 734 0073 00       		.byte	0
+ 735 0074 09       		.uleb128 0x9
+ 736 0075 2E       		.uleb128 0x2e
+ 737 0076 01       		.byte	0x1
+ 738 0077 3F       		.uleb128 0x3f
+ 739 0078 19       		.uleb128 0x19
+ 740 0079 03       		.uleb128 0x3
+ 741 007a 0E       		.uleb128 0xe
+ 742 007b 3A       		.uleb128 0x3a
+ 743 007c 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 16
+
+
+ 744 007d 3B       		.uleb128 0x3b
+ 745 007e 0B       		.uleb128 0xb
+ 746 007f 27       		.uleb128 0x27
+ 747 0080 19       		.uleb128 0x19
+ 748 0081 11       		.uleb128 0x11
+ 749 0082 01       		.uleb128 0x1
+ 750 0083 12       		.uleb128 0x12
+ 751 0084 06       		.uleb128 0x6
+ 752 0085 40       		.uleb128 0x40
+ 753 0086 18       		.uleb128 0x18
+ 754 0087 9642     		.uleb128 0x2116
+ 755 0089 19       		.uleb128 0x19
+ 756 008a 01       		.uleb128 0x1
+ 757 008b 13       		.uleb128 0x13
+ 758 008c 00       		.byte	0
+ 759 008d 00       		.byte	0
+ 760 008e 0A       		.uleb128 0xa
+ 761 008f 05       		.uleb128 0x5
+ 762 0090 00       		.byte	0
+ 763 0091 03       		.uleb128 0x3
+ 764 0092 0E       		.uleb128 0xe
+ 765 0093 3A       		.uleb128 0x3a
+ 766 0094 0B       		.uleb128 0xb
+ 767 0095 3B       		.uleb128 0x3b
+ 768 0096 0B       		.uleb128 0xb
+ 769 0097 49       		.uleb128 0x49
+ 770 0098 13       		.uleb128 0x13
+ 771 0099 02       		.uleb128 0x2
+ 772 009a 18       		.uleb128 0x18
+ 773 009b 00       		.byte	0
+ 774 009c 00       		.byte	0
+ 775 009d 0B       		.uleb128 0xb
+ 776 009e 34       		.uleb128 0x34
+ 777 009f 00       		.byte	0
+ 778 00a0 03       		.uleb128 0x3
+ 779 00a1 0E       		.uleb128 0xe
+ 780 00a2 3A       		.uleb128 0x3a
+ 781 00a3 0B       		.uleb128 0xb
+ 782 00a4 3B       		.uleb128 0x3b
+ 783 00a5 0B       		.uleb128 0xb
+ 784 00a6 49       		.uleb128 0x49
+ 785 00a7 13       		.uleb128 0x13
+ 786 00a8 3F       		.uleb128 0x3f
+ 787 00a9 19       		.uleb128 0x19
+ 788 00aa 3C       		.uleb128 0x3c
+ 789 00ab 19       		.uleb128 0x19
+ 790 00ac 00       		.byte	0
+ 791 00ad 00       		.byte	0
+ 792 00ae 00       		.byte	0
+ 793              		.section	.debug_aranges,"",%progbits
+ 794 0000 1C000000 		.4byte	0x1c
+ 795 0004 0200     		.2byte	0x2
+ 796 0006 00000000 		.4byte	.Ldebug_info0
+ 797 000a 04       		.byte	0x4
+ 798 000b 00       		.byte	0
+ 799 000c 0000     		.2byte	0
+ 800 000e 0000     		.2byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 17
+
+
+ 801 0010 00000000 		.4byte	.LFB37
+ 802 0014 B4010000 		.4byte	.LFE37-.LFB37
+ 803 0018 00000000 		.4byte	0
+ 804 001c 00000000 		.4byte	0
+ 805              		.section	.debug_ranges,"",%progbits
+ 806              	.Ldebug_ranges0:
+ 807 0000 00000000 		.4byte	.LFB37
+ 808 0004 B4010000 		.4byte	.LFE37
+ 809 0008 00000000 		.4byte	0
+ 810 000c 00000000 		.4byte	0
+ 811              		.section	.debug_line,"",%progbits
+ 812              	.Ldebug_line0:
+ 813 0000 9B000000 		.section	.debug_str,"MS",%progbits,1
+ 813      02005200 
+ 813      00000201 
+ 813      FB0E0D00 
+ 813      01010101 
+ 814              	.LASF35:
+ 815 0000 416C6172 		.ascii	"Alarm_Work_Step\000"
+ 815      6D5F576F 
+ 815      726B5F53 
+ 815      74657000 
+ 816              	.LASF16:
+ 817 0010 54696D65 		.ascii	"Timeout_Count\000"
+ 817      6F75745F 
+ 817      436F756E 
+ 817      7400
+ 818              	.LASF19:
+ 819 001e 53687269 		.ascii	"Shrink_Delay\000"
+ 819      6E6B5F44 
+ 819      656C6179 
+ 819      00
+ 820              	.LASF32:
+ 821 002b 52654C6F 		.ascii	"ReLock_Work_Step\000"
+ 821      636B5F57 
+ 821      6F726B5F 
+ 821      53746570 
+ 821      00
+ 822              	.LASF3:
+ 823 003c 73686F72 		.ascii	"short unsigned int\000"
+ 823      7420756E 
+ 823      7369676E 
+ 823      65642069 
+ 823      6E7400
+ 824              	.LASF8:
+ 825 004f 756E7369 		.ascii	"unsigned int\000"
+ 825      676E6564 
+ 825      20696E74 
+ 825      00
+ 826              	.LASF21:
+ 827 005c 4653555F 		.ascii	"FSU_OUT2_Count\000"
+ 827      4F555432 
+ 827      5F436F75 
+ 827      6E7400
+ 828              	.LASF38:
+ 829 006b 4C6F636B 		.ascii	"Lock_Exception_Upload\000"
+ 829      5F457863 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 18
+
+
+ 829      65707469 
+ 829      6F6E5F55 
+ 829      706C6F61 
+ 830              	.LASF40:
+ 831 0081 44656C61 		.ascii	"Delay_Time\000"
+ 831      795F5469 
+ 831      6D6500
+ 832              	.LASF28:
+ 833 008c 44656C61 		.ascii	"DelayTime\000"
+ 833      7954696D 
+ 833      6500
+ 834              	.LASF22:
+ 835 0096 4653555F 		.ascii	"FSU_OUT3_Count\000"
+ 835      4F555433 
+ 835      5F436F75 
+ 835      6E7400
+ 836              	.LASF7:
+ 837 00a5 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 837      206C6F6E 
+ 837      6720756E 
+ 837      7369676E 
+ 837      65642069 
+ 838              	.LASF34:
+ 839 00bc 4D6F7472 		.ascii	"Motro_Order_Step\000"
+ 839      6F5F4F72 
+ 839      6465725F 
+ 839      53746570 
+ 839      00
+ 840              	.LASF1:
+ 841 00cd 756E7369 		.ascii	"unsigned char\000"
+ 841      676E6564 
+ 841      20636861 
+ 841      7200
+ 842              	.LASF25:
+ 843 00db 44656C61 		.ascii	"Delay_1ms\000"
+ 843      795F316D 
+ 843      7300
+ 844              	.LASF31:
+ 845 00e5 436C6F73 		.ascii	"Close_Door_Flag\000"
+ 845      655F446F 
+ 845      6F725F46 
+ 845      6C616700 
+ 846              	.LASF29:
+ 847 00f5 4C6F636B 		.ascii	"Lock_Flag\000"
+ 847      5F466C61 
+ 847      6700
+ 848              	.LASF5:
+ 849 00ff 6C6F6E67 		.ascii	"long unsigned int\000"
+ 849      20756E73 
+ 849      69676E65 
+ 849      6420696E 
+ 849      7400
+ 850              	.LASF17:
+ 851 0111 416C6172 		.ascii	"Alarm_Count\000"
+ 851      6D5F436F 
+ 851      756E7400 
+ 852              	.LASF9:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 19
+
+
+ 853 011d 75696E74 		.ascii	"uint8\000"
+ 853      3800
+ 854              	.LASF23:
+ 855 0123 4B65795F 		.ascii	"Key_Open_Count\000"
+ 855      4F70656E 
+ 855      5F436F75 
+ 855      6E7400
+ 856              	.LASF12:
+ 857 0132 646F7562 		.ascii	"double\000"
+ 857      6C6500
+ 858              	.LASF10:
+ 859 0139 75696E74 		.ascii	"uint16\000"
+ 859      313600
+ 860              	.LASF27:
+ 861 0140 4661696C 		.ascii	"Fail_Count\000"
+ 861      5F436F75 
+ 861      6E7400
+ 862              	.LASF46:
+ 863 014b 4576656E 		.ascii	"Event\000"
+ 863      7400
+ 864              	.LASF42:
+ 865 0151 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 865      4320342E 
+ 865      392E3320 
+ 865      32303135 
+ 865      30333033 
+ 866 0184 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 866      20726576 
+ 866      6973696F 
+ 866      6E203232 
+ 866      31323230 
+ 867 01b7 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 867      66756E63 
+ 867      74696F6E 
+ 867      2D736563 
+ 867      74696F6E 
+ 868              	.LASF39:
+ 869 01df 464C4147 		.ascii	"FLAG\000"
+ 869      00
+ 870              	.LASF36:
+ 871 01e4 4B65795F 		.ascii	"Key_Open_Upload\000"
+ 871      4F70656E 
+ 871      5F55706C 
+ 871      6F616400 
+ 872              	.LASF24:
+ 873 01f4 4653555F 		.ascii	"FSU_Open_Count\000"
+ 873      4F70656E 
+ 873      5F436F75 
+ 873      6E7400
+ 874              	.LASF33:
+ 875 0203 4D6F746F 		.ascii	"Motor_Work_Step\000"
+ 875      725F576F 
+ 875      726B5F53 
+ 875      74657000 
+ 876              	.LASF13:
+ 877 0213 63686172 		.ascii	"char\000"
+ 877      00
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 20
+
+
+ 878              	.LASF30:
+ 879 0218 556E6C6F 		.ascii	"Unlock_Flag\000"
+ 879      636B5F46 
+ 879      6C616700 
+ 880              	.LASF26:
+ 881 0224 44656C61 		.ascii	"Delay_100ms\000"
+ 881      795F3130 
+ 881      306D7300 
+ 882              	.LASF44:
+ 883 0230 443A5C58 		.ascii	"D:\\XJP\\lxs_cyp\\Design02.cydsn\000"
+ 883      4A505C6C 
+ 883      78735F63 
+ 883      79705C44 
+ 883      65736967 
+ 884              	.LASF14:
+ 885 024e 73697A65 		.ascii	"sizetype\000"
+ 885      74797065 
+ 885      00
+ 886              	.LASF6:
+ 887 0257 6C6F6E67 		.ascii	"long long int\000"
+ 887      206C6F6E 
+ 887      6720696E 
+ 887      7400
+ 888              	.LASF43:
+ 889 0265 2E5C616C 		.ascii	".\\alarm.c\000"
+ 889      61726D2E 
+ 889      6300
+ 890              	.LASF41:
+ 891 026f 466C6167 		.ascii	"Flag\000"
+ 891      00
+ 892              	.LASF45:
+ 893 0274 416C6172 		.ascii	"Alarm_Event\000"
+ 893      6D5F4576 
+ 893      656E7400 
+ 894              	.LASF18:
+ 895 0280 4D6F746F 		.ascii	"Motor_Delay\000"
+ 895      725F4465 
+ 895      6C617900 
+ 896              	.LASF2:
+ 897 028c 73686F72 		.ascii	"short int\000"
+ 897      7420696E 
+ 897      7400
+ 898              	.LASF20:
+ 899 0296 4653555F 		.ascii	"FSU_OUT1_Count\000"
+ 899      4F555431 
+ 899      5F436F75 
+ 899      6E7400
+ 900              	.LASF37:
+ 901 02a5 4F70656E 		.ascii	"Open_Door_Upload\000"
+ 901      5F446F6F 
+ 901      725F5570 
+ 901      6C6F6164 
+ 901      00
+ 902              	.LASF4:
+ 903 02b6 6C6F6E67 		.ascii	"long int\000"
+ 903      20696E74 
+ 903      00
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccvxLC1q.s 			page 21
+
+
+ 904              	.LASF15:
+ 905 02bf 44656C61 		.ascii	"Delay_Count\000"
+ 905      795F436F 
+ 905      756E7400 
+ 906              	.LASF11:
+ 907 02cb 666C6F61 		.ascii	"float\000"
+ 907      7400
+ 908              	.LASF0:
+ 909 02d1 7369676E 		.ascii	"signed char\000"
+ 909      65642063 
+ 909      68617200 
+ 910              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

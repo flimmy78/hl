@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="CYBL10563-56LQXI\Design02\Source Files\app_protocol.c">
+<ExpandedNodeIds>
+<v>CYBL10563-56LQXI</v>
+<v>CYBL10563-56LQXI\Design02</v>
+<v>CYBL10563-56LQXI\Design02\TopDesign</v>
+<v>CYBL10563-56LQXI\Design02\Design02.cydwr</v>
+<v>CYBL10563-56LQXI\Design02\Header Files</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_Ble.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_Com.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_LED.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_lock.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_protocol.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_UART.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\main.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\md5.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\RC4.h</v>
+<v>CYBL10563-56LQXI\Design02\Source Files</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_Ble.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_Com.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_LED.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_lock.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_protocol.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_UART.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\main.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\md5.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\RC4.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\ADC\ADC.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\ADC\ADC.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\ADC\ADC_INT.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\ADC\ADC_PM.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\ADC_intClock\ADC_intClock.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\ADC_intClock\ADC_intClock.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\ADC_IRQ\ADC_IRQ.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\ADC_IRQ\ADC_IRQ.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BAT_AD\BAT_AD.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BAT_AD\BAT_AD.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BAT_AD\BAT_AD_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\Beep_Ctrl\Beep_Ctrl.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\Beep_Ctrl\Beep_Ctrl.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\Beep_Ctrl\Beep_Ctrl_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_custom.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_custom.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_eventHandler.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_eventHandler.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_gatt.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_gatt.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_HAL_INT.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_HAL_PVT.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_HAL_PVT.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_Stack.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_STACK_PVT.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_StackGap.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_StackGatt.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_StackGattClient.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_StackGattDb.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_StackGattServer.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_StackHostMain.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE\BLE_StackL2cap.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE_bless_isr</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE_bless_isr\BLE_bless_isr.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\BLE_bless_isr\BLE_bless_isr.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\cm0gcc.ld</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\Cm0Iar.icf</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\Cm0RealView.scat</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\Cm0Start.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\core_cm0.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\core_cm0_psoc4.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\core_cmFunc.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\core_cmInstr.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\CyBootAsmGnu.s</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\CyBootAsmIar.s</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\CyBootAsmRv.s</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\CyFlash.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\CyFlash.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\CyLib.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\CyLib.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\cypins.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\cyPm.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\cyPm.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\cytypes.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_boot\cyutils.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_lfclk\CyLFClk.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cy_lfclk\CyLFClk.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\LED_GREEN\LED_GREEN.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\LED_GREEN\LED_GREEN.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\LED_GREEN\LED_GREEN_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\LED_RED\LED_RED.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\LED_RED\LED_RED.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\LED_RED\LED_RED_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\MISO\MISO.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\MISO\MISO.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\MISO\MISO_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\MOSI\MOSI.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\MOSI\MOSI.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\MOSI\MOSI_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\NSS\NSS.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\NSS\NSS.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\NSS\NSS_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\POWERON_IN\POWERON_IN.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\POWERON_IN\POWERON_IN.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\POWERON_IN\POWERON_IN_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\POWERON_OUT\POWERON_OUT.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\POWERON_OUT\POWERON_OUT.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\POWERON_OUT\POWERON_OUT_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\PWM\PWM.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\PWM\PWM.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\PWM\PWM_PM.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\PWM_Clock\PWM_Clock.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\PWM_Clock\PWM_Clock.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\SCK\SCK.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\SCK\SCK.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\SCK\SCK_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\System_Timer\System_Timer.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\System_Timer\System_Timer.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\System_Timer\System_Timer_PM.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\TC_ISR\TC_ISR.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\TC_ISR\TC_ISR.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\Timer_clock\Timer_clock.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\Timer_clock\Timer_clock.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\Timer_isr\Timer_isr.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\Timer_isr\Timer_isr.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_BOOT.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_BOOT.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_PINS.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_PM.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_PVT.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_SPI_UART.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_SPI_UART.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_SPI_UART_INT.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_SPI_UART_PVT.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_UART.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART\UART_UART_BOOT.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_rx\UART_rx.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_rx\UART_rx.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_rx\UART_rx_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_SCB_IRQ\UART_SCB_IRQ.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_SCB_IRQ\UART_SCB_IRQ.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_SCBCLK\UART_SCBCLK.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_SCBCLK\UART_SCBCLK.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_tx\UART_tx.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_tx\UART_tx.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\UART_tx\UART_tx_aliases.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cycodeshareexport.ld</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cycodeshareimport.ld</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cycodeshareimport.scat</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cydevice_trm.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cydevicegnu_trm.inc</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cydeviceiar_trm.inc</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cydevicerv_trm.inc</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cydisabledsheets.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cyfitter.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cyfitter_cfg.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cyfitter_cfg.h</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cyfittergnu.inc</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cyfitteriar.inc</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cyfitterrv.inc</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cymetadata.c</v>
+<v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\project.h</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_Ble.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_Com.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_LED.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_lock.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_protocol.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\app_UART.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\main.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\md5.h</v>
+<v>CYBL10563-56LQXI\Design02\Header Files\RC4.h</v>
+<v>CYBL10563-56LQXI\Design02\Source Files</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_Ble.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_Com.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_LED.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_lock.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_protocol.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\app_UART.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\main.c</v>
+<v>CYBL10563-56LQXI\Design02\Source Files\md5.c</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>CYBL10563-56LQXI</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>CYBL10563-56LQXI</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="CYBL10563-56LQXI">
+<ExpandedNodeIds>
+<v>CYBL10563-56LQXI</v>
+<v>CYBL10563-56LQXI\Design02</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_INT.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_intClock.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_IRQ.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_PM.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_Ble.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_Com.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_LED.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_lock.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_protocol.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_UART.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BAT_AD.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\Beep_Ctrl.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BLE.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BLE_bless_isr.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BLE_custom.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BLE_eventHandler.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BLE_gatt.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BLE_HAL_INT.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BLE_HAL_PVT.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\Cm0Start.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\CyFlash.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\CyLFClk.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\CyLib.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\cymetadata.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\cyPm.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\cyutils.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_GREEN.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\LED_RED.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\main.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\md5.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\MISO.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\MOSI.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\NSS.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\POWERON_IN.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\POWERON_OUT.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\PWM.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\PWM_Clock.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\PWM_PM.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\SCK.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\System_Timer.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\System_Timer_PM.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\TC_ISR.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\Timer_clock.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\Timer_isr.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_BOOT.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_PM.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_rx.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_SCB_IRQ.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_SCBCLK.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_SPI_UART.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_SPI_UART_INT.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_tx.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_UART.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\UART_UART_BOOT.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Design02.elf</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Design02.hex</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Design02.map</v>
+<v>CYBL10563-56LQXI\Design02\Design02.gpdsc</v>
+<v>CYBL10563-56LQXI\Design02\Design02.rpt</v>
+<v>CYBL10563-56LQXI\Design02\Design02_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>CYBL10563-56LQXI</v>
+<v>CYBL10563-56LQXI\Design02</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_INT.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_intClock.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_IRQ.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_PM.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_Ble.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_Com.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_LED.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_lock.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_protocol.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_UART.lst</v>
+<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BAT_AD.lst</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>CYBL10563-56LQXI</v>
+<v>CYBL10563-56LQXI\Design02</v>
+<v>CYBL10563-56LQXI\Design02\PSoC 4 Architecture TRM</v>
+<v>CYBL10563-56LQXI\Design02\PRoC BLE Family Datasheet</v>
+<v>CYBL10563-56LQXI\Design02\System Reference Guides</v>
+<v>CYBL10563-56LQXI\Design02\System Reference Guides\cy_boot_v5_20</v>
+<v>CYBL10563-56LQXI\Design02\System Reference Guides\cy_lfclk_v1_0</v>
+<v>CYBL10563-56LQXI\Design02\ADC_SAR_SEQ_P4_v2_20.pdf</v>
+<v>CYBL10563-56LQXI\Design02\BLE_v2_30.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Capacitor_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\cy_clock_v2_20</v>
+<v>CYBL10563-56LQXI\Design02\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
+<v>CYBL10563-56LQXI\Design02\cy_isr_v1_70</v>
+<v>CYBL10563-56LQXI\Design02\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>CYBL10563-56LQXI\Design02\cy_pins_v2_10</v>
+<v>CYBL10563-56LQXI\Design02\cy_pins_v2_10\cy_pins_v2_10.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Diode_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Gnd_v1_0</v>
+<v>CYBL10563-56LQXI\Design02\Gnd_v1_0\Gnd_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Inductor_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\LED_v1_0</v>
+<v>CYBL10563-56LQXI\Design02\LED_v1_0\LED_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\NPN_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Power_v1_0</v>
+<v>CYBL10563-56LQXI\Design02\Power_v1_0\Power_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Resistor_v1_0</v>
+<v>CYBL10563-56LQXI\Design02\Resistor_v1_0\Resistor_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\SCB_P4_v3_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Speaker_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\TCPWM_P4_v2_0</v>
+<v>CYBL10563-56LQXI\Design02\TCPWM_P4_v2_0\TCPWM_P4_v2_0.pdf</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>CYBL10563-56LQXI</v>
+<v>CYBL10563-56LQXI\Design02</v>
+<v>CYBL10563-56LQXI\Design02\PSoC 4 Architecture TRM</v>
+<v>CYBL10563-56LQXI\Design02\PRoC BLE Family Datasheet</v>
+<v>CYBL10563-56LQXI\Design02\System Reference Guides</v>
+<v>CYBL10563-56LQXI\Design02\System Reference Guides\cy_boot_v5_20</v>
+<v>CYBL10563-56LQXI\Design02\System Reference Guides\cy_lfclk_v1_0</v>
+<v>CYBL10563-56LQXI\Design02\ADC_SAR_SEQ_P4_v2_20.pdf</v>
+<v>CYBL10563-56LQXI\Design02\BLE_v2_30.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Capacitor_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\cy_clock_v2_20</v>
+<v>CYBL10563-56LQXI\Design02\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
+<v>CYBL10563-56LQXI\Design02\cy_isr_v1_70</v>
+<v>CYBL10563-56LQXI\Design02\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>CYBL10563-56LQXI\Design02\cy_pins_v2_10</v>
+<v>CYBL10563-56LQXI\Design02\cy_pins_v2_10\cy_pins_v2_10.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Diode_v1_0.pdf</v>
+<v>CYBL10563-56LQXI\Design02\Gnd_v1_0</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+<dataGuid v="5f2be1a5-0687-4501-bb8c-cf21cb8211bf">
+<CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf type_name="CyDesigner.Common.ProjMgmt.GUI.CyBookmarkData" version="1">
+<indicators />
+</CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v=".\Design02.cydsn\main.c" />
+<name v=".\Design02.cydsn\app_Com.c" />
+<name v=".\Design02.cydsn\app_lock.c" />
+<name v=".\Design02.cydsn\app_Com.h" />
+<name v=".\Design02.cydsn\app_protocol.c" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\ADC.c" />
+<name v=".\Design02.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\Design02.cydsn\app_Ble.c" />
+<name v=".\Design02.cydsn\Design02.cydwr" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\BAT_AD.c" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\TC_ISR.c" />
+<name v=".\Design02.cydsn\app_protocol.h" />
+<name v=".\Design02.cydsn\app_lock.h" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\cycodeshareexport.ld" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\cycodeshareimport.ld" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\UART_tx.c" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\UART_tx.h" />
+<name v=".\Design02.cydsn\app_LED.c" />
+<name v=".\Design02.cydsn\main.h" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\Beep_Ctrl.c" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\Beep_Ctrl.h" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\Beep_Ctrl_aliases.h" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\CyBootAsmGnu.s" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\CyBootAsmIar.s" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\CyBootAsmRv.s" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\CyFlash.c" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\CyLib.c" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\project.h" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\cydevicegnu_trm.inc" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\cydeviceiar_trm.inc" />
+<name v=".\Design02.cydsn\app_Ble.h" />
+<name v=".\Design02.cydsn\RC4.c" />
+<name v=".\Design02.cydsn\app_UART.c" />
+<name v=".\Design02.cydsn\Generated_Source\PSoC4\BLE_HAL_INT.c" />
+<name v=".\Design02.cydsn\md5.h" />
+<name v="E:\test\test1\BLE_OTA_External_Memory_Bootloadable01\BLE_OTA_External_Memory_Bootloadable01.cydsn\md5.c" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="981, 379" SelectedTabbedMdiWindow="546335fb-c183-47c7-993d-c973c1f120d2"><DocumentWindow Key="89eeebfa-539e-48e6-b922-17c84d1fc063" Guid="9542ec70-06d1-48dd-a8c9-37ed0623b848" /><DocumentWindow Key="efe867d7-c87d-4032-a62e-51353e4d1ba8" Guid="689e53e9-5a6d-4d94-8762-942e88d1e193" /><DocumentWindow Key="c82492be-186c-462d-ae22-ef582b563653" Guid="50990ae0-f792-4c28-b755-de3494abe668" /><DocumentWindow Key="8016a270-6ba7-43c7-9007-532840a94407" Guid="79247408-116d-4688-b695-6285215e11df" /><DocumentWindow Key="d74570b7-6e62-420d-b96a-12622512eba7" Guid="546335fb-c183-47c7-993d-c973c1f120d2" /><DocumentWindow Key="fc8c009e-dd0f-4207-a2b1-6f61c61c2474" Guid="bae0cdd0-9f4f-4fb7-bbcb-cf8bda4832c9" /><DocumentWindow Key="20e4fdd9-b1c0-427c-a1b1-765ada9a04b6" Guid="5856ff73-f463-4f71-9a6f-35719456d3e9" /><DocumentWindow Key="ea2af948-7253-4988-b7a1-41d0068e2773" Guid="415b5e26-2b12-4ed6-9b87-01e275b692f6" /><DocumentWindow Key="428ad215-58b7-4316-a54c-e67295789700" Guid="ce541a07-3a32-48f7-b5d8-37b69f97a28d" /><DocumentWindow Key="840b6f28-a76f-4b9d-aa56-4481856781b2" Guid="f0510439-bbb9-418f-8eb7-1ecfe094652b" /><DocumentWindow Key="713dd816-22dc-4cdd-8a3e-455d6f1f3b0c" Guid="0ad15490-75b7-43ab-83d7-7d862a38eafd" /><DocumentWindow Key="6844f90a-3fb4-4972-ba4c-b8a59361c0f7" Guid="568f429a-8c00-4598-aaf4-aad11888b9a7" /><DocumentWindow Key="1756ad58-e668-4656-b80b-2f98667d725c" Guid="209283d9-8b32-407c-9d27-fa103db21504" /><DocumentWindow Key="c2116a83-61e6-4a37-8e4a-54c41f4a3607" Guid="5217393f-cf67-4fba-80e6-aa033c7ccc87" /><DocumentWindow Key="4e5a0ffe-9f26-4a26-a4f6-3a2cdcddc632" Guid="d8443ee1-89ad-4077-bb3b-20e4743817bb" /><DocumentWindow Key="45cb0d6b-4674-4811-a16f-58f42b5ef4d5" Guid="5653953a-738a-42b8-8ac7-633c64a0e5c8" /><DocumentWindow Key="ec949719-7579-4402-9e85-56a6b04e60b1" Guid="388dff87-50a5-4886-b72b-ffe6c2b678c1" /><DocumentWindow Key="046df774-c6b1-4b62-b18f-a06064b5b46f" Guid="4fc6ca71-7cb3-41cf-9386-22c461d395d7" /><DocumentWindow Key="868464c4-c4c6-448d-9c0c-36690d247c23" Guid="ee56a7c8-605d-4384-9dbf-f69e216c2c88" /><DocumentWindow Key="f975ccf4-0be2-47d9-a898-ab93527635c3" Guid="7de447c7-9aad-4e82-954c-0e96a2f3a3d7" /><DocumentWindow Key="dfb390ba-7fb7-4ff0-b441-aca8db275f63" Guid="2e3eb1d1-1371-41b2-bf7d-29c3e37e9ad3" /><DocumentWindow Key="68ab56a1-ba04-48cf-9fdf-6732c6eda137" Guid="4201eb7e-c740-44da-9dae-9b3a800865db" /><DocumentWindow Key="53916ebf-db8c-4e56-84b5-64ba0e41bb98" Guid="9656586b-e5dd-42ee-8f84-3e3f41fd8c8b" /><DocumentWindow Key="1b1c04de-8de8-41f8-ae7c-1fb5b71a6cc5" Guid="b1061f3f-6883-44bd-8062-8ef5644eca05" /><DocumentWindow Key="97cca7de-00e6-4db6-8673-fd35465e54f0" Guid="6a36cc2b-d7fb-4f3c-b577-363efb42ae93" /><DocumentWindow Key="c1e0b747-0ca5-440d-9966-59fe34afdc96" Guid="17ff1520-9163-40aa-aeb0-dc078a01ff37" /><DocumentWindow Key="b6d5e190-cc63-406c-94de-ac04c7338efe" Guid="a4d85869-66a6-405d-86a7-916cec85d194" /><DocumentWindow Key="6136fb6b-ddb7-45e9-8253-8c57cd87cdc2" Guid="cb69065c-96c9-43b0-a3fc-003328208817" /><DocumentWindow Key="4cef082b-ec80-427e-ba03-0eab61d984a0" Guid="bc619c8e-2f02-4983-bc58-a13e7d866ebf" /><DocumentWindow Key="4455a537-9cf5-4c03-9015-e8cfa2af9c2f" Guid="fa33ff25-daf2-4026-90a9-11a9946ede03" /><DocumentWindow Key="38c87101-4f8f-4919-a177-29ce56d41c0d" Guid="6563d3f5-4f80-46b9-8d7f-496f0dbce99b" /><DocumentWindow Key="c2569ad1-c1b3-4e47-a6fe-1404507bca52" Guid="7d807c1b-d76c-44c6-9426-22d265003355" /><DocumentWindow Key="5cf9e825-650c-4ae7-a07b-078dc4e96fae" Guid="3067b5f0-98ea-4eee-983e-f9221235f2ae" /><DocumentWindow Key="2cd398b6-ae07-4fad-8b67-1c86c1a2b811" Guid="90aedaf3-7389-49da-b501-b9e51d9c7bc9" /><DocumentWindow Key="88df7a71-599e-4c7b-aad3-6ca2f3b0254f" Guid="9335ba66-f0bf-4b54-ab86-f7c41f8c8029" /><DocumentWindow Key="287cf0dd-06cc-43d3-a8d8-0ab645c7f8ab" Guid="0220e378-4c31-41d3-9b87-c7dac231dd14" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="7222ee67-65b9-43f2-8afd-e0916ca276bc" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

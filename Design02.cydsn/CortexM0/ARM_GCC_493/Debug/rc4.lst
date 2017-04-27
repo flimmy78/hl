@@ -1,0 +1,1992 @@
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"RC4.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.comm	Rc4Sbox,32,4
+  18              		.comm	Rc4Kbox,32,4
+  19              		.section	.text.init_sbox,"ax",%progbits
+  20              		.align	2
+  21              		.global	init_sbox
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	init_sbox, %function
+  25              	init_sbox:
+  26              	.LFB35:
+  27              		.file 1 "RC4.c"
+   1:RC4.c         **** /* ========================================
+   2:RC4.c         ****  *
+   3:RC4.c         ****  * Copyright YOUR COMPANY, THE YEAR
+   4:RC4.c         ****  * All Rights Reserved
+   5:RC4.c         ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:RC4.c         ****  *
+   7:RC4.c         ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:RC4.c         ****  * WHICH IS THE PROPERTY OF your company.
+   9:RC4.c         ****  *
+  10:RC4.c         ****  * ========================================
+  11:RC4.c         **** */
+  12:RC4.c         **** #include"Rc4.h"
+  13:RC4.c         **** #include <string.h>
+  14:RC4.c         **** #include "main.h"
+  15:RC4.c         **** 
+  16:RC4.c         **** uint8 Rc4Sbox[SBOX_LEN];
+  17:RC4.c         **** uint8 Rc4Kbox[SBOX_LEN];
+  18:RC4.c         **** 
+  19:RC4.c         **** 
+  20:RC4.c         **** 
+  21:RC4.c         **** void init_sbox(void)
+  22:RC4.c         **** {
+  28              		.loc 1 22 0
+  29              		.cfi_startproc
+  30 0000 80B5     		push	{r7, lr}
+  31              		.cfi_def_cfa_offset 8
+  32              		.cfi_offset 7, -8
+  33              		.cfi_offset 14, -4
+  34 0002 84B0     		sub	sp, sp, #16
+  35              		.cfi_def_cfa_offset 24
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 2
+
+
+  36 0004 00AF     		add	r7, sp, #0
+  37              		.cfi_def_cfa_register 7
+  23:RC4.c         ****     int i, j = 0;
+  38              		.loc 1 23 0
+  39 0006 0023     		mov	r3, #0
+  40 0008 BB60     		str	r3, [r7, #8]
+  24:RC4.c         ****     unsigned char tmp;
+  25:RC4.c         **** 
+  26:RC4.c         ****     for (i = 0; i < SBOX_LEN; i++)
+  41              		.loc 1 26 0
+  42 000a 0023     		mov	r3, #0
+  43 000c FB60     		str	r3, [r7, #12]
+  44 000e 09E0     		b	.L2
+  45              	.L3:
+  27:RC4.c         ****         Rc4Sbox[i] = i;
+  46              		.loc 1 27 0 discriminator 3
+  47 0010 FB68     		ldr	r3, [r7, #12]
+  48 0012 D9B2     		uxtb	r1, r3
+  49 0014 204A     		ldr	r2, .L7
+  50 0016 FB68     		ldr	r3, [r7, #12]
+  51 0018 D318     		add	r3, r2, r3
+  52 001a 0A1C     		add	r2, r1, #0
+  53 001c 1A70     		strb	r2, [r3]
+  26:RC4.c         ****         Rc4Sbox[i] = i;
+  54              		.loc 1 26 0 discriminator 3
+  55 001e FB68     		ldr	r3, [r7, #12]
+  56 0020 0133     		add	r3, r3, #1
+  57 0022 FB60     		str	r3, [r7, #12]
+  58              	.L2:
+  26:RC4.c         ****         Rc4Sbox[i] = i;
+  59              		.loc 1 26 0 is_stmt 0 discriminator 1
+  60 0024 FB68     		ldr	r3, [r7, #12]
+  61 0026 1F2B     		cmp	r3, #31
+  62 0028 F2DD     		ble	.L3
+  28:RC4.c         **** 
+  29:RC4.c         ****     for (i = 0; i < SBOX_LEN; i++)
+  63              		.loc 1 29 0 is_stmt 1
+  64 002a 0023     		mov	r3, #0
+  65 002c FB60     		str	r3, [r7, #12]
+  66 002e 2CE0     		b	.L4
+  67              	.L6:
+  30:RC4.c         ****     {
+  31:RC4.c         ****         j = (j + Rc4Sbox[i] + Rc4Kbox[i]) % SBOX_LEN;
+  68              		.loc 1 31 0 discriminator 3
+  69 0030 194A     		ldr	r2, .L7
+  70 0032 FB68     		ldr	r3, [r7, #12]
+  71 0034 D318     		add	r3, r2, r3
+  72 0036 1B78     		ldrb	r3, [r3]
+  73 0038 1A1C     		mov	r2, r3
+  74 003a BB68     		ldr	r3, [r7, #8]
+  75 003c D318     		add	r3, r2, r3
+  76 003e 1749     		ldr	r1, .L7+4
+  77 0040 FA68     		ldr	r2, [r7, #12]
+  78 0042 8A18     		add	r2, r1, r2
+  79 0044 1278     		ldrb	r2, [r2]
+  80 0046 9B18     		add	r3, r3, r2
+  81 0048 154A     		ldr	r2, .L7+8
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 3
+
+
+  82 004a 1340     		and	r3, r2
+  83 004c 04D5     		bpl	.L5
+  84 004e 013B     		sub	r3, r3, #1
+  85 0050 2022     		mov	r2, #32
+  86 0052 5242     		neg	r2, r2
+  87 0054 1343     		orr	r3, r2
+  88 0056 0133     		add	r3, r3, #1
+  89              	.L5:
+  90 0058 BB60     		str	r3, [r7, #8]
+  32:RC4.c         ****         tmp = Rc4Sbox[i];
+  91              		.loc 1 32 0 discriminator 3
+  92 005a FB1D     		add	r3, r7, #7
+  93 005c 0E49     		ldr	r1, .L7
+  94 005e FA68     		ldr	r2, [r7, #12]
+  95 0060 8A18     		add	r2, r1, r2
+  96 0062 1278     		ldrb	r2, [r2]
+  97 0064 1A70     		strb	r2, [r3]
+  33:RC4.c         ****         Rc4Sbox[i] = Rc4Sbox[j];
+  98              		.loc 1 33 0 discriminator 3
+  99 0066 0C4A     		ldr	r2, .L7
+ 100 0068 BB68     		ldr	r3, [r7, #8]
+ 101 006a D318     		add	r3, r2, r3
+ 102 006c 1978     		ldrb	r1, [r3]
+ 103 006e 0A4A     		ldr	r2, .L7
+ 104 0070 FB68     		ldr	r3, [r7, #12]
+ 105 0072 D318     		add	r3, r2, r3
+ 106 0074 0A1C     		add	r2, r1, #0
+ 107 0076 1A70     		strb	r2, [r3]
+  34:RC4.c         ****         Rc4Sbox[j] = tmp;
+ 108              		.loc 1 34 0 discriminator 3
+ 109 0078 074A     		ldr	r2, .L7
+ 110 007a BB68     		ldr	r3, [r7, #8]
+ 111 007c D318     		add	r3, r2, r3
+ 112 007e FA1D     		add	r2, r7, #7
+ 113 0080 1278     		ldrb	r2, [r2]
+ 114 0082 1A70     		strb	r2, [r3]
+  29:RC4.c         ****     {
+ 115              		.loc 1 29 0 discriminator 3
+ 116 0084 FB68     		ldr	r3, [r7, #12]
+ 117 0086 0133     		add	r3, r3, #1
+ 118 0088 FB60     		str	r3, [r7, #12]
+ 119              	.L4:
+  29:RC4.c         ****     {
+ 120              		.loc 1 29 0 is_stmt 0 discriminator 1
+ 121 008a FB68     		ldr	r3, [r7, #12]
+ 122 008c 1F2B     		cmp	r3, #31
+ 123 008e CFDD     		ble	.L6
+  35:RC4.c         ****     }
+  36:RC4.c         **** }
+ 124              		.loc 1 36 0 is_stmt 1
+ 125 0090 BD46     		mov	sp, r7
+ 126 0092 04B0     		add	sp, sp, #16
+ 127              		@ sp needed
+ 128 0094 80BD     		pop	{r7, pc}
+ 129              	.L8:
+ 130 0096 C046     		.align	2
+ 131              	.L7:
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 4
+
+
+ 132 0098 00000000 		.word	Rc4Sbox
+ 133 009c 00000000 		.word	Rc4Kbox
+ 134 00a0 1F000080 		.word	-2147483617
+ 135              		.cfi_endproc
+ 136              	.LFE35:
+ 137              		.size	init_sbox, .-init_sbox
+ 138              		.global	__aeabi_idivmod
+ 139              		.section	.text.init_kbox,"ax",%progbits
+ 140              		.align	2
+ 141              		.global	init_kbox
+ 142              		.code	16
+ 143              		.thumb_func
+ 144              		.type	init_kbox, %function
+ 145              	init_kbox:
+ 146              	.LFB36:
+  37:RC4.c         **** 
+  38:RC4.c         **** 
+  39:RC4.c         **** 
+  40:RC4.c         **** 
+  41:RC4.c         **** 
+  42:RC4.c         **** /*
+  43:RC4.c         ****  *******************************************************************************     
+  44:RC4.c         ****  * 功能名: init_kbox    
+  45:RC4.c         ****  * 说明:  初始化 kbox        
+  46:RC4.c         ****  * 输入:  key 密钥    
+  47:RC4.c         ****  * 输出: 
+  48:RC4.c         ****  * 返回:  
+  49:RC4.c         ****  *******************************************************************************     
+  50:RC4.c         ****  */
+  51:RC4.c         **** void init_kbox(unsigned char *key,unsigned char keyleng)
+  52:RC4.c         **** {
+ 147              		.loc 1 52 0
+ 148              		.cfi_startproc
+ 149 0000 80B5     		push	{r7, lr}
+ 150              		.cfi_def_cfa_offset 8
+ 151              		.cfi_offset 7, -8
+ 152              		.cfi_offset 14, -4
+ 153 0002 84B0     		sub	sp, sp, #16
+ 154              		.cfi_def_cfa_offset 24
+ 155 0004 00AF     		add	r7, sp, #0
+ 156              		.cfi_def_cfa_register 7
+ 157 0006 7860     		str	r0, [r7, #4]
+ 158 0008 0A1C     		mov	r2, r1
+ 159 000a FB1C     		add	r3, r7, #3
+ 160 000c 1A70     		strb	r2, [r3]
+  53:RC4.c         ****     int i;
+  54:RC4.c         ****     for (i = 0; i < SBOX_LEN; i++)
+ 161              		.loc 1 54 0
+ 162 000e 0023     		mov	r3, #0
+ 163 0010 FB60     		str	r3, [r7, #12]
+ 164 0012 13E0     		b	.L10
+ 165              	.L11:
+  55:RC4.c         ****     {
+  56:RC4.c         ****         Rc4Kbox[i] = key[i % keyleng];
+ 166              		.loc 1 56 0 discriminator 3
+ 167 0014 FB1C     		add	r3, r7, #3
+ 168 0016 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 5
+
+
+ 169 0018 FA68     		ldr	r2, [r7, #12]
+ 170 001a 101C     		mov	r0, r2
+ 171 001c 191C     		mov	r1, r3
+ 172 001e FFF7FEFF 		bl	__aeabi_idivmod
+ 173 0022 0B1C     		mov	r3, r1
+ 174 0024 1A1C     		mov	r2, r3
+ 175 0026 7B68     		ldr	r3, [r7, #4]
+ 176 0028 9B18     		add	r3, r3, r2
+ 177 002a 1978     		ldrb	r1, [r3]
+ 178 002c 064A     		ldr	r2, .L12
+ 179 002e FB68     		ldr	r3, [r7, #12]
+ 180 0030 D318     		add	r3, r2, r3
+ 181 0032 0A1C     		add	r2, r1, #0
+ 182 0034 1A70     		strb	r2, [r3]
+  54:RC4.c         ****     {
+ 183              		.loc 1 54 0 discriminator 3
+ 184 0036 FB68     		ldr	r3, [r7, #12]
+ 185 0038 0133     		add	r3, r3, #1
+ 186 003a FB60     		str	r3, [r7, #12]
+ 187              	.L10:
+  54:RC4.c         ****     {
+ 188              		.loc 1 54 0 is_stmt 0 discriminator 1
+ 189 003c FB68     		ldr	r3, [r7, #12]
+ 190 003e 1F2B     		cmp	r3, #31
+ 191 0040 E8DD     		ble	.L11
+  57:RC4.c         ****     }
+  58:RC4.c         **** }
+ 192              		.loc 1 58 0 is_stmt 1
+ 193 0042 BD46     		mov	sp, r7
+ 194 0044 04B0     		add	sp, sp, #16
+ 195              		@ sp needed
+ 196 0046 80BD     		pop	{r7, pc}
+ 197              	.L13:
+ 198              		.align	2
+ 199              	.L12:
+ 200 0048 00000000 		.word	Rc4Kbox
+ 201              		.cfi_endproc
+ 202              	.LFE36:
+ 203              		.size	init_kbox, .-init_kbox
+ 204              		.section	.text.rc4_encrypt,"ax",%progbits
+ 205              		.align	2
+ 206              		.global	rc4_encrypt
+ 207              		.code	16
+ 208              		.thumb_func
+ 209              		.type	rc4_encrypt, %function
+ 210              	rc4_encrypt:
+ 211              	.LFB37:
+  59:RC4.c         **** 
+  60:RC4.c         **** /*
+  61:RC4.c         ****  *******************************************************************************
+  62:RC4.c         ****  * 功能名:  rc4_encrypt
+  63:RC4.c         ****  * 说明:  rc4计算
+  64:RC4.c         ****  * 输入:  	key 密钥
+  65:RC4.c         ****  			buf 数据
+  66:RC4.c         ****  			len 长度
+  67:RC4.c         ****  * 输出:
+  68:RC4.c         ****  * 返回:
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 6
+
+
+  69:RC4.c         ****  *******************************************************************************
+  70:RC4.c         ****  */
+  71:RC4.c         **** 
+  72:RC4.c         **** void rc4_encrypt(unsigned char *key,unsigned char key_leng, unsigned char *buf, int len)
+  73:RC4.c         **** {
+ 212              		.loc 1 73 0
+ 213              		.cfi_startproc
+ 214 0000 80B5     		push	{r7, lr}
+ 215              		.cfi_def_cfa_offset 8
+ 216              		.cfi_offset 7, -8
+ 217              		.cfi_offset 14, -4
+ 218 0002 8AB0     		sub	sp, sp, #40
+ 219              		.cfi_def_cfa_offset 48
+ 220 0004 00AF     		add	r7, sp, #0
+ 221              		.cfi_def_cfa_register 7
+ 222 0006 F860     		str	r0, [r7, #12]
+ 223 0008 7A60     		str	r2, [r7, #4]
+ 224 000a 3B60     		str	r3, [r7]
+ 225 000c 0B23     		mov	r3, #11
+ 226 000e FB18     		add	r3, r7, r3
+ 227 0010 0A1C     		add	r2, r1, #0
+ 228 0012 1A70     		strb	r2, [r3]
+  74:RC4.c         ****     int i = 0, j = 0, t, index = 0;
+ 229              		.loc 1 74 0
+ 230 0014 0023     		mov	r3, #0
+ 231 0016 7B62     		str	r3, [r7, #36]
+ 232 0018 0023     		mov	r3, #0
+ 233 001a 3B62     		str	r3, [r7, #32]
+ 234 001c 0023     		mov	r3, #0
+ 235 001e FB61     		str	r3, [r7, #28]
+  75:RC4.c         ****     unsigned char tmp;
+  76:RC4.c         ****     unsigned char *data;
+  77:RC4.c         ****     data=buf;
+ 236              		.loc 1 77 0
+ 237 0020 7B68     		ldr	r3, [r7, #4]
+ 238 0022 BB61     		str	r3, [r7, #24]
+  78:RC4.c         **** 
+  79:RC4.c         ****     if (buf == NULL || len <= 0)
+ 239              		.loc 1 79 0
+ 240 0024 7B68     		ldr	r3, [r7, #4]
+ 241 0026 002B     		cmp	r3, #0
+ 242 0028 02D0     		beq	.L15
+ 243              		.loc 1 79 0 is_stmt 0 discriminator 1
+ 244 002a 3B68     		ldr	r3, [r7]
+ 245 002c 002B     		cmp	r3, #0
+ 246 002e 00DC     		bgt	.L16
+ 247              	.L15:
+  80:RC4.c         ****         return;
+ 248              		.loc 1 80 0 is_stmt 1
+ 249 0030 5EE0     		b	.L14
+ 250              	.L16:
+  81:RC4.c         ****     init_kbox(key,key_leng);
+ 251              		.loc 1 81 0
+ 252 0032 FA68     		ldr	r2, [r7, #12]
+ 253 0034 0B23     		mov	r3, #11
+ 254 0036 FB18     		add	r3, r7, r3
+ 255 0038 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 7
+
+
+ 256 003a 101C     		mov	r0, r2
+ 257 003c 191C     		mov	r1, r3
+ 258 003e FFF7FEFF 		bl	init_kbox
+  82:RC4.c         ****     init_sbox();
+ 259              		.loc 1 82 0
+ 260 0042 FFF7FEFF 		bl	init_sbox
+  83:RC4.c         **** 
+  84:RC4.c         **** 
+  85:RC4.c         ****     while (index < len)
+ 261              		.loc 1 85 0
+ 262 0046 4FE0     		b	.L18
+ 263              	.L21:
+  86:RC4.c         ****     {
+  87:RC4.c         ****         i = (i + 1) % SBOX_LEN;
+ 264              		.loc 1 87 0
+ 265 0048 7B6A     		ldr	r3, [r7, #36]
+ 266 004a 0133     		add	r3, r3, #1
+ 267 004c 2A4A     		ldr	r2, .L22
+ 268 004e 1340     		and	r3, r2
+ 269 0050 04D5     		bpl	.L19
+ 270 0052 013B     		sub	r3, r3, #1
+ 271 0054 2022     		mov	r2, #32
+ 272 0056 5242     		neg	r2, r2
+ 273 0058 1343     		orr	r3, r2
+ 274 005a 0133     		add	r3, r3, #1
+ 275              	.L19:
+ 276 005c 7B62     		str	r3, [r7, #36]
+  88:RC4.c         ****         j = (j + Rc4Sbox[i]) % SBOX_LEN;
+ 277              		.loc 1 88 0
+ 278 005e 274A     		ldr	r2, .L22+4
+ 279 0060 7B6A     		ldr	r3, [r7, #36]
+ 280 0062 D318     		add	r3, r2, r3
+ 281 0064 1B78     		ldrb	r3, [r3]
+ 282 0066 1A1C     		mov	r2, r3
+ 283 0068 3B6A     		ldr	r3, [r7, #32]
+ 284 006a D318     		add	r3, r2, r3
+ 285 006c 224A     		ldr	r2, .L22
+ 286 006e 1340     		and	r3, r2
+ 287 0070 04D5     		bpl	.L20
+ 288 0072 013B     		sub	r3, r3, #1
+ 289 0074 2022     		mov	r2, #32
+ 290 0076 5242     		neg	r2, r2
+ 291 0078 1343     		orr	r3, r2
+ 292 007a 0133     		add	r3, r3, #1
+ 293              	.L20:
+ 294 007c 3B62     		str	r3, [r7, #32]
+  89:RC4.c         ****         tmp = Rc4Sbox[i];
+ 295              		.loc 1 89 0
+ 296 007e 1723     		mov	r3, #23
+ 297 0080 FB18     		add	r3, r7, r3
+ 298 0082 1E49     		ldr	r1, .L22+4
+ 299 0084 7A6A     		ldr	r2, [r7, #36]
+ 300 0086 8A18     		add	r2, r1, r2
+ 301 0088 1278     		ldrb	r2, [r2]
+ 302 008a 1A70     		strb	r2, [r3]
+  90:RC4.c         ****         Rc4Sbox[i] = Rc4Sbox[j];
+ 303              		.loc 1 90 0
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 8
+
+
+ 304 008c 1B4A     		ldr	r2, .L22+4
+ 305 008e 3B6A     		ldr	r3, [r7, #32]
+ 306 0090 D318     		add	r3, r2, r3
+ 307 0092 1978     		ldrb	r1, [r3]
+ 308 0094 194A     		ldr	r2, .L22+4
+ 309 0096 7B6A     		ldr	r3, [r7, #36]
+ 310 0098 D318     		add	r3, r2, r3
+ 311 009a 0A1C     		add	r2, r1, #0
+ 312 009c 1A70     		strb	r2, [r3]
+  91:RC4.c         ****         Rc4Sbox[j] = tmp;
+ 313              		.loc 1 91 0
+ 314 009e 174A     		ldr	r2, .L22+4
+ 315 00a0 3B6A     		ldr	r3, [r7, #32]
+ 316 00a2 D318     		add	r3, r2, r3
+ 317 00a4 1722     		mov	r2, #23
+ 318 00a6 BA18     		add	r2, r7, r2
+ 319 00a8 1278     		ldrb	r2, [r2]
+ 320 00aa 1A70     		strb	r2, [r3]
+  92:RC4.c         ****         t = (Rc4Sbox[i] + Rc4Sbox[j]) % SBOX_LEN;
+ 321              		.loc 1 92 0
+ 322 00ac 134A     		ldr	r2, .L22+4
+ 323 00ae 7B6A     		ldr	r3, [r7, #36]
+ 324 00b0 D318     		add	r3, r2, r3
+ 325 00b2 1B78     		ldrb	r3, [r3]
+ 326 00b4 191C     		mov	r1, r3
+ 327 00b6 114A     		ldr	r2, .L22+4
+ 328 00b8 3B6A     		ldr	r3, [r7, #32]
+ 329 00ba D318     		add	r3, r2, r3
+ 330 00bc 1B78     		ldrb	r3, [r3]
+ 331 00be CB18     		add	r3, r1, r3
+ 332 00c0 1F22     		mov	r2, #31
+ 333 00c2 1340     		and	r3, r2
+ 334 00c4 3B61     		str	r3, [r7, #16]
+  93:RC4.c         **** 
+  94:RC4.c         ****         buf[index] = data[index] ^ Rc4Sbox[t]; 
+ 335              		.loc 1 94 0
+ 336 00c6 FB69     		ldr	r3, [r7, #28]
+ 337 00c8 7A68     		ldr	r2, [r7, #4]
+ 338 00ca D318     		add	r3, r2, r3
+ 339 00cc FA69     		ldr	r2, [r7, #28]
+ 340 00ce B969     		ldr	r1, [r7, #24]
+ 341 00d0 8A18     		add	r2, r1, r2
+ 342 00d2 1178     		ldrb	r1, [r2]
+ 343 00d4 0948     		ldr	r0, .L22+4
+ 344 00d6 3A69     		ldr	r2, [r7, #16]
+ 345 00d8 8218     		add	r2, r0, r2
+ 346 00da 1278     		ldrb	r2, [r2]
+ 347 00dc 4A40     		eor	r2, r1
+ 348 00de D2B2     		uxtb	r2, r2
+ 349 00e0 1A70     		strb	r2, [r3]
+  95:RC4.c         ****         index++;
+ 350              		.loc 1 95 0
+ 351 00e2 FB69     		ldr	r3, [r7, #28]
+ 352 00e4 0133     		add	r3, r3, #1
+ 353 00e6 FB61     		str	r3, [r7, #28]
+ 354              	.L18:
+  85:RC4.c         ****     {
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 9
+
+
+ 355              		.loc 1 85 0
+ 356 00e8 FA69     		ldr	r2, [r7, #28]
+ 357 00ea 3B68     		ldr	r3, [r7]
+ 358 00ec 9A42     		cmp	r2, r3
+ 359 00ee ABDB     		blt	.L21
+ 360              	.L14:
+  96:RC4.c         ****     }
+  97:RC4.c         **** }
+ 361              		.loc 1 97 0
+ 362 00f0 BD46     		mov	sp, r7
+ 363 00f2 0AB0     		add	sp, sp, #40
+ 364              		@ sp needed
+ 365 00f4 80BD     		pop	{r7, pc}
+ 366              	.L23:
+ 367 00f6 C046     		.align	2
+ 368              	.L22:
+ 369 00f8 1F000080 		.word	-2147483617
+ 370 00fc 00000000 		.word	Rc4Sbox
+ 371              		.cfi_endproc
+ 372              	.LFE37:
+ 373              		.size	rc4_encrypt, .-rc4_encrypt
+ 374              		.section	.text.CRC_Sum,"ax",%progbits
+ 375              		.align	2
+ 376              		.global	CRC_Sum
+ 377              		.code	16
+ 378              		.thumb_func
+ 379              		.type	CRC_Sum, %function
+ 380              	CRC_Sum:
+ 381              	.LFB38:
+  98:RC4.c         **** 
+  99:RC4.c         **** /**************************************************
+ 100:RC4.c         **** 累计和取反校验
+ 101:RC4.c         **** ***************************************************/
+ 102:RC4.c         **** unsigned char CRC_Sum(unsigned char *Buf, unsigned char Length)
+ 103:RC4.c         **** {
+ 382              		.loc 1 103 0
+ 383              		.cfi_startproc
+ 384 0000 80B5     		push	{r7, lr}
+ 385              		.cfi_def_cfa_offset 8
+ 386              		.cfi_offset 7, -8
+ 387              		.cfi_offset 14, -4
+ 388 0002 84B0     		sub	sp, sp, #16
+ 389              		.cfi_def_cfa_offset 24
+ 390 0004 00AF     		add	r7, sp, #0
+ 391              		.cfi_def_cfa_register 7
+ 392 0006 7860     		str	r0, [r7, #4]
+ 393 0008 0A1C     		mov	r2, r1
+ 394 000a FB1C     		add	r3, r7, #3
+ 395 000c 1A70     		strb	r2, [r3]
+ 104:RC4.c         ****     unsigned char sum = 0x00;
+ 396              		.loc 1 104 0
+ 397 000e 0F23     		mov	r3, #15
+ 398 0010 FB18     		add	r3, r7, r3
+ 399 0012 0022     		mov	r2, #0
+ 400 0014 1A70     		strb	r2, [r3]
+ 105:RC4.c         ****     while (Length--)
+ 401              		.loc 1 105 0
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 10
+
+
+ 402 0016 0AE0     		b	.L25
+ 403              	.L26:
+ 106:RC4.c         ****     {
+ 107:RC4.c         ****         sum += *Buf++;
+ 404              		.loc 1 107 0
+ 405 0018 7B68     		ldr	r3, [r7, #4]
+ 406 001a 5A1C     		add	r2, r3, #1
+ 407 001c 7A60     		str	r2, [r7, #4]
+ 408 001e 1978     		ldrb	r1, [r3]
+ 409 0020 0F23     		mov	r3, #15
+ 410 0022 FB18     		add	r3, r7, r3
+ 411 0024 0F22     		mov	r2, #15
+ 412 0026 BA18     		add	r2, r7, r2
+ 413 0028 1278     		ldrb	r2, [r2]
+ 414 002a 8A18     		add	r2, r1, r2
+ 415 002c 1A70     		strb	r2, [r3]
+ 416              	.L25:
+ 105:RC4.c         ****     while (Length--)
+ 417              		.loc 1 105 0
+ 418 002e FB1C     		add	r3, r7, #3
+ 419 0030 1B78     		ldrb	r3, [r3]
+ 420 0032 FA1C     		add	r2, r7, #3
+ 421 0034 591E     		sub	r1, r3, #1
+ 422 0036 1170     		strb	r1, [r2]
+ 423 0038 002B     		cmp	r3, #0
+ 424 003a EDD1     		bne	.L26
+ 108:RC4.c         ****     }
+ 109:RC4.c         ****     return ~(unsigned char)sum;
+ 425              		.loc 1 109 0
+ 426 003c 0F23     		mov	r3, #15
+ 427 003e FB18     		add	r3, r7, r3
+ 428 0040 1B78     		ldrb	r3, [r3]
+ 429 0042 DB43     		mvn	r3, r3
+ 430 0044 DBB2     		uxtb	r3, r3
+ 110:RC4.c         **** }
+ 431              		.loc 1 110 0
+ 432 0046 181C     		mov	r0, r3
+ 433 0048 BD46     		mov	sp, r7
+ 434 004a 04B0     		add	sp, sp, #16
+ 435              		@ sp needed
+ 436 004c 80BD     		pop	{r7, pc}
+ 437              		.cfi_endproc
+ 438              	.LFE38:
+ 439              		.size	CRC_Sum, .-CRC_Sum
+ 440 004e C046     		.section	.text.Hex_To_Ascii,"ax",%progbits
+ 441              		.align	2
+ 442              		.global	Hex_To_Ascii
+ 443              		.code	16
+ 444              		.thumb_func
+ 445              		.type	Hex_To_Ascii, %function
+ 446              	Hex_To_Ascii:
+ 447              	.LFB39:
+ 111:RC4.c         **** 
+ 112:RC4.c         **** /**************************************************
+ 113:RC4.c         **** 16进制转ASCII
+ 114:RC4.c         **** ***************************************************/
+ 115:RC4.c         **** unsigned char Hex_To_Ascii(unsigned char Data)
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 11
+
+
+ 116:RC4.c         **** {
+ 448              		.loc 1 116 0
+ 449              		.cfi_startproc
+ 450 0000 80B5     		push	{r7, lr}
+ 451              		.cfi_def_cfa_offset 8
+ 452              		.cfi_offset 7, -8
+ 453              		.cfi_offset 14, -4
+ 454 0002 82B0     		sub	sp, sp, #8
+ 455              		.cfi_def_cfa_offset 16
+ 456 0004 00AF     		add	r7, sp, #0
+ 457              		.cfi_def_cfa_register 7
+ 458 0006 021C     		mov	r2, r0
+ 459 0008 FB1D     		add	r3, r7, #7
+ 460 000a 1A70     		strb	r2, [r3]
+ 117:RC4.c         ****     if(Data < 10)
+ 461              		.loc 1 117 0
+ 462 000c FB1D     		add	r3, r7, #7
+ 463 000e 1B78     		ldrb	r3, [r3]
+ 464 0010 092B     		cmp	r3, #9
+ 465 0012 04D8     		bhi	.L29
+ 118:RC4.c         ****     {
+ 119:RC4.c         ****         return (Data+0x30);
+ 466              		.loc 1 119 0
+ 467 0014 FB1D     		add	r3, r7, #7
+ 468 0016 1B78     		ldrb	r3, [r3]
+ 469 0018 3033     		add	r3, r3, #48
+ 470 001a DBB2     		uxtb	r3, r3
+ 471 001c 03E0     		b	.L30
+ 472              	.L29:
+ 120:RC4.c         ****     }
+ 121:RC4.c         ****     else
+ 122:RC4.c         ****     {
+ 123:RC4.c         ****         return (Data+0x37);
+ 473              		.loc 1 123 0
+ 474 001e FB1D     		add	r3, r7, #7
+ 475 0020 1B78     		ldrb	r3, [r3]
+ 476 0022 3733     		add	r3, r3, #55
+ 477 0024 DBB2     		uxtb	r3, r3
+ 478              	.L30:
+ 124:RC4.c         ****     }
+ 125:RC4.c         **** }
+ 479              		.loc 1 125 0
+ 480 0026 181C     		mov	r0, r3
+ 481 0028 BD46     		mov	sp, r7
+ 482 002a 02B0     		add	sp, sp, #8
+ 483              		@ sp needed
+ 484 002c 80BD     		pop	{r7, pc}
+ 485              		.cfi_endproc
+ 486              	.LFE39:
+ 487              		.size	Hex_To_Ascii, .-Hex_To_Ascii
+ 488 002e C046     		.text
+ 489              	.Letext0:
+ 490              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 491              		.file 3 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 492              		.section	.debug_info,"",%progbits
+ 493              	.Ldebug_info0:
+ 494 0000 CE030000 		.4byte	0x3ce
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 12
+
+
+ 495 0004 0400     		.2byte	0x4
+ 496 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 497 000a 04       		.byte	0x4
+ 498 000b 01       		.uleb128 0x1
+ 499 000c 3C050000 		.4byte	.LASF83
+ 500 0010 01       		.byte	0x1
+ 501 0011 D4060000 		.4byte	.LASF84
+ 502 0015 2F020000 		.4byte	.LASF85
+ 503 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 504 001d 00000000 		.4byte	0
+ 505 0021 00000000 		.4byte	.Ldebug_line0
+ 506 0025 02       		.uleb128 0x2
+ 507 0026 04       		.byte	0x4
+ 508 0027 05       		.byte	0x5
+ 509 0028 696E7400 		.ascii	"int\000"
+ 510 002c 03       		.uleb128 0x3
+ 511 002d 04       		.byte	0x4
+ 512 002e 07       		.byte	0x7
+ 513 002f 6C040000 		.4byte	.LASF0
+ 514 0033 03       		.uleb128 0x3
+ 515 0034 01       		.byte	0x1
+ 516 0035 06       		.byte	0x6
+ 517 0036 03040000 		.4byte	.LASF1
+ 518 003a 03       		.uleb128 0x3
+ 519 003b 01       		.byte	0x1
+ 520 003c 08       		.byte	0x8
+ 521 003d 99030000 		.4byte	.LASF2
+ 522 0041 03       		.uleb128 0x3
+ 523 0042 02       		.byte	0x2
+ 524 0043 05       		.byte	0x5
+ 525 0044 5D000000 		.4byte	.LASF3
+ 526 0048 03       		.uleb128 0x3
+ 527 0049 02       		.byte	0x2
+ 528 004a 07       		.byte	0x7
+ 529 004b E6050000 		.4byte	.LASF4
+ 530 004f 03       		.uleb128 0x3
+ 531 0050 04       		.byte	0x4
+ 532 0051 05       		.byte	0x5
+ 533 0052 60020000 		.4byte	.LASF5
+ 534 0056 03       		.uleb128 0x3
+ 535 0057 04       		.byte	0x4
+ 536 0058 07       		.byte	0x7
+ 537 0059 94040000 		.4byte	.LASF6
+ 538 005d 03       		.uleb128 0x3
+ 539 005e 08       		.byte	0x8
+ 540 005f 05       		.byte	0x5
+ 541 0060 0A020000 		.4byte	.LASF7
+ 542 0064 03       		.uleb128 0x3
+ 543 0065 08       		.byte	0x8
+ 544 0066 07       		.byte	0x7
+ 545 0067 18020000 		.4byte	.LASF8
+ 546 006b 03       		.uleb128 0x3
+ 547 006c 04       		.byte	0x4
+ 548 006d 07       		.byte	0x7
+ 549 006e 9F000000 		.4byte	.LASF9
+ 550 0072 04       		.uleb128 0x4
+ 551 0073 04       		.byte	0x4
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 13
+
+
+ 552 0074 3A000000 		.4byte	0x3a
+ 553 0078 03       		.uleb128 0x3
+ 554 0079 01       		.byte	0x1
+ 555 007a 08       		.byte	0x8
+ 556 007b 37050000 		.4byte	.LASF10
+ 557 007f 05       		.uleb128 0x5
+ 558 0080 6D030000 		.4byte	.LASF86
+ 559 0084 02       		.byte	0x2
+ 560 0085 C2       		.byte	0xc2
+ 561 0086 3A000000 		.4byte	0x3a
+ 562 008a 03       		.uleb128 0x3
+ 563 008b 04       		.byte	0x4
+ 564 008c 04       		.byte	0x4
+ 565 008d D1010000 		.4byte	.LASF11
+ 566 0091 03       		.uleb128 0x3
+ 567 0092 08       		.byte	0x8
+ 568 0093 04       		.byte	0x4
+ 569 0094 A2060000 		.4byte	.LASF12
+ 570 0098 06       		.uleb128 0x6
+ 571 0099 01       		.byte	0x1
+ 572 009a 03       		.byte	0x3
+ 573 009b A4       		.byte	0xa4
+ 574 009c 1D020000 		.4byte	0x21d
+ 575 00a0 07       		.uleb128 0x7
+ 576 00a1 72010000 		.4byte	.LASF13
+ 577 00a5 00       		.sleb128 0
+ 578 00a6 07       		.uleb128 0x7
+ 579 00a7 F1000000 		.4byte	.LASF14
+ 580 00ab 01       		.sleb128 1
+ 581 00ac 07       		.uleb128 0x7
+ 582 00ad 0C080000 		.4byte	.LASF15
+ 583 00b1 02       		.sleb128 2
+ 584 00b2 07       		.uleb128 0x7
+ 585 00b3 DA060000 		.4byte	.LASF16
+ 586 00b7 03       		.sleb128 3
+ 587 00b8 07       		.uleb128 0x7
+ 588 00b9 D2000000 		.4byte	.LASF17
+ 589 00bd 04       		.sleb128 4
+ 590 00be 07       		.uleb128 0x7
+ 591 00bf D9020000 		.4byte	.LASF18
+ 592 00c3 05       		.sleb128 5
+ 593 00c4 07       		.uleb128 0x7
+ 594 00c5 38070000 		.4byte	.LASF19
+ 595 00c9 20       		.sleb128 32
+ 596 00ca 07       		.uleb128 0x7
+ 597 00cb A6040000 		.4byte	.LASF20
+ 598 00cf 21       		.sleb128 33
+ 599 00d0 07       		.uleb128 0x7
+ 600 00d1 00000000 		.4byte	.LASF21
+ 601 00d5 22       		.sleb128 34
+ 602 00d6 07       		.uleb128 0x7
+ 603 00d7 FA020000 		.4byte	.LASF22
+ 604 00db 23       		.sleb128 35
+ 605 00dc 07       		.uleb128 0x7
+ 606 00dd 50040000 		.4byte	.LASF23
+ 607 00e1 24       		.sleb128 36
+ 608 00e2 07       		.uleb128 0x7
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 14
+
+
+ 609 00e3 67000000 		.4byte	.LASF24
+ 610 00e7 25       		.sleb128 37
+ 611 00e8 07       		.uleb128 0x7
+ 612 00e9 90020000 		.4byte	.LASF25
+ 613 00ed 26       		.sleb128 38
+ 614 00ee 07       		.uleb128 0x7
+ 615 00ef 71020000 		.4byte	.LASF26
+ 616 00f3 27       		.sleb128 39
+ 617 00f4 07       		.uleb128 0x7
+ 618 00f5 69080000 		.4byte	.LASF27
+ 619 00f9 28       		.sleb128 40
+ 620 00fa 07       		.uleb128 0x7
+ 621 00fb B5000000 		.4byte	.LASF28
+ 622 00ff 29       		.sleb128 41
+ 623 0100 07       		.uleb128 0x7
+ 624 0101 0E050000 		.4byte	.LASF29
+ 625 0105 2A       		.sleb128 42
+ 626 0106 07       		.uleb128 0x7
+ 627 0107 42060000 		.4byte	.LASF30
+ 628 010b 2B       		.sleb128 43
+ 629 010c 07       		.uleb128 0x7
+ 630 010d EA040000 		.4byte	.LASF31
+ 631 0111 2C       		.sleb128 44
+ 632 0112 07       		.uleb128 0x7
+ 633 0113 24000000 		.4byte	.LASF32
+ 634 0117 C000     		.sleb128 64
+ 635 0119 07       		.uleb128 0x7
+ 636 011a 79040000 		.4byte	.LASF33
+ 637 011e C100     		.sleb128 65
+ 638 0120 07       		.uleb128 0x7
+ 639 0121 81000000 		.4byte	.LASF34
+ 640 0125 C200     		.sleb128 66
+ 641 0127 07       		.uleb128 0x7
+ 642 0128 04010000 		.4byte	.LASF35
+ 643 012c C300     		.sleb128 67
+ 644 012e 07       		.uleb128 0x7
+ 645 012f CA070000 		.4byte	.LASF36
+ 646 0133 C400     		.sleb128 68
+ 647 0135 07       		.uleb128 0x7
+ 648 0136 64070000 		.4byte	.LASF37
+ 649 013a C500     		.sleb128 69
+ 650 013c 07       		.uleb128 0x7
+ 651 013d A9070000 		.4byte	.LASF38
+ 652 0141 C600     		.sleb128 70
+ 653 0143 07       		.uleb128 0x7
+ 654 0144 E5030000 		.4byte	.LASF39
+ 655 0148 C700     		.sleb128 71
+ 656 014a 07       		.uleb128 0x7
+ 657 014b 29040000 		.4byte	.LASF40
+ 658 014f C800     		.sleb128 72
+ 659 0151 07       		.uleb128 0x7
+ 660 0152 D7010000 		.4byte	.LASF41
+ 661 0156 C900     		.sleb128 73
+ 662 0158 07       		.uleb128 0x7
+ 663 0159 05060000 		.4byte	.LASF42
+ 664 015d CA00     		.sleb128 74
+ 665 015f 07       		.uleb128 0x7
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 15
+
+
+ 666 0160 28010000 		.4byte	.LASF43
+ 667 0164 CB00     		.sleb128 75
+ 668 0166 07       		.uleb128 0x7
+ 669 0167 0F040000 		.4byte	.LASF44
+ 670 016b CC00     		.sleb128 76
+ 671 016d 07       		.uleb128 0x7
+ 672 016e F0010000 		.4byte	.LASF45
+ 673 0172 CD00     		.sleb128 77
+ 674 0174 07       		.uleb128 0x7
+ 675 0175 8B070000 		.4byte	.LASF46
+ 676 0179 CE00     		.sleb128 78
+ 677 017b 07       		.uleb128 0x7
+ 678 017c A7030000 		.4byte	.LASF47
+ 679 0180 CF00     		.sleb128 79
+ 680 0182 07       		.uleb128 0x7
+ 681 0183 3E000000 		.4byte	.LASF48
+ 682 0187 D000     		.sleb128 80
+ 683 0189 07       		.uleb128 0x7
+ 684 018a 23060000 		.4byte	.LASF49
+ 685 018e D100     		.sleb128 81
+ 686 0190 07       		.uleb128 0x7
+ 687 0191 B8020000 		.4byte	.LASF50
+ 688 0195 D200     		.sleb128 82
+ 689 0197 07       		.uleb128 0x7
+ 690 0198 20030000 		.4byte	.LASF51
+ 691 019c D300     		.sleb128 83
+ 692 019e 07       		.uleb128 0x7
+ 693 019f 51010000 		.4byte	.LASF52
+ 694 01a3 D400     		.sleb128 84
+ 695 01a5 07       		.uleb128 0x7
+ 696 01a6 8B080000 		.4byte	.LASF53
+ 697 01aa D500     		.sleb128 85
+ 698 01ac 07       		.uleb128 0x7
+ 699 01ad 47080000 		.4byte	.LASF54
+ 700 01b1 D600     		.sleb128 86
+ 701 01b3 07       		.uleb128 0x7
+ 702 01b4 1E080000 		.4byte	.LASF55
+ 703 01b8 D700     		.sleb128 87
+ 704 01ba 07       		.uleb128 0x7
+ 705 01bb 73030000 		.4byte	.LASF56
+ 706 01bf F000     		.sleb128 112
+ 707 01c1 07       		.uleb128 0x7
+ 708 01c2 12070000 		.4byte	.LASF57
+ 709 01c6 F100     		.sleb128 113
+ 710 01c8 07       		.uleb128 0x7
+ 711 01c9 CA050000 		.4byte	.LASF58
+ 712 01cd F200     		.sleb128 114
+ 713 01cf 07       		.uleb128 0x7
+ 714 01d0 89010000 		.4byte	.LASF59
+ 715 01d4 F300     		.sleb128 115
+ 716 01d6 07       		.uleb128 0x7
+ 717 01d7 41030000 		.4byte	.LASF60
+ 718 01db F400     		.sleb128 116
+ 719 01dd 07       		.uleb128 0x7
+ 720 01de C9040000 		.4byte	.LASF61
+ 721 01e2 F500     		.sleb128 117
+ 722 01e4 07       		.uleb128 0x7
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 16
+
+
+ 723 01e5 A7010000 		.4byte	.LASF62
+ 724 01e9 F600     		.sleb128 118
+ 725 01eb 07       		.uleb128 0x7
+ 726 01ec F3060000 		.4byte	.LASF63
+ 727 01f0 F700     		.sleb128 119
+ 728 01f2 07       		.uleb128 0x7
+ 729 01f3 7F060000 		.4byte	.LASF64
+ 730 01f7 F800     		.sleb128 120
+ 731 01f9 07       		.uleb128 0x7
+ 732 01fa B1060000 		.4byte	.LASF65
+ 733 01fe F900     		.sleb128 121
+ 734 0200 07       		.uleb128 0x7
+ 735 0201 E8070000 		.4byte	.LASF66
+ 736 0205 FA00     		.sleb128 122
+ 737 0207 07       		.uleb128 0x7
+ 738 0208 61060000 		.4byte	.LASF67
+ 739 020c FA01     		.sleb128 250
+ 740 020e 07       		.uleb128 0x7
+ 741 020f C6030000 		.4byte	.LASF68
+ 742 0213 FB01     		.sleb128 251
+ 743 0215 07       		.uleb128 0x7
+ 744 0216 5F030000 		.4byte	.LASF69
+ 745 021a FF01     		.sleb128 255
+ 746 021c 00       		.byte	0
+ 747 021d 08       		.uleb128 0x8
+ 748 021e 47010000 		.4byte	.LASF70
+ 749 0222 01       		.byte	0x1
+ 750 0223 15       		.byte	0x15
+ 751 0224 00000000 		.4byte	.LFB35
+ 752 0228 A4000000 		.4byte	.LFE35-.LFB35
+ 753 022c 01       		.uleb128 0x1
+ 754 022d 9C       		.byte	0x9c
+ 755 022e 59020000 		.4byte	0x259
+ 756 0232 09       		.uleb128 0x9
+ 757 0233 6900     		.ascii	"i\000"
+ 758 0235 01       		.byte	0x1
+ 759 0236 17       		.byte	0x17
+ 760 0237 25000000 		.4byte	0x25
+ 761 023b 02       		.uleb128 0x2
+ 762 023c 91       		.byte	0x91
+ 763 023d 74       		.sleb128 -12
+ 764 023e 09       		.uleb128 0x9
+ 765 023f 6A00     		.ascii	"j\000"
+ 766 0241 01       		.byte	0x1
+ 767 0242 17       		.byte	0x17
+ 768 0243 25000000 		.4byte	0x25
+ 769 0247 02       		.uleb128 0x2
+ 770 0248 91       		.byte	0x91
+ 771 0249 70       		.sleb128 -16
+ 772 024a 09       		.uleb128 0x9
+ 773 024b 746D7000 		.ascii	"tmp\000"
+ 774 024f 01       		.byte	0x1
+ 775 0250 18       		.byte	0x18
+ 776 0251 3A000000 		.4byte	0x3a
+ 777 0255 02       		.uleb128 0x2
+ 778 0256 91       		.byte	0x91
+ 779 0257 6F       		.sleb128 -17
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 17
+
+
+ 780 0258 00       		.byte	0
+ 781 0259 0A       		.uleb128 0xa
+ 782 025a E7000000 		.4byte	.LASF71
+ 783 025e 01       		.byte	0x1
+ 784 025f 33       		.byte	0x33
+ 785 0260 00000000 		.4byte	.LFB36
+ 786 0264 4C000000 		.4byte	.LFE36-.LFB36
+ 787 0268 01       		.uleb128 0x1
+ 788 0269 9C       		.byte	0x9c
+ 789 026a 97020000 		.4byte	0x297
+ 790 026e 0B       		.uleb128 0xb
+ 791 026f 6B657900 		.ascii	"key\000"
+ 792 0273 01       		.byte	0x1
+ 793 0274 33       		.byte	0x33
+ 794 0275 72000000 		.4byte	0x72
+ 795 0279 02       		.uleb128 0x2
+ 796 027a 91       		.byte	0x91
+ 797 027b 6C       		.sleb128 -20
+ 798 027c 0C       		.uleb128 0xc
+ 799 027d 69020000 		.4byte	.LASF72
+ 800 0281 01       		.byte	0x1
+ 801 0282 33       		.byte	0x33
+ 802 0283 3A000000 		.4byte	0x3a
+ 803 0287 02       		.uleb128 0x2
+ 804 0288 91       		.byte	0x91
+ 805 0289 6B       		.sleb128 -21
+ 806 028a 09       		.uleb128 0x9
+ 807 028b 6900     		.ascii	"i\000"
+ 808 028d 01       		.byte	0x1
+ 809 028e 35       		.byte	0x35
+ 810 028f 25000000 		.4byte	0x25
+ 811 0293 02       		.uleb128 0x2
+ 812 0294 91       		.byte	0x91
+ 813 0295 74       		.sleb128 -12
+ 814 0296 00       		.byte	0
+ 815 0297 0A       		.uleb128 0xa
+ 816 0298 BD040000 		.4byte	.LASF73
+ 817 029c 01       		.byte	0x1
+ 818 029d 48       		.byte	0x48
+ 819 029e 00000000 		.4byte	.LFB37
+ 820 02a2 00010000 		.4byte	.LFE37-.LFB37
+ 821 02a6 01       		.uleb128 0x1
+ 822 02a7 9C       		.byte	0x9c
+ 823 02a8 33030000 		.4byte	0x333
+ 824 02ac 0B       		.uleb128 0xb
+ 825 02ad 6B657900 		.ascii	"key\000"
+ 826 02b1 01       		.byte	0x1
+ 827 02b2 48       		.byte	0x48
+ 828 02b3 72000000 		.4byte	0x72
+ 829 02b7 02       		.uleb128 0x2
+ 830 02b8 91       		.byte	0x91
+ 831 02b9 5C       		.sleb128 -36
+ 832 02ba 0C       		.uleb128 0xc
+ 833 02bb C8010000 		.4byte	.LASF74
+ 834 02bf 01       		.byte	0x1
+ 835 02c0 48       		.byte	0x48
+ 836 02c1 3A000000 		.4byte	0x3a
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 18
+
+
+ 837 02c5 02       		.uleb128 0x2
+ 838 02c6 91       		.byte	0x91
+ 839 02c7 5B       		.sleb128 -37
+ 840 02c8 0B       		.uleb128 0xb
+ 841 02c9 62756600 		.ascii	"buf\000"
+ 842 02cd 01       		.byte	0x1
+ 843 02ce 48       		.byte	0x48
+ 844 02cf 72000000 		.4byte	0x72
+ 845 02d3 02       		.uleb128 0x2
+ 846 02d4 91       		.byte	0x91
+ 847 02d5 54       		.sleb128 -44
+ 848 02d6 0B       		.uleb128 0xb
+ 849 02d7 6C656E00 		.ascii	"len\000"
+ 850 02db 01       		.byte	0x1
+ 851 02dc 48       		.byte	0x48
+ 852 02dd 25000000 		.4byte	0x25
+ 853 02e1 02       		.uleb128 0x2
+ 854 02e2 91       		.byte	0x91
+ 855 02e3 50       		.sleb128 -48
+ 856 02e4 09       		.uleb128 0x9
+ 857 02e5 6900     		.ascii	"i\000"
+ 858 02e7 01       		.byte	0x1
+ 859 02e8 4A       		.byte	0x4a
+ 860 02e9 25000000 		.4byte	0x25
+ 861 02ed 02       		.uleb128 0x2
+ 862 02ee 91       		.byte	0x91
+ 863 02ef 74       		.sleb128 -12
+ 864 02f0 09       		.uleb128 0x9
+ 865 02f1 6A00     		.ascii	"j\000"
+ 866 02f3 01       		.byte	0x1
+ 867 02f4 4A       		.byte	0x4a
+ 868 02f5 25000000 		.4byte	0x25
+ 869 02f9 02       		.uleb128 0x2
+ 870 02fa 91       		.byte	0x91
+ 871 02fb 70       		.sleb128 -16
+ 872 02fc 09       		.uleb128 0x9
+ 873 02fd 7400     		.ascii	"t\000"
+ 874 02ff 01       		.byte	0x1
+ 875 0300 4A       		.byte	0x4a
+ 876 0301 25000000 		.4byte	0x25
+ 877 0305 02       		.uleb128 0x2
+ 878 0306 91       		.byte	0x91
+ 879 0307 60       		.sleb128 -32
+ 880 0308 0D       		.uleb128 0xd
+ 881 0309 22010000 		.4byte	.LASF75
+ 882 030d 01       		.byte	0x1
+ 883 030e 4A       		.byte	0x4a
+ 884 030f 25000000 		.4byte	0x25
+ 885 0313 02       		.uleb128 0x2
+ 886 0314 91       		.byte	0x91
+ 887 0315 6C       		.sleb128 -20
+ 888 0316 09       		.uleb128 0x9
+ 889 0317 746D7000 		.ascii	"tmp\000"
+ 890 031b 01       		.byte	0x1
+ 891 031c 4B       		.byte	0x4b
+ 892 031d 3A000000 		.4byte	0x3a
+ 893 0321 02       		.uleb128 0x2
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 19
+
+
+ 894 0322 91       		.byte	0x91
+ 895 0323 67       		.sleb128 -25
+ 896 0324 0D       		.uleb128 0xd
+ 897 0325 00060000 		.4byte	.LASF76
+ 898 0329 01       		.byte	0x1
+ 899 032a 4C       		.byte	0x4c
+ 900 032b 72000000 		.4byte	0x72
+ 901 032f 02       		.uleb128 0x2
+ 902 0330 91       		.byte	0x91
+ 903 0331 68       		.sleb128 -24
+ 904 0332 00       		.byte	0
+ 905 0333 0E       		.uleb128 0xe
+ 906 0334 AF080000 		.4byte	.LASF78
+ 907 0338 01       		.byte	0x1
+ 908 0339 66       		.byte	0x66
+ 909 033a 3A000000 		.4byte	0x3a
+ 910 033e 00000000 		.4byte	.LFB38
+ 911 0342 4E000000 		.4byte	.LFE38-.LFB38
+ 912 0346 01       		.uleb128 0x1
+ 913 0347 9C       		.byte	0x9c
+ 914 0348 77030000 		.4byte	0x377
+ 915 034c 0B       		.uleb128 0xb
+ 916 034d 42756600 		.ascii	"Buf\000"
+ 917 0351 01       		.byte	0x1
+ 918 0352 66       		.byte	0x66
+ 919 0353 72000000 		.4byte	0x72
+ 920 0357 02       		.uleb128 0x2
+ 921 0358 91       		.byte	0x91
+ 922 0359 6C       		.sleb128 -20
+ 923 035a 0C       		.uleb128 0xc
+ 924 035b F9050000 		.4byte	.LASF77
+ 925 035f 01       		.byte	0x1
+ 926 0360 66       		.byte	0x66
+ 927 0361 3A000000 		.4byte	0x3a
+ 928 0365 02       		.uleb128 0x2
+ 929 0366 91       		.byte	0x91
+ 930 0367 6B       		.sleb128 -21
+ 931 0368 09       		.uleb128 0x9
+ 932 0369 73756D00 		.ascii	"sum\000"
+ 933 036d 01       		.byte	0x1
+ 934 036e 68       		.byte	0x68
+ 935 036f 3A000000 		.4byte	0x3a
+ 936 0373 02       		.uleb128 0x2
+ 937 0374 91       		.byte	0x91
+ 938 0375 77       		.sleb128 -9
+ 939 0376 00       		.byte	0
+ 940 0377 0E       		.uleb128 0xe
+ 941 0378 A8000000 		.4byte	.LASF79
+ 942 037c 01       		.byte	0x1
+ 943 037d 73       		.byte	0x73
+ 944 037e 3A000000 		.4byte	0x3a
+ 945 0382 00000000 		.4byte	.LFB39
+ 946 0386 2E000000 		.4byte	.LFE39-.LFB39
+ 947 038a 01       		.uleb128 0x1
+ 948 038b 9C       		.byte	0x9c
+ 949 038c 9F030000 		.4byte	0x39f
+ 950 0390 0C       		.uleb128 0xc
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 20
+
+
+ 951 0391 F5020000 		.4byte	.LASF80
+ 952 0395 01       		.byte	0x1
+ 953 0396 73       		.byte	0x73
+ 954 0397 3A000000 		.4byte	0x3a
+ 955 039b 02       		.uleb128 0x2
+ 956 039c 91       		.byte	0x91
+ 957 039d 77       		.sleb128 -9
+ 958 039e 00       		.byte	0
+ 959 039f 0F       		.uleb128 0xf
+ 960 03a0 7F000000 		.4byte	0x7f
+ 961 03a4 AF030000 		.4byte	0x3af
+ 962 03a8 10       		.uleb128 0x10
+ 963 03a9 6B000000 		.4byte	0x6b
+ 964 03ad 1F       		.byte	0x1f
+ 965 03ae 00       		.byte	0
+ 966 03af 11       		.uleb128 0x11
+ 967 03b0 5C070000 		.4byte	.LASF81
+ 968 03b4 01       		.byte	0x1
+ 969 03b5 10       		.byte	0x10
+ 970 03b6 9F030000 		.4byte	0x39f
+ 971 03ba 05       		.uleb128 0x5
+ 972 03bb 03       		.byte	0x3
+ 973 03bc 00000000 		.4byte	Rc4Sbox
+ 974 03c0 11       		.uleb128 0x11
+ 975 03c1 A9060000 		.4byte	.LASF82
+ 976 03c5 01       		.byte	0x1
+ 977 03c6 11       		.byte	0x11
+ 978 03c7 9F030000 		.4byte	0x39f
+ 979 03cb 05       		.uleb128 0x5
+ 980 03cc 03       		.byte	0x3
+ 981 03cd 00000000 		.4byte	Rc4Kbox
+ 982 03d1 00       		.byte	0
+ 983              		.section	.debug_abbrev,"",%progbits
+ 984              	.Ldebug_abbrev0:
+ 985 0000 01       		.uleb128 0x1
+ 986 0001 11       		.uleb128 0x11
+ 987 0002 01       		.byte	0x1
+ 988 0003 25       		.uleb128 0x25
+ 989 0004 0E       		.uleb128 0xe
+ 990 0005 13       		.uleb128 0x13
+ 991 0006 0B       		.uleb128 0xb
+ 992 0007 03       		.uleb128 0x3
+ 993 0008 0E       		.uleb128 0xe
+ 994 0009 1B       		.uleb128 0x1b
+ 995 000a 0E       		.uleb128 0xe
+ 996 000b 55       		.uleb128 0x55
+ 997 000c 17       		.uleb128 0x17
+ 998 000d 11       		.uleb128 0x11
+ 999 000e 01       		.uleb128 0x1
+ 1000 000f 10       		.uleb128 0x10
+ 1001 0010 17       		.uleb128 0x17
+ 1002 0011 00       		.byte	0
+ 1003 0012 00       		.byte	0
+ 1004 0013 02       		.uleb128 0x2
+ 1005 0014 24       		.uleb128 0x24
+ 1006 0015 00       		.byte	0
+ 1007 0016 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 21
+
+
+ 1008 0017 0B       		.uleb128 0xb
+ 1009 0018 3E       		.uleb128 0x3e
+ 1010 0019 0B       		.uleb128 0xb
+ 1011 001a 03       		.uleb128 0x3
+ 1012 001b 08       		.uleb128 0x8
+ 1013 001c 00       		.byte	0
+ 1014 001d 00       		.byte	0
+ 1015 001e 03       		.uleb128 0x3
+ 1016 001f 24       		.uleb128 0x24
+ 1017 0020 00       		.byte	0
+ 1018 0021 0B       		.uleb128 0xb
+ 1019 0022 0B       		.uleb128 0xb
+ 1020 0023 3E       		.uleb128 0x3e
+ 1021 0024 0B       		.uleb128 0xb
+ 1022 0025 03       		.uleb128 0x3
+ 1023 0026 0E       		.uleb128 0xe
+ 1024 0027 00       		.byte	0
+ 1025 0028 00       		.byte	0
+ 1026 0029 04       		.uleb128 0x4
+ 1027 002a 0F       		.uleb128 0xf
+ 1028 002b 00       		.byte	0
+ 1029 002c 0B       		.uleb128 0xb
+ 1030 002d 0B       		.uleb128 0xb
+ 1031 002e 49       		.uleb128 0x49
+ 1032 002f 13       		.uleb128 0x13
+ 1033 0030 00       		.byte	0
+ 1034 0031 00       		.byte	0
+ 1035 0032 05       		.uleb128 0x5
+ 1036 0033 16       		.uleb128 0x16
+ 1037 0034 00       		.byte	0
+ 1038 0035 03       		.uleb128 0x3
+ 1039 0036 0E       		.uleb128 0xe
+ 1040 0037 3A       		.uleb128 0x3a
+ 1041 0038 0B       		.uleb128 0xb
+ 1042 0039 3B       		.uleb128 0x3b
+ 1043 003a 0B       		.uleb128 0xb
+ 1044 003b 49       		.uleb128 0x49
+ 1045 003c 13       		.uleb128 0x13
+ 1046 003d 00       		.byte	0
+ 1047 003e 00       		.byte	0
+ 1048 003f 06       		.uleb128 0x6
+ 1049 0040 04       		.uleb128 0x4
+ 1050 0041 01       		.byte	0x1
+ 1051 0042 0B       		.uleb128 0xb
+ 1052 0043 0B       		.uleb128 0xb
+ 1053 0044 3A       		.uleb128 0x3a
+ 1054 0045 0B       		.uleb128 0xb
+ 1055 0046 3B       		.uleb128 0x3b
+ 1056 0047 0B       		.uleb128 0xb
+ 1057 0048 01       		.uleb128 0x1
+ 1058 0049 13       		.uleb128 0x13
+ 1059 004a 00       		.byte	0
+ 1060 004b 00       		.byte	0
+ 1061 004c 07       		.uleb128 0x7
+ 1062 004d 28       		.uleb128 0x28
+ 1063 004e 00       		.byte	0
+ 1064 004f 03       		.uleb128 0x3
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 22
+
+
+ 1065 0050 0E       		.uleb128 0xe
+ 1066 0051 1C       		.uleb128 0x1c
+ 1067 0052 0D       		.uleb128 0xd
+ 1068 0053 00       		.byte	0
+ 1069 0054 00       		.byte	0
+ 1070 0055 08       		.uleb128 0x8
+ 1071 0056 2E       		.uleb128 0x2e
+ 1072 0057 01       		.byte	0x1
+ 1073 0058 3F       		.uleb128 0x3f
+ 1074 0059 19       		.uleb128 0x19
+ 1075 005a 03       		.uleb128 0x3
+ 1076 005b 0E       		.uleb128 0xe
+ 1077 005c 3A       		.uleb128 0x3a
+ 1078 005d 0B       		.uleb128 0xb
+ 1079 005e 3B       		.uleb128 0x3b
+ 1080 005f 0B       		.uleb128 0xb
+ 1081 0060 27       		.uleb128 0x27
+ 1082 0061 19       		.uleb128 0x19
+ 1083 0062 11       		.uleb128 0x11
+ 1084 0063 01       		.uleb128 0x1
+ 1085 0064 12       		.uleb128 0x12
+ 1086 0065 06       		.uleb128 0x6
+ 1087 0066 40       		.uleb128 0x40
+ 1088 0067 18       		.uleb128 0x18
+ 1089 0068 9742     		.uleb128 0x2117
+ 1090 006a 19       		.uleb128 0x19
+ 1091 006b 01       		.uleb128 0x1
+ 1092 006c 13       		.uleb128 0x13
+ 1093 006d 00       		.byte	0
+ 1094 006e 00       		.byte	0
+ 1095 006f 09       		.uleb128 0x9
+ 1096 0070 34       		.uleb128 0x34
+ 1097 0071 00       		.byte	0
+ 1098 0072 03       		.uleb128 0x3
+ 1099 0073 08       		.uleb128 0x8
+ 1100 0074 3A       		.uleb128 0x3a
+ 1101 0075 0B       		.uleb128 0xb
+ 1102 0076 3B       		.uleb128 0x3b
+ 1103 0077 0B       		.uleb128 0xb
+ 1104 0078 49       		.uleb128 0x49
+ 1105 0079 13       		.uleb128 0x13
+ 1106 007a 02       		.uleb128 0x2
+ 1107 007b 18       		.uleb128 0x18
+ 1108 007c 00       		.byte	0
+ 1109 007d 00       		.byte	0
+ 1110 007e 0A       		.uleb128 0xa
+ 1111 007f 2E       		.uleb128 0x2e
+ 1112 0080 01       		.byte	0x1
+ 1113 0081 3F       		.uleb128 0x3f
+ 1114 0082 19       		.uleb128 0x19
+ 1115 0083 03       		.uleb128 0x3
+ 1116 0084 0E       		.uleb128 0xe
+ 1117 0085 3A       		.uleb128 0x3a
+ 1118 0086 0B       		.uleb128 0xb
+ 1119 0087 3B       		.uleb128 0x3b
+ 1120 0088 0B       		.uleb128 0xb
+ 1121 0089 27       		.uleb128 0x27
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 23
+
+
+ 1122 008a 19       		.uleb128 0x19
+ 1123 008b 11       		.uleb128 0x11
+ 1124 008c 01       		.uleb128 0x1
+ 1125 008d 12       		.uleb128 0x12
+ 1126 008e 06       		.uleb128 0x6
+ 1127 008f 40       		.uleb128 0x40
+ 1128 0090 18       		.uleb128 0x18
+ 1129 0091 9642     		.uleb128 0x2116
+ 1130 0093 19       		.uleb128 0x19
+ 1131 0094 01       		.uleb128 0x1
+ 1132 0095 13       		.uleb128 0x13
+ 1133 0096 00       		.byte	0
+ 1134 0097 00       		.byte	0
+ 1135 0098 0B       		.uleb128 0xb
+ 1136 0099 05       		.uleb128 0x5
+ 1137 009a 00       		.byte	0
+ 1138 009b 03       		.uleb128 0x3
+ 1139 009c 08       		.uleb128 0x8
+ 1140 009d 3A       		.uleb128 0x3a
+ 1141 009e 0B       		.uleb128 0xb
+ 1142 009f 3B       		.uleb128 0x3b
+ 1143 00a0 0B       		.uleb128 0xb
+ 1144 00a1 49       		.uleb128 0x49
+ 1145 00a2 13       		.uleb128 0x13
+ 1146 00a3 02       		.uleb128 0x2
+ 1147 00a4 18       		.uleb128 0x18
+ 1148 00a5 00       		.byte	0
+ 1149 00a6 00       		.byte	0
+ 1150 00a7 0C       		.uleb128 0xc
+ 1151 00a8 05       		.uleb128 0x5
+ 1152 00a9 00       		.byte	0
+ 1153 00aa 03       		.uleb128 0x3
+ 1154 00ab 0E       		.uleb128 0xe
+ 1155 00ac 3A       		.uleb128 0x3a
+ 1156 00ad 0B       		.uleb128 0xb
+ 1157 00ae 3B       		.uleb128 0x3b
+ 1158 00af 0B       		.uleb128 0xb
+ 1159 00b0 49       		.uleb128 0x49
+ 1160 00b1 13       		.uleb128 0x13
+ 1161 00b2 02       		.uleb128 0x2
+ 1162 00b3 18       		.uleb128 0x18
+ 1163 00b4 00       		.byte	0
+ 1164 00b5 00       		.byte	0
+ 1165 00b6 0D       		.uleb128 0xd
+ 1166 00b7 34       		.uleb128 0x34
+ 1167 00b8 00       		.byte	0
+ 1168 00b9 03       		.uleb128 0x3
+ 1169 00ba 0E       		.uleb128 0xe
+ 1170 00bb 3A       		.uleb128 0x3a
+ 1171 00bc 0B       		.uleb128 0xb
+ 1172 00bd 3B       		.uleb128 0x3b
+ 1173 00be 0B       		.uleb128 0xb
+ 1174 00bf 49       		.uleb128 0x49
+ 1175 00c0 13       		.uleb128 0x13
+ 1176 00c1 02       		.uleb128 0x2
+ 1177 00c2 18       		.uleb128 0x18
+ 1178 00c3 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 24
+
+
+ 1179 00c4 00       		.byte	0
+ 1180 00c5 0E       		.uleb128 0xe
+ 1181 00c6 2E       		.uleb128 0x2e
+ 1182 00c7 01       		.byte	0x1
+ 1183 00c8 3F       		.uleb128 0x3f
+ 1184 00c9 19       		.uleb128 0x19
+ 1185 00ca 03       		.uleb128 0x3
+ 1186 00cb 0E       		.uleb128 0xe
+ 1187 00cc 3A       		.uleb128 0x3a
+ 1188 00cd 0B       		.uleb128 0xb
+ 1189 00ce 3B       		.uleb128 0x3b
+ 1190 00cf 0B       		.uleb128 0xb
+ 1191 00d0 27       		.uleb128 0x27
+ 1192 00d1 19       		.uleb128 0x19
+ 1193 00d2 49       		.uleb128 0x49
+ 1194 00d3 13       		.uleb128 0x13
+ 1195 00d4 11       		.uleb128 0x11
+ 1196 00d5 01       		.uleb128 0x1
+ 1197 00d6 12       		.uleb128 0x12
+ 1198 00d7 06       		.uleb128 0x6
+ 1199 00d8 40       		.uleb128 0x40
+ 1200 00d9 18       		.uleb128 0x18
+ 1201 00da 9742     		.uleb128 0x2117
+ 1202 00dc 19       		.uleb128 0x19
+ 1203 00dd 01       		.uleb128 0x1
+ 1204 00de 13       		.uleb128 0x13
+ 1205 00df 00       		.byte	0
+ 1206 00e0 00       		.byte	0
+ 1207 00e1 0F       		.uleb128 0xf
+ 1208 00e2 01       		.uleb128 0x1
+ 1209 00e3 01       		.byte	0x1
+ 1210 00e4 49       		.uleb128 0x49
+ 1211 00e5 13       		.uleb128 0x13
+ 1212 00e6 01       		.uleb128 0x1
+ 1213 00e7 13       		.uleb128 0x13
+ 1214 00e8 00       		.byte	0
+ 1215 00e9 00       		.byte	0
+ 1216 00ea 10       		.uleb128 0x10
+ 1217 00eb 21       		.uleb128 0x21
+ 1218 00ec 00       		.byte	0
+ 1219 00ed 49       		.uleb128 0x49
+ 1220 00ee 13       		.uleb128 0x13
+ 1221 00ef 2F       		.uleb128 0x2f
+ 1222 00f0 0B       		.uleb128 0xb
+ 1223 00f1 00       		.byte	0
+ 1224 00f2 00       		.byte	0
+ 1225 00f3 11       		.uleb128 0x11
+ 1226 00f4 34       		.uleb128 0x34
+ 1227 00f5 00       		.byte	0
+ 1228 00f6 03       		.uleb128 0x3
+ 1229 00f7 0E       		.uleb128 0xe
+ 1230 00f8 3A       		.uleb128 0x3a
+ 1231 00f9 0B       		.uleb128 0xb
+ 1232 00fa 3B       		.uleb128 0x3b
+ 1233 00fb 0B       		.uleb128 0xb
+ 1234 00fc 49       		.uleb128 0x49
+ 1235 00fd 13       		.uleb128 0x13
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 25
+
+
+ 1236 00fe 3F       		.uleb128 0x3f
+ 1237 00ff 19       		.uleb128 0x19
+ 1238 0100 02       		.uleb128 0x2
+ 1239 0101 18       		.uleb128 0x18
+ 1240 0102 00       		.byte	0
+ 1241 0103 00       		.byte	0
+ 1242 0104 00       		.byte	0
+ 1243              		.section	.debug_aranges,"",%progbits
+ 1244 0000 3C000000 		.4byte	0x3c
+ 1245 0004 0200     		.2byte	0x2
+ 1246 0006 00000000 		.4byte	.Ldebug_info0
+ 1247 000a 04       		.byte	0x4
+ 1248 000b 00       		.byte	0
+ 1249 000c 0000     		.2byte	0
+ 1250 000e 0000     		.2byte	0
+ 1251 0010 00000000 		.4byte	.LFB35
+ 1252 0014 A4000000 		.4byte	.LFE35-.LFB35
+ 1253 0018 00000000 		.4byte	.LFB36
+ 1254 001c 4C000000 		.4byte	.LFE36-.LFB36
+ 1255 0020 00000000 		.4byte	.LFB37
+ 1256 0024 00010000 		.4byte	.LFE37-.LFB37
+ 1257 0028 00000000 		.4byte	.LFB38
+ 1258 002c 4E000000 		.4byte	.LFE38-.LFB38
+ 1259 0030 00000000 		.4byte	.LFB39
+ 1260 0034 2E000000 		.4byte	.LFE39-.LFB39
+ 1261 0038 00000000 		.4byte	0
+ 1262 003c 00000000 		.4byte	0
+ 1263              		.section	.debug_ranges,"",%progbits
+ 1264              	.Ldebug_ranges0:
+ 1265 0000 00000000 		.4byte	.LFB35
+ 1266 0004 A4000000 		.4byte	.LFE35
+ 1267 0008 00000000 		.4byte	.LFB36
+ 1268 000c 4C000000 		.4byte	.LFE36
+ 1269 0010 00000000 		.4byte	.LFB37
+ 1270 0014 00010000 		.4byte	.LFE37
+ 1271 0018 00000000 		.4byte	.LFB38
+ 1272 001c 4E000000 		.4byte	.LFE38
+ 1273 0020 00000000 		.4byte	.LFB39
+ 1274 0024 2E000000 		.4byte	.LFE39
+ 1275 0028 00000000 		.4byte	0
+ 1276 002c 00000000 		.4byte	0
+ 1277              		.section	.debug_line,"",%progbits
+ 1278              	.Ldebug_line0:
+ 1279 0000 12010000 		.section	.debug_str,"MS",%progbits,1
+ 1279      02004F00 
+ 1279      00000201 
+ 1279      FB0E0D00 
+ 1279      01010101 
+ 1280              	.LASF21:
+ 1281 0000 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 1281      455F4556 
+ 1281      545F4741 
+ 1281      505F5041 
+ 1281      53534B45 
+ 1282              	.LASF32:
+ 1283 0024 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 1283      455F4556 
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 26
+
+
+ 1283      545F4741 
+ 1283      5454435F 
+ 1283      4552524F 
+ 1284              	.LASF48:
+ 1285 003e 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 1285      455F4556 
+ 1285      545F4741 
+ 1285      5454535F 
+ 1285      45584543 
+ 1286              	.LASF3:
+ 1287 005d 73686F72 		.ascii	"short int\000"
+ 1287      7420696E 
+ 1287      7400
+ 1288              	.LASF24:
+ 1289 0067 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 1289      455F4556 
+ 1289      545F4741 
+ 1289      505F4155 
+ 1289      54485F46 
+ 1290              	.LASF34:
+ 1291 0081 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 1291      455F4556 
+ 1291      545F4741 
+ 1291      54545F44 
+ 1291      4953434F 
+ 1292              	.LASF9:
+ 1293 009f 73697A65 		.ascii	"sizetype\000"
+ 1293      74797065 
+ 1293      00
+ 1294              	.LASF79:
+ 1295 00a8 4865785F 		.ascii	"Hex_To_Ascii\000"
+ 1295      546F5F41 
+ 1295      73636969 
+ 1295      00
+ 1296              	.LASF28:
+ 1297 00b5 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 1297      455F4556 
+ 1297      545F4741 
+ 1297      505F454E 
+ 1297      43525950 
+ 1298              	.LASF17:
+ 1299 00d2 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 1299      455F4556 
+ 1299      545F4843 
+ 1299      495F5354 
+ 1299      41545553 
+ 1300              	.LASF71:
+ 1301 00e7 696E6974 		.ascii	"init_kbox\000"
+ 1301      5F6B626F 
+ 1301      7800
+ 1302              	.LASF14:
+ 1303 00f1 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 1303      455F4556 
+ 1303      545F5354 
+ 1303      41434B5F 
+ 1303      4F4E00
+ 1304              	.LASF35:
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 27
+
+
+ 1305 0104 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 1305      455F4556 
+ 1305      545F4741 
+ 1305      5454535F 
+ 1305      58434E48 
+ 1306              	.LASF75:
+ 1307 0122 696E6465 		.ascii	"index\000"
+ 1307      7800
+ 1308              	.LASF43:
+ 1309 0128 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 1309      455F4556 
+ 1309      545F4741 
+ 1309      5454435F 
+ 1309      52454144 
+ 1310              	.LASF70:
+ 1311 0147 696E6974 		.ascii	"init_sbox\000"
+ 1311      5F73626F 
+ 1311      7800
+ 1312              	.LASF52:
+ 1313 0151 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 1313      455F4556 
+ 1313      545F4741 
+ 1313      5454535F 
+ 1313      48414E44 
+ 1314              	.LASF13:
+ 1315 0172 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 1315      455F4556 
+ 1315      545F484F 
+ 1315      53545F49 
+ 1315      4E56414C 
+ 1316              	.LASF59:
+ 1317 0189 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ 1317      455F4556 
+ 1317      545F4C32 
+ 1317      4341505F 
+ 1317      43424643 
+ 1318              	.LASF62:
+ 1319 01a7 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 1319      455F4556 
+ 1319      545F4C32 
+ 1319      4341505F 
+ 1319      43424643 
+ 1320              	.LASF74:
+ 1321 01c8 6B65795F 		.ascii	"key_leng\000"
+ 1321      6C656E67 
+ 1321      00
+ 1322              	.LASF11:
+ 1323 01d1 666C6F61 		.ascii	"float\000"
+ 1323      7400
+ 1324              	.LASF41:
+ 1325 01d7 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 1325      455F4556 
+ 1325      545F4741 
+ 1325      5454435F 
+ 1325      52454144 
+ 1326              	.LASF45:
+ 1327 01f0 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 28
+
+
+ 1327      455F4556 
+ 1327      545F4741 
+ 1327      5454435F 
+ 1327      57524954 
+ 1328              	.LASF7:
+ 1329 020a 6C6F6E67 		.ascii	"long long int\000"
+ 1329      206C6F6E 
+ 1329      6720696E 
+ 1329      7400
+ 1330              	.LASF8:
+ 1331 0218 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1331      206C6F6E 
+ 1331      6720756E 
+ 1331      7369676E 
+ 1331      65642069 
+ 1332              	.LASF85:
+ 1333 022f 453A5C6D 		.ascii	"E:\\my_project\\shhl\\BLE_KEY_wuyuan\\Design02.cyds"
+ 1333      795F7072 
+ 1333      6F6A6563 
+ 1333      745C7368 
+ 1333      686C5C42 
+ 1334 025e 6E00     		.ascii	"n\000"
+ 1335              	.LASF5:
+ 1336 0260 6C6F6E67 		.ascii	"long int\000"
+ 1336      20696E74 
+ 1336      00
+ 1337              	.LASF72:
+ 1338 0269 6B65796C 		.ascii	"keyleng\000"
+ 1338      656E6700 
+ 1339              	.LASF26:
+ 1340 0271 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 1340      455F4556 
+ 1340      545F4741 
+ 1340      505F4445 
+ 1340      56494345 
+ 1341              	.LASF25:
+ 1342 0290 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 1342      455F4556 
+ 1342      545F4741 
+ 1342      50505F41 
+ 1342      44564552 
+ 1343              	.LASF50:
+ 1344 02b8 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 1344      455F4556 
+ 1344      545F4741 
+ 1344      5454435F 
+ 1344      48414E44 
+ 1345              	.LASF18:
+ 1346 02d9 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 1346      455F4556 
+ 1346      545F5354 
+ 1346      41434B5F 
+ 1346      42555359 
+ 1347              	.LASF80:
+ 1348 02f5 44617461 		.ascii	"Data\000"
+ 1348      00
+ 1349              	.LASF22:
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 29
+
+
+ 1350 02fa 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 1350      455F4556 
+ 1350      545F4741 
+ 1350      505F5041 
+ 1350      53534B45 
+ 1351              	.LASF51:
+ 1352 0320 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 1352      455F4556 
+ 1352      545F4741 
+ 1352      5454435F 
+ 1352      48414E44 
+ 1353              	.LASF60:
+ 1354 0341 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 1354      455F4556 
+ 1354      545F4C32 
+ 1354      4341505F 
+ 1354      43424643 
+ 1355              	.LASF69:
+ 1356 035f 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 1356      455F4556 
+ 1356      545F4D41 
+ 1356      5800
+ 1357              	.LASF86:
+ 1358 036d 75696E74 		.ascii	"uint8\000"
+ 1358      3800
+ 1359              	.LASF56:
+ 1360 0373 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 1360      455F4556 
+ 1360      545F4C32 
+ 1360      4341505F 
+ 1360      434F4E4E 
+ 1361              	.LASF2:
+ 1362 0399 756E7369 		.ascii	"unsigned char\000"
+ 1362      676E6564 
+ 1362      20636861 
+ 1362      7200
+ 1363              	.LASF47:
+ 1364 03a7 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 1364      455F4556 
+ 1364      545F4741 
+ 1364      5454535F 
+ 1364      50524550 
+ 1365              	.LASF68:
+ 1366 03c6 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
+ 1366      455F4556 
+ 1366      545F4C45 
+ 1366      5F50494E 
+ 1366      475F4155 
+ 1367              	.LASF39:
+ 1368 03e5 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 1368      455F4556 
+ 1368      545F4741 
+ 1368      5454435F 
+ 1368      46494E44 
+ 1369              	.LASF1:
+ 1370 0403 7369676E 		.ascii	"signed char\000"
+ 1370      65642063 
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 30
+
+
+ 1370      68617200 
+ 1371              	.LASF44:
+ 1372 040f 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 1372      455F4556 
+ 1372      545F4741 
+ 1372      5454535F 
+ 1372      57524954 
+ 1373              	.LASF40:
+ 1374 0429 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 1374      455F4556 
+ 1374      545F4741 
+ 1374      5454435F 
+ 1374      46494E44 
+ 1375              	.LASF23:
+ 1376 0450 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 1376      455F4556 
+ 1376      545F4741 
+ 1376      505F4155 
+ 1376      54485F43 
+ 1377              	.LASF0:
+ 1378 046c 756E7369 		.ascii	"unsigned int\000"
+ 1378      676E6564 
+ 1378      20696E74 
+ 1378      00
+ 1379              	.LASF33:
+ 1380 0479 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 1380      455F4556 
+ 1380      545F4741 
+ 1380      54545F43 
+ 1380      4F4E4E45 
+ 1381              	.LASF6:
+ 1382 0494 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1382      20756E73 
+ 1382      69676E65 
+ 1382      6420696E 
+ 1382      7400
+ 1383              	.LASF20:
+ 1384 04a6 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 1384      455F4556 
+ 1384      545F4741 
+ 1384      505F4155 
+ 1384      54485F52 
+ 1385              	.LASF73:
+ 1386 04bd 7263345F 		.ascii	"rc4_encrypt\000"
+ 1386      656E6372 
+ 1386      79707400 
+ 1387              	.LASF61:
+ 1388 04c9 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 1388      455F4556 
+ 1388      545F4C32 
+ 1388      4341505F 
+ 1388      43424643 
+ 1389              	.LASF31:
+ 1390 04ea 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 1390      455F4556 
+ 1390      545F4741 
+ 1390      505F4B45 
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 31
+
+
+ 1390      59494E46 
+ 1391              	.LASF29:
+ 1392 050e 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 1392      455F4556 
+ 1392      545F4741 
+ 1392      505F434F 
+ 1392      4E4E4543 
+ 1393              	.LASF10:
+ 1394 0537 63686172 		.ascii	"char\000"
+ 1394      00
+ 1395              	.LASF83:
+ 1396 053c 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1396      4320342E 
+ 1396      392E3320 
+ 1396      32303135 
+ 1396      30333033 
+ 1397 056f 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 1397      20726576 
+ 1397      6973696F 
+ 1397      6E203232 
+ 1397      31323230 
+ 1398 05a2 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1398      66756E63 
+ 1398      74696F6E 
+ 1398      2D736563 
+ 1398      74696F6E 
+ 1399              	.LASF58:
+ 1400 05ca 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 1400      455F4556 
+ 1400      545F4C32 
+ 1400      4341505F 
+ 1400      434F4D4D 
+ 1401              	.LASF4:
+ 1402 05e6 73686F72 		.ascii	"short unsigned int\000"
+ 1402      7420756E 
+ 1402      7369676E 
+ 1402      65642069 
+ 1402      6E7400
+ 1403              	.LASF77:
+ 1404 05f9 4C656E67 		.ascii	"Length\000"
+ 1404      746800
+ 1405              	.LASF76:
+ 1406 0600 64617461 		.ascii	"data\000"
+ 1406      00
+ 1407              	.LASF42:
+ 1408 0605 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 1408      455F4556 
+ 1408      545F4741 
+ 1408      5454435F 
+ 1408      52454144 
+ 1409              	.LASF49:
+ 1410 0623 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 1410      455F4556 
+ 1410      545F4741 
+ 1410      5454435F 
+ 1410      45584543 
+ 1411              	.LASF30:
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 32
+
+
+ 1412 0642 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 1412      455F4556 
+ 1412      545F4741 
+ 1412      50435F53 
+ 1412      43414E5F 
+ 1413              	.LASF67:
+ 1414 0661 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 1414      455F4556 
+ 1414      545F5045 
+ 1414      4E44494E 
+ 1414      475F464C 
+ 1415              	.LASF64:
+ 1416 067f 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 1416      455F4556 
+ 1416      545F4C32 
+ 1416      4341505F 
+ 1416      43424643 
+ 1417              	.LASF12:
+ 1418 06a2 646F7562 		.ascii	"double\000"
+ 1418      6C6500
+ 1419              	.LASF82:
+ 1420 06a9 5263344B 		.ascii	"Rc4Kbox\000"
+ 1420      626F7800 
+ 1421              	.LASF65:
+ 1422 06b1 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 1422      455F4556 
+ 1422      545F4C32 
+ 1422      4341505F 
+ 1422      43424643 
+ 1423              	.LASF84:
+ 1424 06d4 5243342E 		.ascii	"RC4.c\000"
+ 1424      6300
+ 1425              	.LASF16:
+ 1426 06da 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 1426      455F4556 
+ 1426      545F4841 
+ 1426      52445741 
+ 1426      52455F45 
+ 1427              	.LASF63:
+ 1428 06f3 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 1428      455F4556 
+ 1428      545F4C32 
+ 1428      4341505F 
+ 1428      43424643 
+ 1429              	.LASF57:
+ 1430 0712 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 1430      455F4556 
+ 1430      545F4C32 
+ 1430      4341505F 
+ 1430      434F4E4E 
+ 1431              	.LASF19:
+ 1432 0738 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 1432      455F4556 
+ 1432      545F4741 
+ 1432      50435F53 
+ 1432      43414E5F 
+ 1433              	.LASF81:
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 33
+
+
+ 1434 075c 52633453 		.ascii	"Rc4Sbox\000"
+ 1434      626F7800 
+ 1435              	.LASF37:
+ 1436 0764 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 1436      455F4556 
+ 1436      545F4741 
+ 1436      5454435F 
+ 1436      52454144 
+ 1437              	.LASF46:
+ 1438 078b 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 1438      455F4556 
+ 1438      545F4741 
+ 1438      5454535F 
+ 1438      57524954 
+ 1439              	.LASF38:
+ 1440 07a9 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 1440      455F4556 
+ 1440      545F4741 
+ 1440      5454435F 
+ 1440      52454144 
+ 1441              	.LASF36:
+ 1442 07ca 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 1442      455F4556 
+ 1442      545F4741 
+ 1442      5454435F 
+ 1442      5843484E 
+ 1443              	.LASF66:
+ 1444 07e8 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 1444      455F4556 
+ 1444      545F4C32 
+ 1444      4341505F 
+ 1444      43424643 
+ 1445              	.LASF15:
+ 1446 080c 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 1446      455F4556 
+ 1446      545F5449 
+ 1446      4D454F55 
+ 1446      5400
+ 1447              	.LASF55:
+ 1448 081e 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
+ 1448      455F4556 
+ 1448      545F4741 
+ 1448      5454535F 
+ 1448      52454144 
+ 1449              	.LASF54:
+ 1450 0847 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
+ 1450      455F4556 
+ 1450      545F4741 
+ 1450      5454435F 
+ 1450      53544F50 
+ 1451              	.LASF27:
+ 1452 0869 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 1452      455F4556 
+ 1452      545F4741 
+ 1452      505F4445 
+ 1452      56494345 
+ 1453              	.LASF53:
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccbNQRXj.s 			page 34
+
+
+ 1454 088b 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 1454      455F4556 
+ 1454      545F4741 
+ 1454      5454535F 
+ 1454      44415441 
+ 1455              	.LASF78:
+ 1456 08af 4352435F 		.ascii	"CRC_Sum\000"
+ 1456      53756D00 
+ 1457              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

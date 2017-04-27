@@ -1,0 +1,2005 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"WriteUserSFlash.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.WriteUserSFlashRow,"ax",%progbits
+  18              		.align	2
+  19              		.global	WriteUserSFlashRow
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	WriteUserSFlashRow, %function
+  23              	WriteUserSFlashRow:
+  24              	.LFB35:
+  25              		.file 1 ".\\WriteUserSFlash.c"
+   1:.\WriteUserSFlash.c **** /*******************************************************************************
+   2:.\WriteUserSFlash.c **** * File Name: WriteUserSFlash.c
+   3:.\WriteUserSFlash.c **** *
+   4:.\WriteUserSFlash.c **** * Version: 1.0
+   5:.\WriteUserSFlash.c **** *
+   6:.\WriteUserSFlash.c **** * Description:
+   7:.\WriteUserSFlash.c **** *  This file contains the source code for User SFlash Write API.
+   8:.\WriteUserSFlash.c **** *
+   9:.\WriteUserSFlash.c **** * Owner:
+  10:.\WriteUserSFlash.c **** *  sey@cypress.com, kris@cypress.com
+  11:.\WriteUserSFlash.c **** *
+  12:.\WriteUserSFlash.c **** * Hardware Dependency:
+  13:.\WriteUserSFlash.c **** *  1. PSoC 4 BLE device
+  14:.\WriteUserSFlash.c **** *
+  15:.\WriteUserSFlash.c **** * Code Tested With:
+  16:.\WriteUserSFlash.c **** *  1. PSoC Creator 3.1 SP1
+  17:.\WriteUserSFlash.c **** *  2. ARM GCC 4.8.4
+  18:.\WriteUserSFlash.c **** *
+  19:.\WriteUserSFlash.c **** ********************************************************************************
+  20:.\WriteUserSFlash.c **** * Copyright 2015, Cypress Semiconductor Corporation.  All rights reserved.
+  21:.\WriteUserSFlash.c **** * You may use this file only in accordance with the license, terms, conditions,
+  22:.\WriteUserSFlash.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  23:.\WriteUserSFlash.c **** * the software package with which this file was provided.
+  24:.\WriteUserSFlash.c **** *******************************************************************************/
+  25:.\WriteUserSFlash.c **** 
+  26:.\WriteUserSFlash.c **** #include <Project.h>
+  27:.\WriteUserSFlash.c **** #include <WriteUserSFlash.h>
+  28:.\WriteUserSFlash.c **** /*******************************************************************************
+  29:.\WriteUserSFlash.c **** * Function Name: WriteUserSFlashRow
+  30:.\WriteUserSFlash.c **** ********************************************************************************
+  31:.\WriteUserSFlash.c **** * Summary:
+  32:.\WriteUserSFlash.c **** *        This routine calls the PSoC 4 BLE device supervisory ROM APIs to update
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 2
+
+
+  33:.\WriteUserSFlash.c **** * the user configuration area of Supervisory Flash (SFlash).  
+  34:.\WriteUserSFlash.c **** *
+  35:.\WriteUserSFlash.c **** * Parameters:
+  36:.\WriteUserSFlash.c **** *  userRowNUmber - User config SFlash row number to which data is to be written
+  37:.\WriteUserSFlash.c **** *  dataPointer - Pointer to the data to be written. This API writes one row of
+  38:.\WriteUserSFlash.c **** *                user config SFlash row at a time.
+  39:.\WriteUserSFlash.c **** *
+  40:.\WriteUserSFlash.c **** * Return:
+  41:.\WriteUserSFlash.c **** *  uint32 - state of the user config SFlash write operation.
+  42:.\WriteUserSFlash.c **** *
+  43:.\WriteUserSFlash.c **** *******************************************************************************/
+  44:.\WriteUserSFlash.c **** #if defined (__GNUC__)
+  45:.\WriteUserSFlash.c **** #pragma GCC optimize ("O0")
+  46:.\WriteUserSFlash.c **** #endif /* End of #if defined (__GNUC__) */
+  47:.\WriteUserSFlash.c **** uint32 WriteUserSFlashRow(uint8 userRowNUmber, uint32 *dataPointer)
+  48:.\WriteUserSFlash.c **** {
+  26              		.loc 1 48 0
+  27              		.cfi_startproc
+  28 0000 80B5     		push	{r7, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 7, -8
+  31              		.cfi_offset 14, -4
+  32 0002 ACB0     		sub	sp, sp, #176
+  33              		.cfi_def_cfa_offset 184
+  34 0004 00AF     		add	r7, sp, #0
+  35              		.cfi_def_cfa_register 7
+  36 0006 021C     		mov	r2, r0
+  37 0008 3960     		str	r1, [r7]
+  38 000a FB1D     		add	r3, r7, #7
+  39 000c 1A70     		strb	r2, [r3]
+  49:.\WriteUserSFlash.c ****     uint8 localCount;
+  50:.\WriteUserSFlash.c **** 	volatile uint32 retValue=0;
+  40              		.loc 1 50 0
+  41 000e 0023     		mov	r3, #0
+  42 0010 A822     		mov	r2, #168
+  43 0012 BA18     		add	r2, r7, r2
+  44 0014 1360     		str	r3, [r2]
+  51:.\WriteUserSFlash.c **** 	volatile uint32 cmdDataBuffer[(CY_FLASH_SIZEOF_ROW/4) + 2];
+  52:.\WriteUserSFlash.c **** 	volatile uint32 reg1,reg2,reg3,reg4,reg5,reg6;
+  53:.\WriteUserSFlash.c **** 	
+  54:.\WriteUserSFlash.c **** 	/* Store the clock settings temporarily */
+  55:.\WriteUserSFlash.c ****     reg1 =	CY_GET_XTND_REG32((void CYFAR *)(CYREG_CLK_SELECT));
+  45              		.loc 1 55 0
+  46 0016 3A4B     		ldr	r3, .L5
+  47 0018 1B68     		ldr	r3, [r3]
+  48 001a FB61     		str	r3, [r7, #28]
+  56:.\WriteUserSFlash.c ****     reg2 =  CY_GET_XTND_REG32((void CYFAR *)(CYREG_CLK_IMO_CONFIG));
+  49              		.loc 1 56 0
+  50 001c 394B     		ldr	r3, .L5+4
+  51 001e 1B68     		ldr	r3, [r3]
+  52 0020 BB61     		str	r3, [r7, #24]
+  57:.\WriteUserSFlash.c ****     reg3 =  CY_GET_XTND_REG32((void CYFAR *)(CYREG_PWR_BG_TRIM4));
+  53              		.loc 1 57 0
+  54 0022 394B     		ldr	r3, .L5+8
+  55 0024 1B68     		ldr	r3, [r3]
+  56 0026 7B61     		str	r3, [r7, #20]
+  58:.\WriteUserSFlash.c ****     reg4 =  CY_GET_XTND_REG32((void CYFAR *)(CYREG_PWR_BG_TRIM5));
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 3
+
+
+  57              		.loc 1 58 0
+  58 0028 384B     		ldr	r3, .L5+12
+  59 002a 1B68     		ldr	r3, [r3]
+  60 002c 3B61     		str	r3, [r7, #16]
+  59:.\WriteUserSFlash.c ****     reg5 =  CY_GET_XTND_REG32((void CYFAR *)(CYREG_CLK_IMO_TRIM1));
+  61              		.loc 1 59 0
+  62 002e 384B     		ldr	r3, .L5+16
+  63 0030 1B68     		ldr	r3, [r3]
+  64 0032 FB60     		str	r3, [r7, #12]
+  60:.\WriteUserSFlash.c ****     reg6 =  CY_GET_XTND_REG32((void CYFAR *)(CYREG_CLK_IMO_TRIM2));
+  65              		.loc 1 60 0
+  66 0034 374B     		ldr	r3, .L5+20
+  67 0036 1B68     		ldr	r3, [r3]
+  68 0038 BB60     		str	r3, [r7, #8]
+  61:.\WriteUserSFlash.c **** 	
+  62:.\WriteUserSFlash.c **** 	/* Initialize the clock necessary for flash programming */
+  63:.\WriteUserSFlash.c **** 	CY_SET_REG32(CYREG_CPUSS_SYSARG, 0x0000e8b6);
+  69              		.loc 1 63 0
+  70 003a 374B     		ldr	r3, .L5+24
+  71 003c 374A     		ldr	r2, .L5+28
+  72 003e 1A60     		str	r2, [r3]
+  64:.\WriteUserSFlash.c **** 	CY_SET_REG32(CYREG_CPUSS_SYSREQ, 0x80000015);
+  73              		.loc 1 64 0
+  74 0040 374B     		ldr	r3, .L5+32
+  75 0042 384A     		ldr	r2, .L5+36
+  76 0044 1A60     		str	r2, [r3]
+  65:.\WriteUserSFlash.c **** 	
+  66:.\WriteUserSFlash.c **** 	/******* Initialize SRAM parameters for the LOAD FLASH command ******/
+  67:.\WriteUserSFlash.c **** 	/* byte 3 (i.e. 00) is the Macro_select */
+  68:.\WriteUserSFlash.c **** 	/* byte 2 (i.e. 00) is the Start addr of page latch */
+  69:.\WriteUserSFlash.c **** 	/* byte 1 (i.e. d7) is the key 2  */
+  70:.\WriteUserSFlash.c **** 	/* byte 0 (i.e. b6) is the key 1  */
+  71:.\WriteUserSFlash.c ****   	cmdDataBuffer[0]=0x0000d7b6;
+  77              		.loc 1 71 0
+  78 0046 2023     		mov	r3, #32
+  79 0048 FB18     		add	r3, r7, r3
+  80 004a 374A     		ldr	r2, .L5+40
+  81 004c 1A60     		str	r2, [r3]
+  72:.\WriteUserSFlash.c **** 	
+  73:.\WriteUserSFlash.c **** 	/****** Initialize SRAM parameters for the LOAD FLASH command ******/
+  74:.\WriteUserSFlash.c **** 	/* byte 3,2 and 1 are null */
+  75:.\WriteUserSFlash.c **** 	/* byte 0 (i.e. 7F) is the number of bytes to be written */
+  76:.\WriteUserSFlash.c **** 	cmdDataBuffer[1]=0x0000007F;	 
+  82              		.loc 1 76 0
+  83 004e 2023     		mov	r3, #32
+  84 0050 FB18     		add	r3, r7, r3
+  85 0052 7F22     		mov	r2, #127
+  86 0054 5A60     		str	r2, [r3, #4]
+  77:.\WriteUserSFlash.c ****     
+  78:.\WriteUserSFlash.c **** 	/* Initialize the SRAM buffer with data bytes */
+  79:.\WriteUserSFlash.c ****     for(localCount = 0; localCount < (CY_FLASH_SIZEOF_ROW/4); localCount++)    
+  87              		.loc 1 79 0
+  88 0056 AF23     		mov	r3, #175
+  89 0058 FB18     		add	r3, r7, r3
+  90 005a 0022     		mov	r2, #0
+  91 005c 1A70     		strb	r2, [r3]
+  92 005e 15E0     		b	.L2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 4
+
+
+  93              	.L3:
+  80:.\WriteUserSFlash.c **** 	{
+  81:.\WriteUserSFlash.c **** 		cmdDataBuffer[localCount + 2] = dataPointer[localCount]; 
+  94              		.loc 1 81 0 discriminator 3
+  95 0060 AF23     		mov	r3, #175
+  96 0062 FB18     		add	r3, r7, r3
+  97 0064 1B78     		ldrb	r3, [r3]
+  98 0066 9A1C     		add	r2, r3, #2
+  99 0068 AF23     		mov	r3, #175
+ 100 006a FB18     		add	r3, r7, r3
+ 101 006c 1B78     		ldrb	r3, [r3]
+ 102 006e 9B00     		lsl	r3, r3, #2
+ 103 0070 3968     		ldr	r1, [r7]
+ 104 0072 CB18     		add	r3, r1, r3
+ 105 0074 1968     		ldr	r1, [r3]
+ 106 0076 2023     		mov	r3, #32
+ 107 0078 FB18     		add	r3, r7, r3
+ 108 007a 9200     		lsl	r2, r2, #2
+ 109 007c D150     		str	r1, [r2, r3]
+  79:.\WriteUserSFlash.c **** 	{
+ 110              		.loc 1 79 0 discriminator 3
+ 111 007e AF23     		mov	r3, #175
+ 112 0080 FB18     		add	r3, r7, r3
+ 113 0082 1A78     		ldrb	r2, [r3]
+ 114 0084 AF23     		mov	r3, #175
+ 115 0086 FB18     		add	r3, r7, r3
+ 116 0088 0132     		add	r2, r2, #1
+ 117 008a 1A70     		strb	r2, [r3]
+ 118              	.L2:
+  79:.\WriteUserSFlash.c **** 	{
+ 119              		.loc 1 79 0 is_stmt 0 discriminator 1
+ 120 008c AF23     		mov	r3, #175
+ 121 008e FB18     		add	r3, r7, r3
+ 122 0090 1B78     		ldrb	r3, [r3]
+ 123 0092 1F2B     		cmp	r3, #31
+ 124 0094 E4D9     		bls	.L3
+  82:.\WriteUserSFlash.c **** 	}
+  83:.\WriteUserSFlash.c **** 	
+  84:.\WriteUserSFlash.c **** 	/* Write the following to registers to execute a LOAD FLASH bytes */
+  85:.\WriteUserSFlash.c **** 	CY_SET_REG32(CYREG_CPUSS_SYSARG, &cmdDataBuffer[0]);
+ 125              		.loc 1 85 0 is_stmt 1
+ 126 0096 204B     		ldr	r3, .L5+24
+ 127 0098 2022     		mov	r2, #32
+ 128 009a BA18     		add	r2, r7, r2
+ 129 009c 1A60     		str	r2, [r3]
+  86:.\WriteUserSFlash.c **** 	CY_SET_REG32(CYREG_CPUSS_SYSREQ, LOAD_FLASH);
+ 130              		.loc 1 86 0
+ 131 009e 204B     		ldr	r3, .L5+32
+ 132 00a0 224A     		ldr	r2, .L5+44
+ 133 00a2 1A60     		str	r2, [r3]
+  87:.\WriteUserSFlash.c **** 	
+  88:.\WriteUserSFlash.c ****     /****** Initialize SRAM parameters for the WRITE ROW command ******/
+  89:.\WriteUserSFlash.c **** 	/* byte 3 & 2 are null */
+  90:.\WriteUserSFlash.c **** 	/* byte 1 (i.e. 0xeb) is the key 2  */
+  91:.\WriteUserSFlash.c **** 	/* byte 0 (i.e. 0xb6) is the key 1  */
+  92:.\WriteUserSFlash.c **** 	cmdDataBuffer[0] = 0x0000ebb6;
+ 134              		.loc 1 92 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 5
+
+
+ 135 00a4 2023     		mov	r3, #32
+ 136 00a6 FB18     		add	r3, r7, r3
+ 137 00a8 214A     		ldr	r2, .L5+48
+ 138 00aa 1A60     		str	r2, [r3]
+  93:.\WriteUserSFlash.c ****     
+  94:.\WriteUserSFlash.c **** 	/* byte 7,6 and 5 are null */
+  95:.\WriteUserSFlash.c **** 	/* byte 4 is desired SFlash user row 
+  96:.\WriteUserSFlash.c **** 	 * Allowed values 0 - row 4
+  97:.\WriteUserSFlash.c **** 	                  1 - row 5 
+  98:.\WriteUserSFlash.c **** 					  2 - row 6
+  99:.\WriteUserSFlash.c **** 					  3 - row 7 */
+ 100:.\WriteUserSFlash.c **** 	cmdDataBuffer[1] = (uint32) userRowNUmber;
+ 139              		.loc 1 100 0
+ 140 00ac FB1D     		add	r3, r7, #7
+ 141 00ae 1A78     		ldrb	r2, [r3]
+ 142 00b0 2023     		mov	r3, #32
+ 143 00b2 FB18     		add	r3, r7, r3
+ 144 00b4 5A60     		str	r2, [r3, #4]
+ 101:.\WriteUserSFlash.c **** 	
+ 102:.\WriteUserSFlash.c **** 	/* Write the following to registers to execute a WRITE USER SFlash ROW command */
+ 103:.\WriteUserSFlash.c **** 	CY_SET_REG32(CYREG_CPUSS_SYSARG, &cmdDataBuffer[0]);
+ 145              		.loc 1 103 0
+ 146 00b6 184B     		ldr	r3, .L5+24
+ 147 00b8 2022     		mov	r2, #32
+ 148 00ba BA18     		add	r2, r7, r2
+ 149 00bc 1A60     		str	r2, [r3]
+ 104:.\WriteUserSFlash.c **** 	CY_SET_REG32(CYREG_CPUSS_SYSREQ, WRITE_USER_SFLASH_ROW);
+ 150              		.loc 1 104 0
+ 151 00be 184B     		ldr	r3, .L5+32
+ 152 00c0 1C4A     		ldr	r2, .L5+52
+ 153 00c2 1A60     		str	r2, [r3]
+ 105:.\WriteUserSFlash.c ****     
+ 106:.\WriteUserSFlash.c **** 	/* Read back SYSARG for the result. 0xA0000000 = SUCCESS; */
+ 107:.\WriteUserSFlash.c **** 	retValue = CY_GET_REG32(CYREG_CPUSS_SYSARG);
+ 154              		.loc 1 107 0
+ 155 00c4 144B     		ldr	r3, .L5+24
+ 156 00c6 1B68     		ldr	r3, [r3]
+ 157 00c8 A822     		mov	r2, #168
+ 158 00ca BA18     		add	r2, r7, r2
+ 159 00cc 1360     		str	r3, [r2]
+ 108:.\WriteUserSFlash.c **** 	
+ 109:.\WriteUserSFlash.c **** 	/* Restore the clock settings after the flash programming is done */
+ 110:.\WriteUserSFlash.c ****     CY_SET_XTND_REG32((void CYFAR *)(CYREG_CLK_SELECT),reg1);
+ 160              		.loc 1 110 0
+ 161 00ce 0C4B     		ldr	r3, .L5
+ 162 00d0 FA69     		ldr	r2, [r7, #28]
+ 163 00d2 1A60     		str	r2, [r3]
+ 111:.\WriteUserSFlash.c ****     CY_SET_XTND_REG32((void CYFAR *)(CYREG_CLK_IMO_CONFIG),reg2);
+ 164              		.loc 1 111 0
+ 165 00d4 0B4B     		ldr	r3, .L5+4
+ 166 00d6 BA69     		ldr	r2, [r7, #24]
+ 167 00d8 1A60     		str	r2, [r3]
+ 112:.\WriteUserSFlash.c ****     CY_SET_XTND_REG32((void CYFAR *)(CYREG_PWR_BG_TRIM4),reg3);
+ 168              		.loc 1 112 0
+ 169 00da 0B4B     		ldr	r3, .L5+8
+ 170 00dc 7A69     		ldr	r2, [r7, #20]
+ 171 00de 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 6
+
+
+ 113:.\WriteUserSFlash.c ****     CY_SET_XTND_REG32((void CYFAR *)(CYREG_PWR_BG_TRIM5),reg4);
+ 172              		.loc 1 113 0
+ 173 00e0 0A4B     		ldr	r3, .L5+12
+ 174 00e2 3A69     		ldr	r2, [r7, #16]
+ 175 00e4 1A60     		str	r2, [r3]
+ 114:.\WriteUserSFlash.c ****     CY_SET_XTND_REG32((void CYFAR *)(CYREG_CLK_IMO_TRIM1),reg5);
+ 176              		.loc 1 114 0
+ 177 00e6 0A4B     		ldr	r3, .L5+16
+ 178 00e8 FA68     		ldr	r2, [r7, #12]
+ 179 00ea 1A60     		str	r2, [r3]
+ 115:.\WriteUserSFlash.c ****     CY_SET_XTND_REG32((void CYFAR *)(CYREG_CLK_IMO_TRIM2),reg6);  
+ 180              		.loc 1 115 0
+ 181 00ec 094B     		ldr	r3, .L5+20
+ 182 00ee BA68     		ldr	r2, [r7, #8]
+ 183 00f0 1A60     		str	r2, [r3]
+ 116:.\WriteUserSFlash.c **** 	
+ 117:.\WriteUserSFlash.c **** 	return retValue;
+ 184              		.loc 1 117 0
+ 185 00f2 A823     		mov	r3, #168
+ 186 00f4 FB18     		add	r3, r7, r3
+ 187 00f6 1B68     		ldr	r3, [r3]
+ 118:.\WriteUserSFlash.c **** }
+ 188              		.loc 1 118 0
+ 189 00f8 181C     		mov	r0, r3
+ 190 00fa BD46     		mov	sp, r7
+ 191 00fc 2CB0     		add	sp, sp, #176
+ 192              		@ sp needed
+ 193 00fe 80BD     		pop	{r7, pc}
+ 194              	.L6:
+ 195              		.align	2
+ 196              	.L5:
+ 197 0100 00010B40 		.word	1074462976
+ 198 0104 08010B40 		.word	1074462984
+ 199 0108 1CFF0B40 		.word	1074528028
+ 200 010c 20FF0B40 		.word	1074528032
+ 201 0110 28FF0B40 		.word	1074528040
+ 202 0114 2CFF0B40 		.word	1074528044
+ 203 0118 08001040 		.word	1074790408
+ 204 011c B6E80000 		.word	59574
+ 205 0120 04001040 		.word	1074790404
+ 206 0124 15000080 		.word	-2147483627
+ 207 0128 B6D70000 		.word	55222
+ 208 012c 04000080 		.word	-2147483644
+ 209 0130 B6EB0000 		.word	60342
+ 210 0134 18000080 		.word	-2147483624
+ 211              		.cfi_endproc
+ 212              	.LFE35:
+ 213              		.size	WriteUserSFlashRow, .-WriteUserSFlashRow
+ 214              		.comm	ble_name_temp,60,4
+ 215              		.comm	ble_macid_temp,16,4
+ 216              		.comm	BLEDeviceName,15,4
+ 217              		.section	.text.sflash_write_ble_name,"ax",%progbits
+ 218              		.align	2
+ 219              		.global	sflash_write_ble_name
+ 220              		.code	16
+ 221              		.thumb_func
+ 222              		.type	sflash_write_ble_name, %function
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 7
+
+
+ 223              	sflash_write_ble_name:
+ 224              	.LFB36:
+ 119:.\WriteUserSFlash.c **** uint32 ble_name_temp[15];
+ 120:.\WriteUserSFlash.c **** uint32 ble_macid_temp[4];
+ 121:.\WriteUserSFlash.c **** char BLEDeviceName[15];
+ 122:.\WriteUserSFlash.c **** void sflash_write_ble_name(void)
+ 123:.\WriteUserSFlash.c **** {
+ 225              		.loc 1 123 0
+ 226              		.cfi_startproc
+ 227 0000 80B5     		push	{r7, lr}
+ 228              		.cfi_def_cfa_offset 8
+ 229              		.cfi_offset 7, -8
+ 230              		.cfi_offset 14, -4
+ 231 0002 00AF     		add	r7, sp, #0
+ 232              		.cfi_def_cfa_register 7
+ 124:.\WriteUserSFlash.c ****     WriteUserSFlashRow(FLASH_BLE_NAME, ble_name_temp);    
+ 233              		.loc 1 124 0
+ 234 0004 034B     		ldr	r3, .L8
+ 235 0006 0020     		mov	r0, #0
+ 236 0008 191C     		mov	r1, r3
+ 237 000a FFF7FEFF 		bl	WriteUserSFlashRow
+ 125:.\WriteUserSFlash.c **** }
+ 238              		.loc 1 125 0
+ 239 000e BD46     		mov	sp, r7
+ 240              		@ sp needed
+ 241 0010 80BD     		pop	{r7, pc}
+ 242              	.L9:
+ 243 0012 C046     		.align	2
+ 244              	.L8:
+ 245 0014 00000000 		.word	ble_name_temp
+ 246              		.cfi_endproc
+ 247              	.LFE36:
+ 248              		.size	sflash_write_ble_name, .-sflash_write_ble_name
+ 249              		.section	.text.sflash_write_macid,"ax",%progbits
+ 250              		.align	2
+ 251              		.global	sflash_write_macid
+ 252              		.code	16
+ 253              		.thumb_func
+ 254              		.type	sflash_write_macid, %function
+ 255              	sflash_write_macid:
+ 256              	.LFB37:
+ 126:.\WriteUserSFlash.c **** void sflash_write_macid(void)
+ 127:.\WriteUserSFlash.c **** {
+ 257              		.loc 1 127 0
+ 258              		.cfi_startproc
+ 259 0000 80B5     		push	{r7, lr}
+ 260              		.cfi_def_cfa_offset 8
+ 261              		.cfi_offset 7, -8
+ 262              		.cfi_offset 14, -4
+ 263 0002 00AF     		add	r7, sp, #0
+ 264              		.cfi_def_cfa_register 7
+ 128:.\WriteUserSFlash.c ****     WriteUserSFlashRow(FLASH_MACID, ble_macid_temp);    
+ 265              		.loc 1 128 0
+ 266 0004 034B     		ldr	r3, .L11
+ 267 0006 1420     		mov	r0, #20
+ 268 0008 191C     		mov	r1, r3
+ 269 000a FFF7FEFF 		bl	WriteUserSFlashRow
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 8
+
+
+ 129:.\WriteUserSFlash.c **** }
+ 270              		.loc 1 129 0
+ 271 000e BD46     		mov	sp, r7
+ 272              		@ sp needed
+ 273 0010 80BD     		pop	{r7, pc}
+ 274              	.L12:
+ 275 0012 C046     		.align	2
+ 276              	.L11:
+ 277 0014 00000000 		.word	ble_macid_temp
+ 278              		.cfi_endproc
+ 279              	.LFE37:
+ 280              		.size	sflash_write_macid, .-sflash_write_macid
+ 281              		.section	.text.sflash_read_ble_name,"ax",%progbits
+ 282              		.align	2
+ 283              		.global	sflash_read_ble_name
+ 284              		.code	16
+ 285              		.thumb_func
+ 286              		.type	sflash_read_ble_name, %function
+ 287              	sflash_read_ble_name:
+ 288              	.LFB38:
+ 130:.\WriteUserSFlash.c **** 
+ 131:.\WriteUserSFlash.c **** void sflash_read_ble_name(void)
+ 132:.\WriteUserSFlash.c **** {
+ 289              		.loc 1 132 0
+ 290              		.cfi_startproc
+ 291 0000 80B5     		push	{r7, lr}
+ 292              		.cfi_def_cfa_offset 8
+ 293              		.cfi_offset 7, -8
+ 294              		.cfi_offset 14, -4
+ 295 0002 92B0     		sub	sp, sp, #72
+ 296              		.cfi_def_cfa_offset 80
+ 297 0004 00AF     		add	r7, sp, #0
+ 298              		.cfi_def_cfa_register 7
+ 133:.\WriteUserSFlash.c ****     uint8 *sflashPtr;
+ 134:.\WriteUserSFlash.c ****     uint32 dataIndex;
+ 135:.\WriteUserSFlash.c ****     uint32 readData[15]; 
+ 136:.\WriteUserSFlash.c ****     sflashPtr = (uint8 *)USER_SFLASH_BASE_ADDRESS; /* User SFlash read is direct memory read using 
+ 299              		.loc 1 136 0
+ 300 0006 114B     		ldr	r3, .L16
+ 301 0008 3B64     		str	r3, [r7, #64]
+ 137:.\WriteUserSFlash.c ****     for(dataIndex = FLASH_BLE_NAME; dataIndex < FLASH_BLE_NAME+15; dataIndex++)
+ 302              		.loc 1 137 0
+ 303 000a 0023     		mov	r3, #0
+ 304 000c 7B64     		str	r3, [r7, #68]
+ 305 000e 16E0     		b	.L14
+ 306              	.L15:
+ 138:.\WriteUserSFlash.c ****     {
+ 139:.\WriteUserSFlash.c ****         readData[dataIndex] = *(sflashPtr+(dataIndex*4));
+ 307              		.loc 1 139 0 discriminator 3
+ 308 0010 7B6C     		ldr	r3, [r7, #68]
+ 309 0012 9B00     		lsl	r3, r3, #2
+ 310 0014 3A6C     		ldr	r2, [r7, #64]
+ 311 0016 D318     		add	r3, r2, r3
+ 312 0018 1B78     		ldrb	r3, [r3]
+ 313 001a 191C     		mov	r1, r3
+ 314 001c 3B1D     		add	r3, r7, #4
+ 315 001e 7A6C     		ldr	r2, [r7, #68]
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 9
+
+
+ 316 0020 9200     		lsl	r2, r2, #2
+ 317 0022 D150     		str	r1, [r2, r3]
+ 140:.\WriteUserSFlash.c ****         BLEDeviceName[dataIndex]=(char)readData[dataIndex];
+ 318              		.loc 1 140 0 discriminator 3
+ 319 0024 3B1D     		add	r3, r7, #4
+ 320 0026 7A6C     		ldr	r2, [r7, #68]
+ 321 0028 9200     		lsl	r2, r2, #2
+ 322 002a D358     		ldr	r3, [r2, r3]
+ 323 002c D9B2     		uxtb	r1, r3
+ 324 002e 084A     		ldr	r2, .L16+4
+ 325 0030 7B6C     		ldr	r3, [r7, #68]
+ 326 0032 D318     		add	r3, r2, r3
+ 327 0034 0A1C     		add	r2, r1, #0
+ 328 0036 1A70     		strb	r2, [r3]
+ 137:.\WriteUserSFlash.c ****     for(dataIndex = FLASH_BLE_NAME; dataIndex < FLASH_BLE_NAME+15; dataIndex++)
+ 329              		.loc 1 137 0 discriminator 3
+ 330 0038 7B6C     		ldr	r3, [r7, #68]
+ 331 003a 0133     		add	r3, r3, #1
+ 332 003c 7B64     		str	r3, [r7, #68]
+ 333              	.L14:
+ 137:.\WriteUserSFlash.c ****     for(dataIndex = FLASH_BLE_NAME; dataIndex < FLASH_BLE_NAME+15; dataIndex++)
+ 334              		.loc 1 137 0 is_stmt 0 discriminator 1
+ 335 003e 7B6C     		ldr	r3, [r7, #68]
+ 336 0040 0E2B     		cmp	r3, #14
+ 337 0042 E5D9     		bls	.L15
+ 141:.\WriteUserSFlash.c ****     }    
+ 142:.\WriteUserSFlash.c **** }
+ 338              		.loc 1 142 0 is_stmt 1
+ 339 0044 BD46     		mov	sp, r7
+ 340 0046 12B0     		add	sp, sp, #72
+ 341              		@ sp needed
+ 342 0048 80BD     		pop	{r7, pc}
+ 343              	.L17:
+ 344 004a C046     		.align	2
+ 345              	.L16:
+ 346 004c 00F2FF0F 		.word	268431872
+ 347 0050 00000000 		.word	BLEDeviceName
+ 348              		.cfi_endproc
+ 349              	.LFE38:
+ 350              		.size	sflash_read_ble_name, .-sflash_read_ble_name
+ 351              		.section	.text.sflash_read_macid,"ax",%progbits
+ 352              		.align	2
+ 353              		.global	sflash_read_macid
+ 354              		.code	16
+ 355              		.thumb_func
+ 356              		.type	sflash_read_macid, %function
+ 357              	sflash_read_macid:
+ 358              	.LFB39:
+ 143:.\WriteUserSFlash.c **** void sflash_read_macid(void)
+ 144:.\WriteUserSFlash.c **** {
+ 359              		.loc 1 144 0
+ 360              		.cfi_startproc
+ 361 0000 80B5     		push	{r7, lr}
+ 362              		.cfi_def_cfa_offset 8
+ 363              		.cfi_offset 7, -8
+ 364              		.cfi_offset 14, -4
+ 365 0002 86B0     		sub	sp, sp, #24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 10
+
+
+ 366              		.cfi_def_cfa_offset 32
+ 367 0004 00AF     		add	r7, sp, #0
+ 368              		.cfi_def_cfa_register 7
+ 145:.\WriteUserSFlash.c ****     uint8 *sflashPtr;
+ 146:.\WriteUserSFlash.c ****     uint32 dataIndex;
+ 147:.\WriteUserSFlash.c ****     uint32 readData[4]; 
+ 148:.\WriteUserSFlash.c ****     sflashPtr = (uint8 *)USER_SFLASH_BASE_ADDRESS; /* User SFlash read is direct memory read using 
+ 369              		.loc 1 148 0
+ 370 0006 0C4B     		ldr	r3, .L21
+ 371 0008 3B61     		str	r3, [r7, #16]
+ 149:.\WriteUserSFlash.c ****     for(dataIndex = FLASH_MACID; dataIndex < FLASH_MACID+4; dataIndex++)
+ 372              		.loc 1 149 0
+ 373 000a 1423     		mov	r3, #20
+ 374 000c 7B61     		str	r3, [r7, #20]
+ 375 000e 0CE0     		b	.L19
+ 376              	.L20:
+ 150:.\WriteUserSFlash.c ****     {
+ 151:.\WriteUserSFlash.c ****         readData[dataIndex] = *(sflashPtr+(dataIndex*4));
+ 377              		.loc 1 151 0 discriminator 3
+ 378 0010 7B69     		ldr	r3, [r7, #20]
+ 379 0012 9B00     		lsl	r3, r3, #2
+ 380 0014 3A69     		ldr	r2, [r7, #16]
+ 381 0016 D318     		add	r3, r2, r3
+ 382 0018 1B78     		ldrb	r3, [r3]
+ 383 001a 191C     		mov	r1, r3
+ 384 001c 3B1C     		mov	r3, r7
+ 385 001e 7A69     		ldr	r2, [r7, #20]
+ 386 0020 9200     		lsl	r2, r2, #2
+ 387 0022 D150     		str	r1, [r2, r3]
+ 149:.\WriteUserSFlash.c ****     for(dataIndex = FLASH_MACID; dataIndex < FLASH_MACID+4; dataIndex++)
+ 388              		.loc 1 149 0 discriminator 3
+ 389 0024 7B69     		ldr	r3, [r7, #20]
+ 390 0026 0133     		add	r3, r3, #1
+ 391 0028 7B61     		str	r3, [r7, #20]
+ 392              	.L19:
+ 149:.\WriteUserSFlash.c ****     for(dataIndex = FLASH_MACID; dataIndex < FLASH_MACID+4; dataIndex++)
+ 393              		.loc 1 149 0 is_stmt 0 discriminator 1
+ 394 002a 7B69     		ldr	r3, [r7, #20]
+ 395 002c 172B     		cmp	r3, #23
+ 396 002e EFD9     		bls	.L20
+ 152:.\WriteUserSFlash.c ****         
+ 153:.\WriteUserSFlash.c ****     } 
+ 154:.\WriteUserSFlash.c **** }
+ 397              		.loc 1 154 0 is_stmt 1
+ 398 0030 BD46     		mov	sp, r7
+ 399 0032 06B0     		add	sp, sp, #24
+ 400              		@ sp needed
+ 401 0034 80BD     		pop	{r7, pc}
+ 402              	.L22:
+ 403 0036 C046     		.align	2
+ 404              	.L21:
+ 405 0038 00F2FF0F 		.word	268431872
+ 406              		.cfi_endproc
+ 407              	.LFE39:
+ 408              		.size	sflash_read_macid, .-sflash_read_macid
+ 409              		.text
+ 410              	.Letext0:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 11
+
+
+ 411              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 412              		.file 3 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 413              		.section	.debug_info,"",%progbits
+ 414              	.Ldebug_info0:
+ 415 0000 14040000 		.4byte	0x414
+ 416 0004 0400     		.2byte	0x4
+ 417 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 418 000a 04       		.byte	0x4
+ 419 000b 01       		.uleb128 0x1
+ 420 000c BC050000 		.4byte	.LASF94
+ 421 0010 01       		.byte	0x1
+ 422 0011 13080000 		.4byte	.LASF95
+ 423 0015 5D080000 		.4byte	.LASF96
+ 424 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 425 001d 00000000 		.4byte	0
+ 426 0021 00000000 		.4byte	.Ldebug_line0
+ 427 0025 02       		.uleb128 0x2
+ 428 0026 01       		.byte	0x1
+ 429 0027 06       		.byte	0x6
+ 430 0028 69040000 		.4byte	.LASF0
+ 431 002c 02       		.uleb128 0x2
+ 432 002d 01       		.byte	0x1
+ 433 002e 08       		.byte	0x8
+ 434 002f E5030000 		.4byte	.LASF1
+ 435 0033 02       		.uleb128 0x2
+ 436 0034 02       		.byte	0x2
+ 437 0035 05       		.byte	0x5
+ 438 0036 72000000 		.4byte	.LASF2
+ 439 003a 02       		.uleb128 0x2
+ 440 003b 02       		.byte	0x2
+ 441 003c 07       		.byte	0x7
+ 442 003d 7B050000 		.4byte	.LASF3
+ 443 0041 02       		.uleb128 0x2
+ 444 0042 04       		.byte	0x4
+ 445 0043 05       		.byte	0x5
+ 446 0044 9A020000 		.4byte	.LASF4
+ 447 0048 02       		.uleb128 0x2
+ 448 0049 04       		.byte	0x4
+ 449 004a 07       		.byte	0x7
+ 450 004b 0E050000 		.4byte	.LASF5
+ 451 004f 02       		.uleb128 0x2
+ 452 0050 08       		.byte	0x8
+ 453 0051 05       		.byte	0x5
+ 454 0052 5D020000 		.4byte	.LASF6
+ 455 0056 02       		.uleb128 0x2
+ 456 0057 08       		.byte	0x8
+ 457 0058 07       		.byte	0x7
+ 458 0059 6B020000 		.4byte	.LASF7
+ 459 005d 03       		.uleb128 0x3
+ 460 005e 04       		.byte	0x4
+ 461 005f 05       		.byte	0x5
+ 462 0060 696E7400 		.ascii	"int\000"
+ 463 0064 02       		.uleb128 0x2
+ 464 0065 04       		.byte	0x4
+ 465 0066 07       		.byte	0x7
+ 466 0067 D8040000 		.4byte	.LASF8
+ 467 006b 04       		.uleb128 0x4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 12
+
+
+ 468 006c B9030000 		.4byte	.LASF9
+ 469 0070 02       		.byte	0x2
+ 470 0071 C2       		.byte	0xc2
+ 471 0072 2C000000 		.4byte	0x2c
+ 472 0076 04       		.uleb128 0x4
+ 473 0077 B2060000 		.4byte	.LASF10
+ 474 007b 02       		.byte	0x2
+ 475 007c C4       		.byte	0xc4
+ 476 007d 48000000 		.4byte	0x48
+ 477 0081 02       		.uleb128 0x2
+ 478 0082 04       		.byte	0x4
+ 479 0083 04       		.byte	0x4
+ 480 0084 30020000 		.4byte	.LASF11
+ 481 0088 02       		.uleb128 0x2
+ 482 0089 08       		.byte	0x8
+ 483 008a 04       		.byte	0x4
+ 484 008b FA060000 		.4byte	.LASF12
+ 485 008f 02       		.uleb128 0x2
+ 486 0090 01       		.byte	0x1
+ 487 0091 08       		.byte	0x8
+ 488 0092 B7050000 		.4byte	.LASF13
+ 489 0096 05       		.uleb128 0x5
+ 490 0097 75050000 		.4byte	.LASF14
+ 491 009b 02       		.byte	0x2
+ 492 009c 6E01     		.2byte	0x16e
+ 493 009e A2000000 		.4byte	0xa2
+ 494 00a2 06       		.uleb128 0x6
+ 495 00a3 76000000 		.4byte	0x76
+ 496 00a7 02       		.uleb128 0x2
+ 497 00a8 04       		.byte	0x4
+ 498 00a9 07       		.byte	0x7
+ 499 00aa 96000000 		.4byte	.LASF15
+ 500 00ae 07       		.uleb128 0x7
+ 501 00af 76000000 		.4byte	0x76
+ 502 00b3 BE000000 		.4byte	0xbe
+ 503 00b7 08       		.uleb128 0x8
+ 504 00b8 A7000000 		.4byte	0xa7
+ 505 00bc 03       		.byte	0x3
+ 506 00bd 00       		.byte	0
+ 507 00be 09       		.uleb128 0x9
+ 508 00bf 01       		.byte	0x1
+ 509 00c0 03       		.byte	0x3
+ 510 00c1 A4       		.byte	0xa4
+ 511 00c2 43020000 		.4byte	0x243
+ 512 00c6 0A       		.uleb128 0xa
+ 513 00c7 C6010000 		.4byte	.LASF16
+ 514 00cb 00       		.sleb128 0
+ 515 00cc 0A       		.uleb128 0xa
+ 516 00cd 22010000 		.4byte	.LASF17
+ 517 00d1 01       		.sleb128 1
+ 518 00d2 0A       		.uleb128 0xa
+ 519 00d3 27080000 		.4byte	.LASF18
+ 520 00d7 02       		.sleb128 2
+ 521 00d8 0A       		.uleb128 0xa
+ 522 00d9 2E070000 		.4byte	.LASF19
+ 523 00dd 03       		.sleb128 3
+ 524 00de 0A       		.uleb128 0xa
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 13
+
+
+ 525 00df EC000000 		.4byte	.LASF20
+ 526 00e3 04       		.sleb128 4
+ 527 00e4 0A       		.uleb128 0xa
+ 528 00e5 3F030000 		.4byte	.LASF21
+ 529 00e9 05       		.sleb128 5
+ 530 00ea 0A       		.uleb128 0xa
+ 531 00eb 8C070000 		.4byte	.LASF22
+ 532 00ef 20       		.sleb128 32
+ 533 00f0 0A       		.uleb128 0xa
+ 534 00f1 20050000 		.4byte	.LASF23
+ 535 00f5 21       		.sleb128 33
+ 536 00f6 0A       		.uleb128 0xa
+ 537 00f7 00000000 		.4byte	.LASF24
+ 538 00fb 22       		.sleb128 34
+ 539 00fc 0A       		.uleb128 0xa
+ 540 00fd 67030000 		.4byte	.LASF25
+ 541 0101 23       		.sleb128 35
+ 542 0102 0A       		.uleb128 0xa
+ 543 0103 BC040000 		.4byte	.LASF26
+ 544 0107 24       		.sleb128 36
+ 545 0108 0A       		.uleb128 0xa
+ 546 0109 7C000000 		.4byte	.LASF27
+ 547 010d 25       		.sleb128 37
+ 548 010e 0A       		.uleb128 0xa
+ 549 010f F6020000 		.4byte	.LASF28
+ 550 0113 26       		.sleb128 38
+ 551 0114 0A       		.uleb128 0xa
+ 552 0115 C4020000 		.4byte	.LASF29
+ 553 0119 27       		.sleb128 39
+ 554 011a 0A       		.uleb128 0xa
+ 555 011b E1080000 		.4byte	.LASF30
+ 556 011f 28       		.sleb128 40
+ 557 0120 0A       		.uleb128 0xa
+ 558 0121 58050000 		.4byte	.LASF31
+ 559 0125 29       		.sleb128 41
+ 560 0126 0A       		.uleb128 0xa
+ 561 0127 8E050000 		.4byte	.LASF32
+ 562 012b 2A       		.sleb128 42
+ 563 012c 0A       		.uleb128 0xa
+ 564 012d 3E000000 		.4byte	.LASF33
+ 565 0131 2B       		.sleb128 43
+ 566 0132 0A       		.uleb128 0xa
+ 567 0133 62010000 		.4byte	.LASF34
+ 568 0137 2C       		.sleb128 44
+ 569 0138 0A       		.uleb128 0xa
+ 570 0139 C8000000 		.4byte	.LASF35
+ 571 013d C000     		.sleb128 64
+ 572 013f 0A       		.uleb128 0xa
+ 573 0140 F3040000 		.4byte	.LASF36
+ 574 0144 C100     		.sleb128 65
+ 575 0146 0A       		.uleb128 0xa
+ 576 0147 27090000 		.4byte	.LASF37
+ 577 014b C200     		.sleb128 66
+ 578 014d 0A       		.uleb128 0xa
+ 579 014e 35010000 		.4byte	.LASF38
+ 580 0152 C300     		.sleb128 67
+ 581 0154 0A       		.uleb128 0xa
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 14
+
+
+ 582 0155 F5070000 		.4byte	.LASF39
+ 583 0159 C400     		.sleb128 68
+ 584 015b 0A       		.uleb128 0xa
+ 585 015c B0070000 		.4byte	.LASF40
+ 586 0160 C500     		.sleb128 69
+ 587 0162 0A       		.uleb128 0xa
+ 588 0163 01010000 		.4byte	.LASF41
+ 589 0167 C600     		.sleb128 70
+ 590 0169 0A       		.uleb128 0xa
+ 591 016a 4B040000 		.4byte	.LASF42
+ 592 016e C700     		.sleb128 71
+ 593 0170 0A       		.uleb128 0xa
+ 594 0171 87040000 		.4byte	.LASF43
+ 595 0175 C800     		.sleb128 72
+ 596 0177 0A       		.uleb128 0xa
+ 597 0178 3F020000 		.4byte	.LASF44
+ 598 017c C900     		.sleb128 73
+ 599 017e 0A       		.uleb128 0xa
+ 600 017f 6B060000 		.4byte	.LASF45
+ 601 0183 CA00     		.sleb128 74
+ 602 0185 0A       		.uleb128 0xa
+ 603 0186 86010000 		.4byte	.LASF46
+ 604 018a CB00     		.sleb128 75
+ 605 018c 0A       		.uleb128 0xa
+ 606 018d 31040000 		.4byte	.LASF47
+ 607 0191 CC00     		.sleb128 76
+ 608 0193 0A       		.uleb128 0xa
+ 609 0194 24000000 		.4byte	.LASF48
+ 610 0198 CD00     		.sleb128 77
+ 611 019a 0A       		.uleb128 0xa
+ 612 019b D7070000 		.4byte	.LASF49
+ 613 019f CE00     		.sleb128 78
+ 614 01a1 0A       		.uleb128 0xa
+ 615 01a2 F3030000 		.4byte	.LASF50
+ 616 01a6 CF00     		.sleb128 79
+ 617 01a8 0A       		.uleb128 0xa
+ 618 01a9 C2080000 		.4byte	.LASF51
+ 619 01ad D000     		.sleb128 80
+ 620 01af 0A       		.uleb128 0xa
+ 621 01b0 93060000 		.4byte	.LASF52
+ 622 01b4 D100     		.sleb128 81
+ 623 01b6 0A       		.uleb128 0xa
+ 624 01b7 1E030000 		.4byte	.LASF53
+ 625 01bb D200     		.sleb128 82
+ 626 01bd 0A       		.uleb128 0xa
+ 627 01be A3020000 		.4byte	.LASF54
+ 628 01c2 D300     		.sleb128 83
+ 629 01c4 0A       		.uleb128 0xa
+ 630 01c5 A5010000 		.4byte	.LASF55
+ 631 01c9 D400     		.sleb128 84
+ 632 01cb 0A       		.uleb128 0xa
+ 633 01cc 03090000 		.4byte	.LASF56
+ 634 01d0 D500     		.sleb128 85
+ 635 01d2 0A       		.uleb128 0xa
+ 636 01d3 A0080000 		.4byte	.LASF57
+ 637 01d7 D600     		.sleb128 86
+ 638 01d9 0A       		.uleb128 0xa
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 15
+
+
+ 639 01da 77080000 		.4byte	.LASF58
+ 640 01de D700     		.sleb128 87
+ 641 01e0 0A       		.uleb128 0xa
+ 642 01e1 BF030000 		.4byte	.LASF59
+ 643 01e5 F000     		.sleb128 112
+ 644 01e7 0A       		.uleb128 0xa
+ 645 01e8 66070000 		.4byte	.LASF60
+ 646 01ec F100     		.sleb128 113
+ 647 01ee 0A       		.uleb128 0xa
+ 648 01ef 4A060000 		.4byte	.LASF61
+ 649 01f3 F200     		.sleb128 114
+ 650 01f5 0A       		.uleb128 0xa
+ 651 01f6 DD010000 		.4byte	.LASF62
+ 652 01fa F300     		.sleb128 115
+ 653 01fc 0A       		.uleb128 0xa
+ 654 01fd 8D030000 		.4byte	.LASF63
+ 655 0201 F400     		.sleb128 116
+ 656 0203 0A       		.uleb128 0xa
+ 657 0204 37050000 		.4byte	.LASF64
+ 658 0208 F500     		.sleb128 117
+ 659 020a 0A       		.uleb128 0xa
+ 660 020b FB010000 		.4byte	.LASF65
+ 661 020f F600     		.sleb128 118
+ 662 0211 0A       		.uleb128 0xa
+ 663 0212 47070000 		.4byte	.LASF66
+ 664 0216 F700     		.sleb128 119
+ 665 0218 0A       		.uleb128 0xa
+ 666 0219 D7060000 		.4byte	.LASF67
+ 667 021d F800     		.sleb128 120
+ 668 021f 0A       		.uleb128 0xa
+ 669 0220 01070000 		.4byte	.LASF68
+ 670 0224 F900     		.sleb128 121
+ 671 0226 0A       		.uleb128 0xa
+ 672 0227 39080000 		.4byte	.LASF69
+ 673 022b FA00     		.sleb128 122
+ 674 022d 0A       		.uleb128 0xa
+ 675 022e B9060000 		.4byte	.LASF70
+ 676 0232 FA01     		.sleb128 250
+ 677 0234 0A       		.uleb128 0xa
+ 678 0235 12040000 		.4byte	.LASF71
+ 679 0239 FB01     		.sleb128 251
+ 680 023b 0A       		.uleb128 0xa
+ 681 023c AB030000 		.4byte	.LASF72
+ 682 0240 FF01     		.sleb128 255
+ 683 0242 00       		.byte	0
+ 684 0243 0B       		.uleb128 0xb
+ 685 0244 04       		.byte	0x4
+ 686 0245 6B000000 		.4byte	0x6b
+ 687 0249 0C       		.uleb128 0xc
+ 688 024a E3020000 		.4byte	.LASF97
+ 689 024e 01       		.byte	0x1
+ 690 024f 2F       		.byte	0x2f
+ 691 0250 76000000 		.4byte	0x76
+ 692 0254 00000000 		.4byte	.LFB35
+ 693 0258 38010000 		.4byte	.LFE35-.LFB35
+ 694 025c 01       		.uleb128 0x1
+ 695 025d 9C       		.byte	0x9c
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 16
+
+
+ 696 025e 06030000 		.4byte	0x306
+ 697 0262 0D       		.uleb128 0xd
+ 698 0263 E5040000 		.4byte	.LASF73
+ 699 0267 01       		.byte	0x1
+ 700 0268 2F       		.byte	0x2f
+ 701 0269 6B000000 		.4byte	0x6b
+ 702 026d 03       		.uleb128 0x3
+ 703 026e 91       		.byte	0x91
+ 704 026f CF7E     		.sleb128 -177
+ 705 0271 0D       		.uleb128 0xd
+ 706 0272 5B030000 		.4byte	.LASF74
+ 707 0276 01       		.byte	0x1
+ 708 0277 2F       		.byte	0x2f
+ 709 0278 06030000 		.4byte	0x306
+ 710 027c 03       		.uleb128 0x3
+ 711 027d 91       		.byte	0x91
+ 712 027e C87E     		.sleb128 -184
+ 713 0280 0E       		.uleb128 0xe
+ 714 0281 1C020000 		.4byte	.LASF75
+ 715 0285 01       		.byte	0x1
+ 716 0286 31       		.byte	0x31
+ 717 0287 6B000000 		.4byte	0x6b
+ 718 028b 02       		.uleb128 0x2
+ 719 028c 91       		.byte	0x91
+ 720 028d 77       		.sleb128 -9
+ 721 028e 0E       		.uleb128 0xe
+ 722 028f 27020000 		.4byte	.LASF76
+ 723 0293 01       		.byte	0x1
+ 724 0294 32       		.byte	0x32
+ 725 0295 A2000000 		.4byte	0xa2
+ 726 0299 02       		.uleb128 0x2
+ 727 029a 91       		.byte	0x91
+ 728 029b 70       		.sleb128 -16
+ 729 029c 0E       		.uleb128 0xe
+ 730 029d AE040000 		.4byte	.LASF77
+ 731 02a1 01       		.byte	0x1
+ 732 02a2 33       		.byte	0x33
+ 733 02a3 1C030000 		.4byte	0x31c
+ 734 02a7 03       		.uleb128 0x3
+ 735 02a8 91       		.byte	0x91
+ 736 02a9 E87E     		.sleb128 -152
+ 737 02ab 0E       		.uleb128 0xe
+ 738 02ac 66060000 		.4byte	.LASF78
+ 739 02b0 01       		.byte	0x1
+ 740 02b1 34       		.byte	0x34
+ 741 02b2 A2000000 		.4byte	0xa2
+ 742 02b6 03       		.uleb128 0x3
+ 743 02b7 91       		.byte	0x91
+ 744 02b8 E47E     		.sleb128 -156
+ 745 02ba 0E       		.uleb128 0xe
+ 746 02bb 58020000 		.4byte	.LASF79
+ 747 02bf 01       		.byte	0x1
+ 748 02c0 34       		.byte	0x34
+ 749 02c1 A2000000 		.4byte	0xa2
+ 750 02c5 03       		.uleb128 0x3
+ 751 02c6 91       		.byte	0x91
+ 752 02c7 E07E     		.sleb128 -160
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 17
+
+
+ 753 02c9 0E       		.uleb128 0xe
+ 754 02ca 89060000 		.4byte	.LASF80
+ 755 02ce 01       		.byte	0x1
+ 756 02cf 34       		.byte	0x34
+ 757 02d0 A2000000 		.4byte	0xa2
+ 758 02d4 03       		.uleb128 0x3
+ 759 02d5 91       		.byte	0x91
+ 760 02d6 DC7E     		.sleb128 -164
+ 761 02d8 0E       		.uleb128 0xe
+ 762 02d9 8E060000 		.4byte	.LASF81
+ 763 02dd 01       		.byte	0x1
+ 764 02de 34       		.byte	0x34
+ 765 02df A2000000 		.4byte	0xa2
+ 766 02e3 03       		.uleb128 0x3
+ 767 02e4 91       		.byte	0x91
+ 768 02e5 D87E     		.sleb128 -168
+ 769 02e7 0E       		.uleb128 0xe
+ 770 02e8 90020000 		.4byte	.LASF82
+ 771 02ec 01       		.byte	0x1
+ 772 02ed 34       		.byte	0x34
+ 773 02ee A2000000 		.4byte	0xa2
+ 774 02f2 03       		.uleb128 0x3
+ 775 02f3 91       		.byte	0x91
+ 776 02f4 D47E     		.sleb128 -172
+ 777 02f6 0E       		.uleb128 0xe
+ 778 02f7 95020000 		.4byte	.LASF83
+ 779 02fb 01       		.byte	0x1
+ 780 02fc 34       		.byte	0x34
+ 781 02fd A2000000 		.4byte	0xa2
+ 782 0301 03       		.uleb128 0x3
+ 783 0302 91       		.byte	0x91
+ 784 0303 D07E     		.sleb128 -176
+ 785 0305 00       		.byte	0
+ 786 0306 0B       		.uleb128 0xb
+ 787 0307 04       		.byte	0x4
+ 788 0308 76000000 		.4byte	0x76
+ 789 030c 07       		.uleb128 0x7
+ 790 030d 76000000 		.4byte	0x76
+ 791 0311 1C030000 		.4byte	0x31c
+ 792 0315 08       		.uleb128 0x8
+ 793 0316 A7000000 		.4byte	0xa7
+ 794 031a 21       		.byte	0x21
+ 795 031b 00       		.byte	0
+ 796 031c 06       		.uleb128 0x6
+ 797 031d 0C030000 		.4byte	0x30c
+ 798 0321 0F       		.uleb128 0xf
+ 799 0322 9F000000 		.4byte	.LASF84
+ 800 0326 01       		.byte	0x1
+ 801 0327 7A       		.byte	0x7a
+ 802 0328 00000000 		.4byte	.LFB36
+ 803 032c 18000000 		.4byte	.LFE36-.LFB36
+ 804 0330 01       		.uleb128 0x1
+ 805 0331 9C       		.byte	0x9c
+ 806 0332 0F       		.uleb128 0xf
+ 807 0333 B5000000 		.4byte	.LASF85
+ 808 0337 01       		.byte	0x1
+ 809 0338 7E       		.byte	0x7e
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 18
+
+
+ 810 0339 00000000 		.4byte	.LFB37
+ 811 033d 18000000 		.4byte	.LFE37-.LFB37
+ 812 0341 01       		.uleb128 0x1
+ 813 0342 9C       		.byte	0x9c
+ 814 0343 10       		.uleb128 0x10
+ 815 0344 5D000000 		.4byte	.LASF89
+ 816 0348 01       		.byte	0x1
+ 817 0349 83       		.byte	0x83
+ 818 034a 00000000 		.4byte	.LFB38
+ 819 034e 54000000 		.4byte	.LFE38-.LFB38
+ 820 0352 01       		.uleb128 0x1
+ 821 0353 9C       		.byte	0x9c
+ 822 0354 84030000 		.4byte	0x384
+ 823 0358 0E       		.uleb128 0xe
+ 824 0359 E2000000 		.4byte	.LASF86
+ 825 035d 01       		.byte	0x1
+ 826 035e 85       		.byte	0x85
+ 827 035f 43020000 		.4byte	0x243
+ 828 0363 02       		.uleb128 0x2
+ 829 0364 91       		.byte	0x91
+ 830 0365 70       		.sleb128 -16
+ 831 0366 0E       		.uleb128 0xe
+ 832 0367 24070000 		.4byte	.LASF87
+ 833 036b 01       		.byte	0x1
+ 834 036c 86       		.byte	0x86
+ 835 036d 76000000 		.4byte	0x76
+ 836 0371 02       		.uleb128 0x2
+ 837 0372 91       		.byte	0x91
+ 838 0373 74       		.sleb128 -12
+ 839 0374 0E       		.uleb128 0xe
+ 840 0375 36020000 		.4byte	.LASF88
+ 841 0379 01       		.byte	0x1
+ 842 037a 87       		.byte	0x87
+ 843 037b 84030000 		.4byte	0x384
+ 844 037f 03       		.uleb128 0x3
+ 845 0380 91       		.byte	0x91
+ 846 0381 B47F     		.sleb128 -76
+ 847 0383 00       		.byte	0
+ 848 0384 07       		.uleb128 0x7
+ 849 0385 76000000 		.4byte	0x76
+ 850 0389 94030000 		.4byte	0x394
+ 851 038d 08       		.uleb128 0x8
+ 852 038e A7000000 		.4byte	0xa7
+ 853 0392 0E       		.byte	0xe
+ 854 0393 00       		.byte	0
+ 855 0394 10       		.uleb128 0x10
+ 856 0395 75040000 		.4byte	.LASF90
+ 857 0399 01       		.byte	0x1
+ 858 039a 8F       		.byte	0x8f
+ 859 039b 00000000 		.4byte	.LFB39
+ 860 039f 3C000000 		.4byte	.LFE39-.LFB39
+ 861 03a3 01       		.uleb128 0x1
+ 862 03a4 9C       		.byte	0x9c
+ 863 03a5 D4030000 		.4byte	0x3d4
+ 864 03a9 0E       		.uleb128 0xe
+ 865 03aa E2000000 		.4byte	.LASF86
+ 866 03ae 01       		.byte	0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 19
+
+
+ 867 03af 91       		.byte	0x91
+ 868 03b0 43020000 		.4byte	0x243
+ 869 03b4 02       		.uleb128 0x2
+ 870 03b5 91       		.byte	0x91
+ 871 03b6 70       		.sleb128 -16
+ 872 03b7 0E       		.uleb128 0xe
+ 873 03b8 24070000 		.4byte	.LASF87
+ 874 03bc 01       		.byte	0x1
+ 875 03bd 92       		.byte	0x92
+ 876 03be 76000000 		.4byte	0x76
+ 877 03c2 02       		.uleb128 0x2
+ 878 03c3 91       		.byte	0x91
+ 879 03c4 74       		.sleb128 -12
+ 880 03c5 0E       		.uleb128 0xe
+ 881 03c6 36020000 		.4byte	.LASF88
+ 882 03ca 01       		.byte	0x1
+ 883 03cb 93       		.byte	0x93
+ 884 03cc AE000000 		.4byte	0xae
+ 885 03d0 02       		.uleb128 0x2
+ 886 03d1 91       		.byte	0x91
+ 887 03d2 60       		.sleb128 -32
+ 888 03d3 00       		.byte	0
+ 889 03d4 11       		.uleb128 0x11
+ 890 03d5 82020000 		.4byte	.LASF91
+ 891 03d9 01       		.byte	0x1
+ 892 03da 77       		.byte	0x77
+ 893 03db 84030000 		.4byte	0x384
+ 894 03df 05       		.uleb128 0x5
+ 895 03e0 03       		.byte	0x3
+ 896 03e1 00000000 		.4byte	ble_name_temp
+ 897 03e5 11       		.uleb128 0x11
+ 898 03e6 53010000 		.4byte	.LASF92
+ 899 03ea 01       		.byte	0x1
+ 900 03eb 78       		.byte	0x78
+ 901 03ec AE000000 		.4byte	0xae
+ 902 03f0 05       		.uleb128 0x5
+ 903 03f1 03       		.byte	0x3
+ 904 03f2 00000000 		.4byte	ble_macid_temp
+ 905 03f6 07       		.uleb128 0x7
+ 906 03f7 8F000000 		.4byte	0x8f
+ 907 03fb 06040000 		.4byte	0x406
+ 908 03ff 08       		.uleb128 0x8
+ 909 0400 A7000000 		.4byte	0xa7
+ 910 0404 0E       		.byte	0xe
+ 911 0405 00       		.byte	0
+ 912 0406 11       		.uleb128 0x11
+ 913 0407 45090000 		.4byte	.LASF93
+ 914 040b 01       		.byte	0x1
+ 915 040c 79       		.byte	0x79
+ 916 040d F6030000 		.4byte	0x3f6
+ 917 0411 05       		.uleb128 0x5
+ 918 0412 03       		.byte	0x3
+ 919 0413 00000000 		.4byte	BLEDeviceName
+ 920 0417 00       		.byte	0
+ 921              		.section	.debug_abbrev,"",%progbits
+ 922              	.Ldebug_abbrev0:
+ 923 0000 01       		.uleb128 0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 20
+
+
+ 924 0001 11       		.uleb128 0x11
+ 925 0002 01       		.byte	0x1
+ 926 0003 25       		.uleb128 0x25
+ 927 0004 0E       		.uleb128 0xe
+ 928 0005 13       		.uleb128 0x13
+ 929 0006 0B       		.uleb128 0xb
+ 930 0007 03       		.uleb128 0x3
+ 931 0008 0E       		.uleb128 0xe
+ 932 0009 1B       		.uleb128 0x1b
+ 933 000a 0E       		.uleb128 0xe
+ 934 000b 55       		.uleb128 0x55
+ 935 000c 17       		.uleb128 0x17
+ 936 000d 11       		.uleb128 0x11
+ 937 000e 01       		.uleb128 0x1
+ 938 000f 10       		.uleb128 0x10
+ 939 0010 17       		.uleb128 0x17
+ 940 0011 00       		.byte	0
+ 941 0012 00       		.byte	0
+ 942 0013 02       		.uleb128 0x2
+ 943 0014 24       		.uleb128 0x24
+ 944 0015 00       		.byte	0
+ 945 0016 0B       		.uleb128 0xb
+ 946 0017 0B       		.uleb128 0xb
+ 947 0018 3E       		.uleb128 0x3e
+ 948 0019 0B       		.uleb128 0xb
+ 949 001a 03       		.uleb128 0x3
+ 950 001b 0E       		.uleb128 0xe
+ 951 001c 00       		.byte	0
+ 952 001d 00       		.byte	0
+ 953 001e 03       		.uleb128 0x3
+ 954 001f 24       		.uleb128 0x24
+ 955 0020 00       		.byte	0
+ 956 0021 0B       		.uleb128 0xb
+ 957 0022 0B       		.uleb128 0xb
+ 958 0023 3E       		.uleb128 0x3e
+ 959 0024 0B       		.uleb128 0xb
+ 960 0025 03       		.uleb128 0x3
+ 961 0026 08       		.uleb128 0x8
+ 962 0027 00       		.byte	0
+ 963 0028 00       		.byte	0
+ 964 0029 04       		.uleb128 0x4
+ 965 002a 16       		.uleb128 0x16
+ 966 002b 00       		.byte	0
+ 967 002c 03       		.uleb128 0x3
+ 968 002d 0E       		.uleb128 0xe
+ 969 002e 3A       		.uleb128 0x3a
+ 970 002f 0B       		.uleb128 0xb
+ 971 0030 3B       		.uleb128 0x3b
+ 972 0031 0B       		.uleb128 0xb
+ 973 0032 49       		.uleb128 0x49
+ 974 0033 13       		.uleb128 0x13
+ 975 0034 00       		.byte	0
+ 976 0035 00       		.byte	0
+ 977 0036 05       		.uleb128 0x5
+ 978 0037 16       		.uleb128 0x16
+ 979 0038 00       		.byte	0
+ 980 0039 03       		.uleb128 0x3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 21
+
+
+ 981 003a 0E       		.uleb128 0xe
+ 982 003b 3A       		.uleb128 0x3a
+ 983 003c 0B       		.uleb128 0xb
+ 984 003d 3B       		.uleb128 0x3b
+ 985 003e 05       		.uleb128 0x5
+ 986 003f 49       		.uleb128 0x49
+ 987 0040 13       		.uleb128 0x13
+ 988 0041 00       		.byte	0
+ 989 0042 00       		.byte	0
+ 990 0043 06       		.uleb128 0x6
+ 991 0044 35       		.uleb128 0x35
+ 992 0045 00       		.byte	0
+ 993 0046 49       		.uleb128 0x49
+ 994 0047 13       		.uleb128 0x13
+ 995 0048 00       		.byte	0
+ 996 0049 00       		.byte	0
+ 997 004a 07       		.uleb128 0x7
+ 998 004b 01       		.uleb128 0x1
+ 999 004c 01       		.byte	0x1
+ 1000 004d 49       		.uleb128 0x49
+ 1001 004e 13       		.uleb128 0x13
+ 1002 004f 01       		.uleb128 0x1
+ 1003 0050 13       		.uleb128 0x13
+ 1004 0051 00       		.byte	0
+ 1005 0052 00       		.byte	0
+ 1006 0053 08       		.uleb128 0x8
+ 1007 0054 21       		.uleb128 0x21
+ 1008 0055 00       		.byte	0
+ 1009 0056 49       		.uleb128 0x49
+ 1010 0057 13       		.uleb128 0x13
+ 1011 0058 2F       		.uleb128 0x2f
+ 1012 0059 0B       		.uleb128 0xb
+ 1013 005a 00       		.byte	0
+ 1014 005b 00       		.byte	0
+ 1015 005c 09       		.uleb128 0x9
+ 1016 005d 04       		.uleb128 0x4
+ 1017 005e 01       		.byte	0x1
+ 1018 005f 0B       		.uleb128 0xb
+ 1019 0060 0B       		.uleb128 0xb
+ 1020 0061 3A       		.uleb128 0x3a
+ 1021 0062 0B       		.uleb128 0xb
+ 1022 0063 3B       		.uleb128 0x3b
+ 1023 0064 0B       		.uleb128 0xb
+ 1024 0065 01       		.uleb128 0x1
+ 1025 0066 13       		.uleb128 0x13
+ 1026 0067 00       		.byte	0
+ 1027 0068 00       		.byte	0
+ 1028 0069 0A       		.uleb128 0xa
+ 1029 006a 28       		.uleb128 0x28
+ 1030 006b 00       		.byte	0
+ 1031 006c 03       		.uleb128 0x3
+ 1032 006d 0E       		.uleb128 0xe
+ 1033 006e 1C       		.uleb128 0x1c
+ 1034 006f 0D       		.uleb128 0xd
+ 1035 0070 00       		.byte	0
+ 1036 0071 00       		.byte	0
+ 1037 0072 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 22
+
+
+ 1038 0073 0F       		.uleb128 0xf
+ 1039 0074 00       		.byte	0
+ 1040 0075 0B       		.uleb128 0xb
+ 1041 0076 0B       		.uleb128 0xb
+ 1042 0077 49       		.uleb128 0x49
+ 1043 0078 13       		.uleb128 0x13
+ 1044 0079 00       		.byte	0
+ 1045 007a 00       		.byte	0
+ 1046 007b 0C       		.uleb128 0xc
+ 1047 007c 2E       		.uleb128 0x2e
+ 1048 007d 01       		.byte	0x1
+ 1049 007e 3F       		.uleb128 0x3f
+ 1050 007f 19       		.uleb128 0x19
+ 1051 0080 03       		.uleb128 0x3
+ 1052 0081 0E       		.uleb128 0xe
+ 1053 0082 3A       		.uleb128 0x3a
+ 1054 0083 0B       		.uleb128 0xb
+ 1055 0084 3B       		.uleb128 0x3b
+ 1056 0085 0B       		.uleb128 0xb
+ 1057 0086 27       		.uleb128 0x27
+ 1058 0087 19       		.uleb128 0x19
+ 1059 0088 49       		.uleb128 0x49
+ 1060 0089 13       		.uleb128 0x13
+ 1061 008a 11       		.uleb128 0x11
+ 1062 008b 01       		.uleb128 0x1
+ 1063 008c 12       		.uleb128 0x12
+ 1064 008d 06       		.uleb128 0x6
+ 1065 008e 40       		.uleb128 0x40
+ 1066 008f 18       		.uleb128 0x18
+ 1067 0090 9742     		.uleb128 0x2117
+ 1068 0092 19       		.uleb128 0x19
+ 1069 0093 01       		.uleb128 0x1
+ 1070 0094 13       		.uleb128 0x13
+ 1071 0095 00       		.byte	0
+ 1072 0096 00       		.byte	0
+ 1073 0097 0D       		.uleb128 0xd
+ 1074 0098 05       		.uleb128 0x5
+ 1075 0099 00       		.byte	0
+ 1076 009a 03       		.uleb128 0x3
+ 1077 009b 0E       		.uleb128 0xe
+ 1078 009c 3A       		.uleb128 0x3a
+ 1079 009d 0B       		.uleb128 0xb
+ 1080 009e 3B       		.uleb128 0x3b
+ 1081 009f 0B       		.uleb128 0xb
+ 1082 00a0 49       		.uleb128 0x49
+ 1083 00a1 13       		.uleb128 0x13
+ 1084 00a2 02       		.uleb128 0x2
+ 1085 00a3 18       		.uleb128 0x18
+ 1086 00a4 00       		.byte	0
+ 1087 00a5 00       		.byte	0
+ 1088 00a6 0E       		.uleb128 0xe
+ 1089 00a7 34       		.uleb128 0x34
+ 1090 00a8 00       		.byte	0
+ 1091 00a9 03       		.uleb128 0x3
+ 1092 00aa 0E       		.uleb128 0xe
+ 1093 00ab 3A       		.uleb128 0x3a
+ 1094 00ac 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 23
+
+
+ 1095 00ad 3B       		.uleb128 0x3b
+ 1096 00ae 0B       		.uleb128 0xb
+ 1097 00af 49       		.uleb128 0x49
+ 1098 00b0 13       		.uleb128 0x13
+ 1099 00b1 02       		.uleb128 0x2
+ 1100 00b2 18       		.uleb128 0x18
+ 1101 00b3 00       		.byte	0
+ 1102 00b4 00       		.byte	0
+ 1103 00b5 0F       		.uleb128 0xf
+ 1104 00b6 2E       		.uleb128 0x2e
+ 1105 00b7 00       		.byte	0
+ 1106 00b8 3F       		.uleb128 0x3f
+ 1107 00b9 19       		.uleb128 0x19
+ 1108 00ba 03       		.uleb128 0x3
+ 1109 00bb 0E       		.uleb128 0xe
+ 1110 00bc 3A       		.uleb128 0x3a
+ 1111 00bd 0B       		.uleb128 0xb
+ 1112 00be 3B       		.uleb128 0x3b
+ 1113 00bf 0B       		.uleb128 0xb
+ 1114 00c0 27       		.uleb128 0x27
+ 1115 00c1 19       		.uleb128 0x19
+ 1116 00c2 11       		.uleb128 0x11
+ 1117 00c3 01       		.uleb128 0x1
+ 1118 00c4 12       		.uleb128 0x12
+ 1119 00c5 06       		.uleb128 0x6
+ 1120 00c6 40       		.uleb128 0x40
+ 1121 00c7 18       		.uleb128 0x18
+ 1122 00c8 9642     		.uleb128 0x2116
+ 1123 00ca 19       		.uleb128 0x19
+ 1124 00cb 00       		.byte	0
+ 1125 00cc 00       		.byte	0
+ 1126 00cd 10       		.uleb128 0x10
+ 1127 00ce 2E       		.uleb128 0x2e
+ 1128 00cf 01       		.byte	0x1
+ 1129 00d0 3F       		.uleb128 0x3f
+ 1130 00d1 19       		.uleb128 0x19
+ 1131 00d2 03       		.uleb128 0x3
+ 1132 00d3 0E       		.uleb128 0xe
+ 1133 00d4 3A       		.uleb128 0x3a
+ 1134 00d5 0B       		.uleb128 0xb
+ 1135 00d6 3B       		.uleb128 0x3b
+ 1136 00d7 0B       		.uleb128 0xb
+ 1137 00d8 27       		.uleb128 0x27
+ 1138 00d9 19       		.uleb128 0x19
+ 1139 00da 11       		.uleb128 0x11
+ 1140 00db 01       		.uleb128 0x1
+ 1141 00dc 12       		.uleb128 0x12
+ 1142 00dd 06       		.uleb128 0x6
+ 1143 00de 40       		.uleb128 0x40
+ 1144 00df 18       		.uleb128 0x18
+ 1145 00e0 9742     		.uleb128 0x2117
+ 1146 00e2 19       		.uleb128 0x19
+ 1147 00e3 01       		.uleb128 0x1
+ 1148 00e4 13       		.uleb128 0x13
+ 1149 00e5 00       		.byte	0
+ 1150 00e6 00       		.byte	0
+ 1151 00e7 11       		.uleb128 0x11
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 24
+
+
+ 1152 00e8 34       		.uleb128 0x34
+ 1153 00e9 00       		.byte	0
+ 1154 00ea 03       		.uleb128 0x3
+ 1155 00eb 0E       		.uleb128 0xe
+ 1156 00ec 3A       		.uleb128 0x3a
+ 1157 00ed 0B       		.uleb128 0xb
+ 1158 00ee 3B       		.uleb128 0x3b
+ 1159 00ef 0B       		.uleb128 0xb
+ 1160 00f0 49       		.uleb128 0x49
+ 1161 00f1 13       		.uleb128 0x13
+ 1162 00f2 3F       		.uleb128 0x3f
+ 1163 00f3 19       		.uleb128 0x19
+ 1164 00f4 02       		.uleb128 0x2
+ 1165 00f5 18       		.uleb128 0x18
+ 1166 00f6 00       		.byte	0
+ 1167 00f7 00       		.byte	0
+ 1168 00f8 00       		.byte	0
+ 1169              		.section	.debug_aranges,"",%progbits
+ 1170 0000 3C000000 		.4byte	0x3c
+ 1171 0004 0200     		.2byte	0x2
+ 1172 0006 00000000 		.4byte	.Ldebug_info0
+ 1173 000a 04       		.byte	0x4
+ 1174 000b 00       		.byte	0
+ 1175 000c 0000     		.2byte	0
+ 1176 000e 0000     		.2byte	0
+ 1177 0010 00000000 		.4byte	.LFB35
+ 1178 0014 38010000 		.4byte	.LFE35-.LFB35
+ 1179 0018 00000000 		.4byte	.LFB36
+ 1180 001c 18000000 		.4byte	.LFE36-.LFB36
+ 1181 0020 00000000 		.4byte	.LFB37
+ 1182 0024 18000000 		.4byte	.LFE37-.LFB37
+ 1183 0028 00000000 		.4byte	.LFB38
+ 1184 002c 54000000 		.4byte	.LFE38-.LFB38
+ 1185 0030 00000000 		.4byte	.LFB39
+ 1186 0034 3C000000 		.4byte	.LFE39-.LFB39
+ 1187 0038 00000000 		.4byte	0
+ 1188 003c 00000000 		.4byte	0
+ 1189              		.section	.debug_ranges,"",%progbits
+ 1190              	.Ldebug_ranges0:
+ 1191 0000 00000000 		.4byte	.LFB35
+ 1192 0004 38010000 		.4byte	.LFE35
+ 1193 0008 00000000 		.4byte	.LFB36
+ 1194 000c 18000000 		.4byte	.LFE36
+ 1195 0010 00000000 		.4byte	.LFB37
+ 1196 0014 18000000 		.4byte	.LFE37
+ 1197 0018 00000000 		.4byte	.LFB38
+ 1198 001c 54000000 		.4byte	.LFE38
+ 1199 0020 00000000 		.4byte	.LFB39
+ 1200 0024 3C000000 		.4byte	.LFE39
+ 1201 0028 00000000 		.4byte	0
+ 1202 002c 00000000 		.4byte	0
+ 1203              		.section	.debug_line,"",%progbits
+ 1204              	.Ldebug_line0:
+ 1205 0000 0F010000 		.section	.debug_str,"MS",%progbits,1
+ 1205      02005D00 
+ 1205      00000201 
+ 1205      FB0E0D00 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 25
+
+
+ 1205      01010101 
+ 1206              	.LASF24:
+ 1207 0000 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 1207      455F4556 
+ 1207      545F4741 
+ 1207      505F5041 
+ 1207      53534B45 
+ 1208              	.LASF48:
+ 1209 0024 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 1209      455F4556 
+ 1209      545F4741 
+ 1209      5454435F 
+ 1209      57524954 
+ 1210              	.LASF33:
+ 1211 003e 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 1211      455F4556 
+ 1211      545F4741 
+ 1211      50435F53 
+ 1211      43414E5F 
+ 1212              	.LASF89:
+ 1213 005d 73666C61 		.ascii	"sflash_read_ble_name\000"
+ 1213      73685F72 
+ 1213      6561645F 
+ 1213      626C655F 
+ 1213      6E616D65 
+ 1214              	.LASF2:
+ 1215 0072 73686F72 		.ascii	"short int\000"
+ 1215      7420696E 
+ 1215      7400
+ 1216              	.LASF27:
+ 1217 007c 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 1217      455F4556 
+ 1217      545F4741 
+ 1217      505F4155 
+ 1217      54485F46 
+ 1218              	.LASF15:
+ 1219 0096 73697A65 		.ascii	"sizetype\000"
+ 1219      74797065 
+ 1219      00
+ 1220              	.LASF84:
+ 1221 009f 73666C61 		.ascii	"sflash_write_ble_name\000"
+ 1221      73685F77 
+ 1221      72697465 
+ 1221      5F626C65 
+ 1221      5F6E616D 
+ 1222              	.LASF85:
+ 1223 00b5 73666C61 		.ascii	"sflash_write_macid\000"
+ 1223      73685F77 
+ 1223      72697465 
+ 1223      5F6D6163 
+ 1223      696400
+ 1224              	.LASF35:
+ 1225 00c8 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 1225      455F4556 
+ 1225      545F4741 
+ 1225      5454435F 
+ 1225      4552524F 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 26
+
+
+ 1226              	.LASF86:
+ 1227 00e2 73666C61 		.ascii	"sflashPtr\000"
+ 1227      73685074 
+ 1227      7200
+ 1228              	.LASF20:
+ 1229 00ec 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 1229      455F4556 
+ 1229      545F4843 
+ 1229      495F5354 
+ 1229      41545553 
+ 1230              	.LASF41:
+ 1231 0101 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 1231      455F4556 
+ 1231      545F4741 
+ 1231      5454435F 
+ 1231      52454144 
+ 1232              	.LASF17:
+ 1233 0122 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 1233      455F4556 
+ 1233      545F5354 
+ 1233      41434B5F 
+ 1233      4F4E00
+ 1234              	.LASF38:
+ 1235 0135 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 1235      455F4556 
+ 1235      545F4741 
+ 1235      5454535F 
+ 1235      58434E48 
+ 1236              	.LASF92:
+ 1237 0153 626C655F 		.ascii	"ble_macid_temp\000"
+ 1237      6D616369 
+ 1237      645F7465 
+ 1237      6D7000
+ 1238              	.LASF34:
+ 1239 0162 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 1239      455F4556 
+ 1239      545F4741 
+ 1239      505F4B45 
+ 1239      59494E46 
+ 1240              	.LASF46:
+ 1241 0186 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 1241      455F4556 
+ 1241      545F4741 
+ 1241      5454435F 
+ 1241      52454144 
+ 1242              	.LASF55:
+ 1243 01a5 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 1243      455F4556 
+ 1243      545F4741 
+ 1243      5454535F 
+ 1243      48414E44 
+ 1244              	.LASF16:
+ 1245 01c6 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 1245      455F4556 
+ 1245      545F484F 
+ 1245      53545F49 
+ 1245      4E56414C 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 27
+
+
+ 1246              	.LASF62:
+ 1247 01dd 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ 1247      455F4556 
+ 1247      545F4C32 
+ 1247      4341505F 
+ 1247      43424643 
+ 1248              	.LASF65:
+ 1249 01fb 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 1249      455F4556 
+ 1249      545F4C32 
+ 1249      4341505F 
+ 1249      43424643 
+ 1250              	.LASF75:
+ 1251 021c 6C6F6361 		.ascii	"localCount\000"
+ 1251      6C436F75 
+ 1251      6E7400
+ 1252              	.LASF76:
+ 1253 0227 72657456 		.ascii	"retValue\000"
+ 1253      616C7565 
+ 1253      00
+ 1254              	.LASF11:
+ 1255 0230 666C6F61 		.ascii	"float\000"
+ 1255      7400
+ 1256              	.LASF88:
+ 1257 0236 72656164 		.ascii	"readData\000"
+ 1257      44617461 
+ 1257      00
+ 1258              	.LASF44:
+ 1259 023f 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 1259      455F4556 
+ 1259      545F4741 
+ 1259      5454435F 
+ 1259      52454144 
+ 1260              	.LASF79:
+ 1261 0258 72656732 		.ascii	"reg2\000"
+ 1261      00
+ 1262              	.LASF6:
+ 1263 025d 6C6F6E67 		.ascii	"long long int\000"
+ 1263      206C6F6E 
+ 1263      6720696E 
+ 1263      7400
+ 1264              	.LASF7:
+ 1265 026b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1265      206C6F6E 
+ 1265      6720756E 
+ 1265      7369676E 
+ 1265      65642069 
+ 1266              	.LASF91:
+ 1267 0282 626C655F 		.ascii	"ble_name_temp\000"
+ 1267      6E616D65 
+ 1267      5F74656D 
+ 1267      7000
+ 1268              	.LASF82:
+ 1269 0290 72656735 		.ascii	"reg5\000"
+ 1269      00
+ 1270              	.LASF83:
+ 1271 0295 72656736 		.ascii	"reg6\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 28
+
+
+ 1271      00
+ 1272              	.LASF4:
+ 1273 029a 6C6F6E67 		.ascii	"long int\000"
+ 1273      20696E74 
+ 1273      00
+ 1274              	.LASF54:
+ 1275 02a3 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 1275      455F4556 
+ 1275      545F4741 
+ 1275      5454435F 
+ 1275      48414E44 
+ 1276              	.LASF29:
+ 1277 02c4 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 1277      455F4556 
+ 1277      545F4741 
+ 1277      505F4445 
+ 1277      56494345 
+ 1278              	.LASF97:
+ 1279 02e3 57726974 		.ascii	"WriteUserSFlashRow\000"
+ 1279      65557365 
+ 1279      7253466C 
+ 1279      61736852 
+ 1279      6F7700
+ 1280              	.LASF28:
+ 1281 02f6 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 1281      455F4556 
+ 1281      545F4741 
+ 1281      50505F41 
+ 1281      44564552 
+ 1282              	.LASF53:
+ 1283 031e 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 1283      455F4556 
+ 1283      545F4741 
+ 1283      5454435F 
+ 1283      48414E44 
+ 1284              	.LASF21:
+ 1285 033f 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 1285      455F4556 
+ 1285      545F5354 
+ 1285      41434B5F 
+ 1285      42555359 
+ 1286              	.LASF74:
+ 1287 035b 64617461 		.ascii	"dataPointer\000"
+ 1287      506F696E 
+ 1287      74657200 
+ 1288              	.LASF25:
+ 1289 0367 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 1289      455F4556 
+ 1289      545F4741 
+ 1289      505F5041 
+ 1289      53534B45 
+ 1290              	.LASF63:
+ 1291 038d 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 1291      455F4556 
+ 1291      545F4C32 
+ 1291      4341505F 
+ 1291      43424643 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 29
+
+
+ 1292              	.LASF72:
+ 1293 03ab 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 1293      455F4556 
+ 1293      545F4D41 
+ 1293      5800
+ 1294              	.LASF9:
+ 1295 03b9 75696E74 		.ascii	"uint8\000"
+ 1295      3800
+ 1296              	.LASF59:
+ 1297 03bf 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 1297      455F4556 
+ 1297      545F4C32 
+ 1297      4341505F 
+ 1297      434F4E4E 
+ 1298              	.LASF1:
+ 1299 03e5 756E7369 		.ascii	"unsigned char\000"
+ 1299      676E6564 
+ 1299      20636861 
+ 1299      7200
+ 1300              	.LASF50:
+ 1301 03f3 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 1301      455F4556 
+ 1301      545F4741 
+ 1301      5454535F 
+ 1301      50524550 
+ 1302              	.LASF71:
+ 1303 0412 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
+ 1303      455F4556 
+ 1303      545F4C45 
+ 1303      5F50494E 
+ 1303      475F4155 
+ 1304              	.LASF47:
+ 1305 0431 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 1305      455F4556 
+ 1305      545F4741 
+ 1305      5454535F 
+ 1305      57524954 
+ 1306              	.LASF42:
+ 1307 044b 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 1307      455F4556 
+ 1307      545F4741 
+ 1307      5454435F 
+ 1307      46494E44 
+ 1308              	.LASF0:
+ 1309 0469 7369676E 		.ascii	"signed char\000"
+ 1309      65642063 
+ 1309      68617200 
+ 1310              	.LASF90:
+ 1311 0475 73666C61 		.ascii	"sflash_read_macid\000"
+ 1311      73685F72 
+ 1311      6561645F 
+ 1311      6D616369 
+ 1311      6400
+ 1312              	.LASF43:
+ 1313 0487 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 1313      455F4556 
+ 1313      545F4741 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 30
+
+
+ 1313      5454435F 
+ 1313      46494E44 
+ 1314              	.LASF77:
+ 1315 04ae 636D6444 		.ascii	"cmdDataBuffer\000"
+ 1315      61746142 
+ 1315      75666665 
+ 1315      7200
+ 1316              	.LASF26:
+ 1317 04bc 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 1317      455F4556 
+ 1317      545F4741 
+ 1317      505F4155 
+ 1317      54485F43 
+ 1318              	.LASF8:
+ 1319 04d8 756E7369 		.ascii	"unsigned int\000"
+ 1319      676E6564 
+ 1319      20696E74 
+ 1319      00
+ 1320              	.LASF73:
+ 1321 04e5 75736572 		.ascii	"userRowNUmber\000"
+ 1321      526F774E 
+ 1321      556D6265 
+ 1321      7200
+ 1322              	.LASF36:
+ 1323 04f3 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 1323      455F4556 
+ 1323      545F4741 
+ 1323      54545F43 
+ 1323      4F4E4E45 
+ 1324              	.LASF5:
+ 1325 050e 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1325      20756E73 
+ 1325      69676E65 
+ 1325      6420696E 
+ 1325      7400
+ 1326              	.LASF23:
+ 1327 0520 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 1327      455F4556 
+ 1327      545F4741 
+ 1327      505F4155 
+ 1327      54485F52 
+ 1328              	.LASF64:
+ 1329 0537 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 1329      455F4556 
+ 1329      545F4C32 
+ 1329      4341505F 
+ 1329      43424643 
+ 1330              	.LASF31:
+ 1331 0558 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 1331      455F4556 
+ 1331      545F4741 
+ 1331      505F454E 
+ 1331      43525950 
+ 1332              	.LASF14:
+ 1333 0575 72656733 		.ascii	"reg32\000"
+ 1333      3200
+ 1334              	.LASF3:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 31
+
+
+ 1335 057b 73686F72 		.ascii	"short unsigned int\000"
+ 1335      7420756E 
+ 1335      7369676E 
+ 1335      65642069 
+ 1335      6E7400
+ 1336              	.LASF32:
+ 1337 058e 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 1337      455F4556 
+ 1337      545F4741 
+ 1337      505F434F 
+ 1337      4E4E4543 
+ 1338              	.LASF13:
+ 1339 05b7 63686172 		.ascii	"char\000"
+ 1339      00
+ 1340              	.LASF94:
+ 1341 05bc 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1341      4320342E 
+ 1341      392E3320 
+ 1341      32303135 
+ 1341      30333033 
+ 1342 05ef 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 1342      20726576 
+ 1342      6973696F 
+ 1342      6E203232 
+ 1342      31323230 
+ 1343 0622 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1343      66756E63 
+ 1343      74696F6E 
+ 1343      2D736563 
+ 1343      74696F6E 
+ 1344              	.LASF61:
+ 1345 064a 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 1345      455F4556 
+ 1345      545F4C32 
+ 1345      4341505F 
+ 1345      434F4D4D 
+ 1346              	.LASF78:
+ 1347 0666 72656731 		.ascii	"reg1\000"
+ 1347      00
+ 1348              	.LASF45:
+ 1349 066b 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 1349      455F4556 
+ 1349      545F4741 
+ 1349      5454435F 
+ 1349      52454144 
+ 1350              	.LASF80:
+ 1351 0689 72656733 		.ascii	"reg3\000"
+ 1351      00
+ 1352              	.LASF81:
+ 1353 068e 72656734 		.ascii	"reg4\000"
+ 1353      00
+ 1354              	.LASF52:
+ 1355 0693 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 1355      455F4556 
+ 1355      545F4741 
+ 1355      5454435F 
+ 1355      45584543 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 32
+
+
+ 1356              	.LASF10:
+ 1357 06b2 75696E74 		.ascii	"uint32\000"
+ 1357      333200
+ 1358              	.LASF70:
+ 1359 06b9 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 1359      455F4556 
+ 1359      545F5045 
+ 1359      4E44494E 
+ 1359      475F464C 
+ 1360              	.LASF67:
+ 1361 06d7 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 1361      455F4556 
+ 1361      545F4C32 
+ 1361      4341505F 
+ 1361      43424643 
+ 1362              	.LASF12:
+ 1363 06fa 646F7562 		.ascii	"double\000"
+ 1363      6C6500
+ 1364              	.LASF68:
+ 1365 0701 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 1365      455F4556 
+ 1365      545F4C32 
+ 1365      4341505F 
+ 1365      43424643 
+ 1366              	.LASF87:
+ 1367 0724 64617461 		.ascii	"dataIndex\000"
+ 1367      496E6465 
+ 1367      7800
+ 1368              	.LASF19:
+ 1369 072e 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 1369      455F4556 
+ 1369      545F4841 
+ 1369      52445741 
+ 1369      52455F45 
+ 1370              	.LASF66:
+ 1371 0747 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 1371      455F4556 
+ 1371      545F4C32 
+ 1371      4341505F 
+ 1371      43424643 
+ 1372              	.LASF60:
+ 1373 0766 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 1373      455F4556 
+ 1373      545F4C32 
+ 1373      4341505F 
+ 1373      434F4E4E 
+ 1374              	.LASF22:
+ 1375 078c 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 1375      455F4556 
+ 1375      545F4741 
+ 1375      50435F53 
+ 1375      43414E5F 
+ 1376              	.LASF40:
+ 1377 07b0 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 1377      455F4556 
+ 1377      545F4741 
+ 1377      5454435F 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 33
+
+
+ 1377      52454144 
+ 1378              	.LASF49:
+ 1379 07d7 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 1379      455F4556 
+ 1379      545F4741 
+ 1379      5454535F 
+ 1379      57524954 
+ 1380              	.LASF39:
+ 1381 07f5 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 1381      455F4556 
+ 1381      545F4741 
+ 1381      5454435F 
+ 1381      5843484E 
+ 1382              	.LASF95:
+ 1383 0813 2E5C5772 		.ascii	".\\WriteUserSFlash.c\000"
+ 1383      69746555 
+ 1383      73657253 
+ 1383      466C6173 
+ 1383      682E6300 
+ 1384              	.LASF18:
+ 1385 0827 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 1385      455F4556 
+ 1385      545F5449 
+ 1385      4D454F55 
+ 1385      5400
+ 1386              	.LASF69:
+ 1387 0839 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 1387      455F4556 
+ 1387      545F4C32 
+ 1387      4341505F 
+ 1387      43424643 
+ 1388              	.LASF96:
+ 1389 085d 453A5C4C 		.ascii	"E:\\LXS_BLE\\Design02.cydsn\000"
+ 1389      58535F42 
+ 1389      4C455C44 
+ 1389      65736967 
+ 1389      6E30322E 
+ 1390              	.LASF58:
+ 1391 0877 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
+ 1391      455F4556 
+ 1391      545F4741 
+ 1391      5454535F 
+ 1391      52454144 
+ 1392              	.LASF57:
+ 1393 08a0 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
+ 1393      455F4556 
+ 1393      545F4741 
+ 1393      5454435F 
+ 1393      53544F50 
+ 1394              	.LASF51:
+ 1395 08c2 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 1395      455F4556 
+ 1395      545F4741 
+ 1395      5454535F 
+ 1395      45584543 
+ 1396              	.LASF30:
+ 1397 08e1 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccoooWSG.s 			page 34
+
+
+ 1397      455F4556 
+ 1397      545F4741 
+ 1397      505F4445 
+ 1397      56494345 
+ 1398              	.LASF56:
+ 1399 0903 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 1399      455F4556 
+ 1399      545F4741 
+ 1399      5454535F 
+ 1399      44415441 
+ 1400              	.LASF37:
+ 1401 0927 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 1401      455F4556 
+ 1401      545F4741 
+ 1401      54545F44 
+ 1401      4953434F 
+ 1402              	.LASF93:
+ 1403 0945 424C4544 		.ascii	"BLEDeviceName\000"
+ 1403      65766963 
+ 1403      654E616D 
+ 1403      6500
+ 1404              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
