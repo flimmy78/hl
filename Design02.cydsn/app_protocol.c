@@ -23,6 +23,9 @@ uint8 packetTXStep = 0;
 uint8 recv_buff[40];
 uint8 AppKey[8];
 
+static  uint8  lock_open_flag = 0; //key_touch_lock
+static  uint8  lock_flag = 0;      //
+static  uint16 lock_timeflow = 0;  //key_touch_lock
 
 typedef struct _KEY_STR
 {
@@ -279,13 +282,14 @@ void Hl_Back_Lock_Info(void)
     packetTX[7] = Ver_L; 
     
     packetTX[8] = 0; //锁状态
-    
-    packetTX[9] = Xor_Check(&packetTX[2], packetTX[1]);
-    
+
     memcpy(rc4_key, key_str.dynamic_key, 8);       //动态密钥做高8字节
-    memcpy(&rc4_key[8], key_str.root_key, 8);   //根密钥做低8字节
-    App_RC4(rc4_key, 16, &packetTX[2], 7);
+    memcpy(&rc4_key[8], key_str.root_key, 8);      //根密钥做低8字节
+    
+    App_RC4(rc4_key, 16, &packetTX[2], 7); //加密
    
+    packetTX[9] = Xor_Check(&packetTX[2], packetTX[1]);  //异或校验
+    
     sendlen = packetTX[1] + 3;
     
     SendNotification_zx(sendlen);
@@ -339,6 +343,37 @@ void test_md5(void)
     MD5Final(&md5, decrypt); //生成MD5标签
 }
 
+/***********************************************
+* 函数名：void key_touch_lock_process(void)
+* 描述  ：当钥匙接入锁孔时 发送03包给APP
+***********************************************/
+void key_touch_lock_process(void)
+{
+    if(lock_open_flag)
+    {
+        if(lock_flag == 0) //允许开锁
+        { 
+           lock_flag  = 1; //
+           lock_open_flag = 0;
+           Hl_Back_Lock_Info(); //发送03包  当钥匙接入锁孔时发送  
+        }
+    }
+    
+    if(lock_timeflow) //开启超时计数
+    {
+        if(++lock_timeflow > 2000)
+        {
+            lock_open_flag = 0; //允许再次开锁请求
+            lock_timeflow = 0;  //
+        }
+    }
+}
+
+void key_touch_lock_flag_set(void)
+{
+    lock_open_flag = 1;
+}
+
 
 /***********************************************
 * 函数名：void ReceiveBleCmd(void)
@@ -374,10 +409,6 @@ void ReceiveBleCmd(void)
                 memcpy(key_str.dynamic_key, &packet_rx[2], 8); //获得动态密钥
                 
                 Hl_Back_Msg(cmd, 1); //响应02包
-                
-                Hl_Back_Lock_Info(); //发送03包  当钥匙接入锁孔时发送
-                
-                //test_md5();
                 break;
                 
                 case CMD_LOCK_OPEN:

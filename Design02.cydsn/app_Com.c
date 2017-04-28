@@ -50,6 +50,8 @@ void Com_Recv_Prov(void)
                     {
                         packetTXStep = Send_Lock_Info;
                     }
+                    
+                    key_touch_lock_flag_set(); //设置开锁请求标识
                     break;
                 
                 case CHECK_CODE_CMD:

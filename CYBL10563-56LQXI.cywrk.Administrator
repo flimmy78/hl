@@ -179,34 +179,13 @@
 <v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\cymetadata.c</v>
 <v>CYBL10563-56LQXI\Design02\Generated_Source\PSoC4\project.h</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>CYBL10563-56LQXI\Design02\Header Files\app_Ble.h</v>
-<v>CYBL10563-56LQXI\Design02\Header Files\app_Com.h</v>
-<v>CYBL10563-56LQXI\Design02\Header Files\app_LED.h</v>
-<v>CYBL10563-56LQXI\Design02\Header Files\app_lock.h</v>
-<v>CYBL10563-56LQXI\Design02\Header Files\app_protocol.h</v>
-<v>CYBL10563-56LQXI\Design02\Header Files\app_UART.h</v>
-<v>CYBL10563-56LQXI\Design02\Header Files\main.h</v>
-<v>CYBL10563-56LQXI\Design02\Header Files\md5.h</v>
-<v>CYBL10563-56LQXI\Design02\Header Files\RC4.h</v>
-<v>CYBL10563-56LQXI\Design02\Source Files</v>
-<v>CYBL10563-56LQXI\Design02\Source Files\app_Ble.c</v>
-<v>CYBL10563-56LQXI\Design02\Source Files\app_Com.c</v>
-<v>CYBL10563-56LQXI\Design02\Source Files\app_LED.c</v>
-<v>CYBL10563-56LQXI\Design02\Source Files\app_lock.c</v>
-<v>CYBL10563-56LQXI\Design02\Source Files\app_protocol.c</v>
-<v>CYBL10563-56LQXI\Design02\Source Files\app_UART.c</v>
-<v>CYBL10563-56LQXI\Design02\Source Files\main.c</v>
-<v>CYBL10563-56LQXI\Design02\Source Files\md5.c</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
 <v>CYBL10563-56LQXI</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>CYBL10563-56LQXI</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="CYBL10563-56LQXI">
 <ExpandedNodeIds>
@@ -281,26 +260,7 @@
 <v>CYBL10563-56LQXI\Design02\Design02.rpt</v>
 <v>CYBL10563-56LQXI\Design02\Design02_timing.html</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>CYBL10563-56LQXI</v>
-<v>CYBL10563-56LQXI\Design02</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_INT.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_intClock.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_IRQ.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\ADC_PM.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_Ble.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_Com.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_LED.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_lock.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_protocol.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\app_UART.lst</v>
-<v>CYBL10563-56LQXI\Design02\CortexM0\ARM_GCC_493\Debug\Listing Files\BAT_AD.lst</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
 <TreeKeysV2>
@@ -314,53 +274,8 @@
 <v>CYBL10563-56LQXI\Design02\PSoC 4 Architecture TRM</v>
 <v>CYBL10563-56LQXI\Design02\PRoC BLE Family Datasheet</v>
 <v>CYBL10563-56LQXI\Design02\System Reference Guides</v>
-<v>CYBL10563-56LQXI\Design02\System Reference Guides\cy_boot_v5_20</v>
-<v>CYBL10563-56LQXI\Design02\System Reference Guides\cy_lfclk_v1_0</v>
-<v>CYBL10563-56LQXI\Design02\ADC_SAR_SEQ_P4_v2_20.pdf</v>
-<v>CYBL10563-56LQXI\Design02\BLE_v2_30.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Capacitor_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\cy_clock_v2_20</v>
-<v>CYBL10563-56LQXI\Design02\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
-<v>CYBL10563-56LQXI\Design02\cy_isr_v1_70</v>
-<v>CYBL10563-56LQXI\Design02\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
-<v>CYBL10563-56LQXI\Design02\cy_pins_v2_10</v>
-<v>CYBL10563-56LQXI\Design02\cy_pins_v2_10\cy_pins_v2_10.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Diode_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Gnd_v1_0</v>
-<v>CYBL10563-56LQXI\Design02\Gnd_v1_0\Gnd_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Inductor_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\LED_v1_0</v>
-<v>CYBL10563-56LQXI\Design02\LED_v1_0\LED_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\NPN_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Power_v1_0</v>
-<v>CYBL10563-56LQXI\Design02\Power_v1_0\Power_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Resistor_v1_0</v>
-<v>CYBL10563-56LQXI\Design02\Resistor_v1_0\Resistor_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\SCB_P4_v3_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Speaker_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\TCPWM_P4_v2_0</v>
-<v>CYBL10563-56LQXI\Design02\TCPWM_P4_v2_0\TCPWM_P4_v2_0.pdf</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>CYBL10563-56LQXI</v>
-<v>CYBL10563-56LQXI\Design02</v>
-<v>CYBL10563-56LQXI\Design02\PSoC 4 Architecture TRM</v>
-<v>CYBL10563-56LQXI\Design02\PRoC BLE Family Datasheet</v>
-<v>CYBL10563-56LQXI\Design02\System Reference Guides</v>
-<v>CYBL10563-56LQXI\Design02\System Reference Guides\cy_boot_v5_20</v>
-<v>CYBL10563-56LQXI\Design02\System Reference Guides\cy_lfclk_v1_0</v>
-<v>CYBL10563-56LQXI\Design02\ADC_SAR_SEQ_P4_v2_20.pdf</v>
-<v>CYBL10563-56LQXI\Design02\BLE_v2_30.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Capacitor_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\cy_clock_v2_20</v>
-<v>CYBL10563-56LQXI\Design02\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
-<v>CYBL10563-56LQXI\Design02\cy_isr_v1_70</v>
-<v>CYBL10563-56LQXI\Design02\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
-<v>CYBL10563-56LQXI\Design02\cy_pins_v2_10</v>
-<v>CYBL10563-56LQXI\Design02\cy_pins_v2_10\cy_pins_v2_10.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Diode_v1_0.pdf</v>
-<v>CYBL10563-56LQXI\Design02\Gnd_v1_0</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
@@ -408,7 +323,6 @@
 <name v=".\Design02.cydsn\RC4.c" />
 <name v=".\Design02.cydsn\app_UART.c" />
 <name v=".\Design02.cydsn\Generated_Source\PSoC4\BLE_HAL_INT.c" />
-<name v=".\Design02.cydsn\md5.h" />
 <name v="E:\test\test1\BLE_OTA_External_Memory_Bootloadable01\BLE_OTA_External_Memory_Bootloadable01.cydsn\md5.c" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
@@ -417,7 +331,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="981, 379" SelectedTabbedMdiWindow="546335fb-c183-47c7-993d-c973c1f120d2"><DocumentWindow Key="89eeebfa-539e-48e6-b922-17c84d1fc063" Guid="9542ec70-06d1-48dd-a8c9-37ed0623b848" /><DocumentWindow Key="efe867d7-c87d-4032-a62e-51353e4d1ba8" Guid="689e53e9-5a6d-4d94-8762-942e88d1e193" /><DocumentWindow Key="c82492be-186c-462d-ae22-ef582b563653" Guid="50990ae0-f792-4c28-b755-de3494abe668" /><DocumentWindow Key="8016a270-6ba7-43c7-9007-532840a94407" Guid="79247408-116d-4688-b695-6285215e11df" /><DocumentWindow Key="d74570b7-6e62-420d-b96a-12622512eba7" Guid="546335fb-c183-47c7-993d-c973c1f120d2" /><DocumentWindow Key="fc8c009e-dd0f-4207-a2b1-6f61c61c2474" Guid="bae0cdd0-9f4f-4fb7-bbcb-cf8bda4832c9" /><DocumentWindow Key="20e4fdd9-b1c0-427c-a1b1-765ada9a04b6" Guid="5856ff73-f463-4f71-9a6f-35719456d3e9" /><DocumentWindow Key="ea2af948-7253-4988-b7a1-41d0068e2773" Guid="415b5e26-2b12-4ed6-9b87-01e275b692f6" /><DocumentWindow Key="428ad215-58b7-4316-a54c-e67295789700" Guid="ce541a07-3a32-48f7-b5d8-37b69f97a28d" /><DocumentWindow Key="840b6f28-a76f-4b9d-aa56-4481856781b2" Guid="f0510439-bbb9-418f-8eb7-1ecfe094652b" /><DocumentWindow Key="713dd816-22dc-4cdd-8a3e-455d6f1f3b0c" Guid="0ad15490-75b7-43ab-83d7-7d862a38eafd" /><DocumentWindow Key="6844f90a-3fb4-4972-ba4c-b8a59361c0f7" Guid="568f429a-8c00-4598-aaf4-aad11888b9a7" /><DocumentWindow Key="1756ad58-e668-4656-b80b-2f98667d725c" Guid="209283d9-8b32-407c-9d27-fa103db21504" /><DocumentWindow Key="c2116a83-61e6-4a37-8e4a-54c41f4a3607" Guid="5217393f-cf67-4fba-80e6-aa033c7ccc87" /><DocumentWindow Key="4e5a0ffe-9f26-4a26-a4f6-3a2cdcddc632" Guid="d8443ee1-89ad-4077-bb3b-20e4743817bb" /><DocumentWindow Key="45cb0d6b-4674-4811-a16f-58f42b5ef4d5" Guid="5653953a-738a-42b8-8ac7-633c64a0e5c8" /><DocumentWindow Key="ec949719-7579-4402-9e85-56a6b04e60b1" Guid="388dff87-50a5-4886-b72b-ffe6c2b678c1" /><DocumentWindow Key="046df774-c6b1-4b62-b18f-a06064b5b46f" Guid="4fc6ca71-7cb3-41cf-9386-22c461d395d7" /><DocumentWindow Key="868464c4-c4c6-448d-9c0c-36690d247c23" Guid="ee56a7c8-605d-4384-9dbf-f69e216c2c88" /><DocumentWindow Key="f975ccf4-0be2-47d9-a898-ab93527635c3" Guid="7de447c7-9aad-4e82-954c-0e96a2f3a3d7" /><DocumentWindow Key="dfb390ba-7fb7-4ff0-b441-aca8db275f63" Guid="2e3eb1d1-1371-41b2-bf7d-29c3e37e9ad3" /><DocumentWindow Key="68ab56a1-ba04-48cf-9fdf-6732c6eda137" Guid="4201eb7e-c740-44da-9dae-9b3a800865db" /><DocumentWindow Key="53916ebf-db8c-4e56-84b5-64ba0e41bb98" Guid="9656586b-e5dd-42ee-8f84-3e3f41fd8c8b" /><DocumentWindow Key="1b1c04de-8de8-41f8-ae7c-1fb5b71a6cc5" Guid="b1061f3f-6883-44bd-8062-8ef5644eca05" /><DocumentWindow Key="97cca7de-00e6-4db6-8673-fd35465e54f0" Guid="6a36cc2b-d7fb-4f3c-b577-363efb42ae93" /><DocumentWindow Key="c1e0b747-0ca5-440d-9966-59fe34afdc96" Guid="17ff1520-9163-40aa-aeb0-dc078a01ff37" /><DocumentWindow Key="b6d5e190-cc63-406c-94de-ac04c7338efe" Guid="a4d85869-66a6-405d-86a7-916cec85d194" /><DocumentWindow Key="6136fb6b-ddb7-45e9-8253-8c57cd87cdc2" Guid="cb69065c-96c9-43b0-a3fc-003328208817" /><DocumentWindow Key="4cef082b-ec80-427e-ba03-0eab61d984a0" Guid="bc619c8e-2f02-4983-bc58-a13e7d866ebf" /><DocumentWindow Key="4455a537-9cf5-4c03-9015-e8cfa2af9c2f" Guid="fa33ff25-daf2-4026-90a9-11a9946ede03" /><DocumentWindow Key="38c87101-4f8f-4919-a177-29ce56d41c0d" Guid="6563d3f5-4f80-46b9-8d7f-496f0dbce99b" /><DocumentWindow Key="c2569ad1-c1b3-4e47-a6fe-1404507bca52" Guid="7d807c1b-d76c-44c6-9426-22d265003355" /><DocumentWindow Key="5cf9e825-650c-4ae7-a07b-078dc4e96fae" Guid="3067b5f0-98ea-4eee-983e-f9221235f2ae" /><DocumentWindow Key="2cd398b6-ae07-4fad-8b67-1c86c1a2b811" Guid="90aedaf3-7389-49da-b501-b9e51d9c7bc9" /><DocumentWindow Key="88df7a71-599e-4c7b-aad3-6ca2f3b0254f" Guid="9335ba66-f0bf-4b54-ab86-f7c41f8c8029" /><DocumentWindow Key="287cf0dd-06cc-43d3-a8d8-0ab645c7f8ab" Guid="0220e378-4c31-41d3-9b87-c7dac231dd14" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="7222ee67-65b9-43f2-8afd-e0916ca276bc" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1019, 511" SelectedTabbedMdiWindow="f63ee2a0-25ca-4de4-b8a1-f5dc8e360231"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="7222ee67-65b9-43f2-8afd-e0916ca276bc" /><DocumentWindow Key="ad9b6083-0e7d-479c-9666-92f14d7b0cc6" Guid="de282a2e-1d30-45ff-8726-eae3599b84e7" /><DocumentWindow Key="34fbf871-c9fa-45a8-af62-a626e3ef4df7" Guid="8951bb9c-edcf-439c-bcc5-79bdfc01b74a" /><DocumentWindow Key="97a3f8c8-95fa-4f9e-9d5a-287e10572d5e" Guid="e4a662ef-5d41-4726-8104-7feea64f3d0c" /><DocumentWindow Key="16e06957-cef2-4580-afdb-e0795efe3198" Guid="0f7d5aa0-72b0-4344-8e71-aadd7bad528e" /><DocumentWindow Key="c2d88651-5832-4064-91a5-9bee3bf9b5bd" Guid="f63ee2a0-25ca-4de4-b8a1-f5dc8e360231" /><DocumentWindow Key="7bb75e0f-aa02-477e-9edb-983ecc356959" Guid="e3687bd7-e9fb-460b-9cb9-126d7906177e" /><DocumentWindow Key="736207d9-5311-41e6-b69b-1d141d9add16" Guid="de035d47-28a3-4d12-9b38-f02594bac36c" /><DocumentWindow Key="e08661dc-56fa-4e68-b641-d531b1052a80" Guid="69b5eb58-dd3b-4e42-824d-0726e153a443" /><DocumentWindow Key="e1198548-02fc-4cbd-a3cd-d42a91e08d7a" Guid="199a2774-1467-4899-8ce2-99bff92ec6f6" /><DocumentWindow Key="2f3a8330-3e06-4390-9c03-921901ae924d" Guid="c350ae5a-9b1c-4677-8599-33beb62ae683" /><DocumentWindow Key="ad1ad84e-b8aa-4478-8854-82a9748b2a5e" Guid="d24189db-e95d-4095-94fb-765ae3aa1f2f" /><DocumentWindow Key="1e2f23b7-ee4d-4ffe-9177-afbf8321782a" Guid="ceb6a571-c1a2-4b25-8a8b-f781be3658b9" /><DocumentWindow Key="d03266fd-8598-4a4b-9f0d-e370db7f8d6f" Guid="721ede98-342e-4313-89f4-2d5ba08d987d" /><DocumentWindow Key="6fcb35e5-8f60-4bdb-878d-4e7b1224f4b9" Guid="4d236a87-1f31-4531-b632-fc4135500059" /><DocumentWindow Key="21724de6-1ac7-4d1a-a08d-d633be9e8f8a" Guid="615eeab2-48de-4bbf-8c1c-27f6a6f365ca" /><DocumentWindow Key="6619a1ae-a0a9-49bb-a2bf-afa1d9e0d75a" Guid="03618404-4c3b-464b-b875-0a2efc5aaa1e" /><DocumentWindow Key="2b3e91c2-abaf-4a26-b729-54b56901f82f" Guid="9b967da1-2813-4be6-a355-e259b525c208" /><DocumentWindow Key="516563d9-23ca-4893-8a0d-81e1ddb7944d" Guid="23684a67-d3a1-4c1b-942b-75eab2e2fb1c" /><DocumentWindow Key="30eaf189-4107-45f8-a124-c39ddc39012a" Guid="3be1b444-911a-4a0c-bfd5-0178f5e2da4a" /><DocumentWindow Key="ea3bb927-8356-44e5-b5f5-afb308ff5b26" Guid="bf5ea278-d2bb-4011-9c40-f082d64c9ae1" /><DocumentWindow Key="662cf34c-c8f3-432b-9a11-3b9e8735f95c" Guid="d75924ac-1af3-4903-b103-0701c2a629e0" /><DocumentWindow Key="1524a966-c569-47a6-85a2-4b5017841241" Guid="deb17206-15c7-4206-9599-9d1aed388819" /><DocumentWindow Key="23b79d98-fe83-4e76-b629-8c68fc696cc1" Guid="35e1da5c-9aa9-4db3-b16f-f7ac7f32b21c" /><DocumentWindow Key="b6e53671-2787-4bc4-9523-ab004fd8db49" Guid="ae289376-c057-4ffe-a39e-07e24f9489c3" /><DocumentWindow Key="e0fae1c1-3201-4942-853a-974232628e28" Guid="3eb56764-ab78-49f4-9f9b-db06376fbeb2" /><DocumentWindow Key="87368cda-7ee5-4faf-b143-b10ca9758907" Guid="3842ea89-49ae-428b-9e45-83f161f45d5d" /><DocumentWindow Key="7e1a4078-cfa3-423f-bb59-40596407b44a" Guid="a8e5e23c-a44a-4f1e-9665-25a837a84dda" /><DocumentWindow Key="6c9c5e44-0cd1-4107-9fd9-5a88f070b6c9" Guid="31144007-aa31-42d1-8e10-40cd03b88d27" /><DocumentWindow Key="6c546b4b-2edf-4f20-bfb0-0e67c3e0fb79" Guid="a7cd0d59-a298-468b-b097-56efd2fbd3ab" /><DocumentWindow Key="49f927f0-9e19-4b39-8fc6-2137da703ea2" Guid="9e1ee798-56cc-41a8-9ba6-4974413b489e" /><DocumentWindow Key="bcf3cb75-1963-4012-a3ae-878f42774acc" Guid="12977b0a-4fd4-4c58-88d0-cf5244b718d8" /><DocumentWindow Key="c012c96e-8519-42db-97b2-5950e466b2c3" Guid="d620637d-fbb6-4555-a68d-75b32e7e5a96" /><DocumentWindow Key="ee65bb87-5518-4163-bc41-cb469fbdd8e4" Guid="ed863423-f1e5-4f73-86d4-e0fc4dd14f5e" /><DocumentWindow Key="770a9063-5092-4281-9cef-985fc76a7576" Guid="edc870cc-da3d-4e80-bb45-433ae52d1f7d" /><DocumentWindow Key="d43ab0fa-f86c-42ad-b9b7-f2ba1dff845d" Guid="a9de026f-765f-4cbb-9882-6df982086f56" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

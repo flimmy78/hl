@@ -91,4 +91,7 @@ void Back_Massage_Minwen(uint8 cmd,uint8 data);
 
 uint8 Xor_Check(uint8 *Data, uint8 Length);
 void App_RC4(uint8 *key,uint8 key_leng, uint8 *buf, uint8 len);
+
+void key_touch_lock_process(void);
+void key_touch_lock_flag_set(void);
 /* [] END OF FILE */

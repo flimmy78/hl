@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
   27:app_UART.c    **** *
   28:app_UART.c    **** * Parameters:
   29:app_UART.c    **** *  uint16 - CCCD for checking if notifications are enabled  
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 2
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 2
 
 
   30:app_UART.c    **** *
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
   67              	.L3:
   46:app_UART.c    ****         }
   47:app_UART.c    ****         else
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 3
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 3
 
 
   48:app_UART.c    ****         {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  111 007a EBD3     		bcc	.L6
  112              	.L1:
   57:app_UART.c    ****             }
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 4
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 4
 
 
   58:app_UART.c    ****         }
@@ -194,7 +194,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  119 0082 C046     		.align	2
  120              	.L7:
  121 0084 00000000 		.word	uartRxDataLength
- 122 0088 00000000 		.word	uartIdleCount.7082
+ 122 0088 00000000 		.word	uartIdleCount.7086
  123 008c 00000000 		.word	uartRxflag
  124 0090 00000000 		.word	uartRxData
  125              		.cfi_endproc
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  144 0004 00AF     		add	r7, sp, #0
  145              		.cfi_def_cfa_register 7
  146 0006 7860     		str	r0, [r7, #4]
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 5
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 5
 
 
   81:app_UART.c    ****     //if(uartRxDataWrReq->handleValPair.attrHandle == CYBLE_SERVER_UART_SERVER_UART_RX_DATA_CHAR_HA
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  174              		.cfi_startproc
  175 0000 80B5     		push	{r7, lr}
  176              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 6
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 6
 
 
  177              		.cfi_offset 7, -8
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  212              		.cfi_offset 14, -4
  213 0002 00AF     		add	r7, sp, #0
  214              		.cfi_def_cfa_register 7
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 7
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 7
 
 
  126:app_UART.c    ****     UART_INTR_RX_MASK_REG |= UART_RX_INTR_MASK;  
@@ -383,9 +383,9 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  232              		.size	EnableUartRxInt, .-EnableUartRxInt
  233              		.data
  234              		.align	1
- 235              		.type	uartIdleCount.7082, %object
- 236              		.size	uartIdleCount.7082, 2
- 237              	uartIdleCount.7082:
+ 235              		.type	uartIdleCount.7086, %object
+ 236              		.size	uartIdleCount.7086, 2
+ 237              	uartIdleCount.7086:
  238 0000 E803     		.short	1000
  239              		.text
  240              	.Letext0:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  267 0033 02       		.uleb128 0x2
  268 0034 02       		.byte	0x2
  269 0035 05       		.byte	0x5
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 8
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 8
 
 
  270 0036 88000000 		.4byte	.LASF2
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  324 009c 08       		.byte	0x8
  325 009d C6050000 		.4byte	.LASF14
  326 00a1 05       		.uleb128 0x5
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 9
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 9
 
 
  327 00a2 73050000 		.4byte	.LASF15
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  381 010f 09       		.uleb128 0x9
  382 0110 20030000 		.4byte	.LASF29
  383 0114 26       		.sleb128 38
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 10
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 10
 
 
  384 0115 09       		.uleb128 0x9
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  438 018d 09       		.uleb128 0x9
  439 018e 97040000 		.4byte	.LASF48
  440 0192 CC00     		.sleb128 76
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 11
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 11
 
 
  441 0194 09       		.uleb128 0x9
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  495 0212 09       		.uleb128 0x9
  496 0213 C1070000 		.4byte	.LASF67
  497 0217 F700     		.sleb128 119
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 12
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 12
 
 
  498 0219 09       		.uleb128 0x9
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  552 028e 03       		.byte	0x3
  553 028f C001     		.2byte	0x1c0
  554 0291 B9000000 		.4byte	0xb9
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 13
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 13
 
 
  555 0295 00       		.byte	0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  609 0302 3E000000 		.4byte	.LASF84
  610 0306 04       		.byte	0x4
  611 0307 90       		.byte	0x90
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 14
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 14
 
 
  612 0308 E1020000 		.4byte	0x2e1
@@ -813,7 +813,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  641 0343 76000000 		.4byte	0x76
  642 0347 05       		.uleb128 0x5
  643 0348 03       		.byte	0x3
- 644 0349 00000000 		.4byte	uartIdleCount.7082
+ 644 0349 00000000 		.4byte	uartIdleCount.7086
  645 034d 00       		.byte	0
  646 034e 0F       		.uleb128 0xf
  647 034f 93060000 		.4byte	.LASF89
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  666 0374 0E030000 		.4byte	0x30e
  667 0378 12       		.uleb128 0x12
  668 0379 57010000 		.4byte	.LASF90
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 15
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 15
 
 
  669 037d 01       		.byte	0x1
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  723 0006 0B       		.uleb128 0xb
  724 0007 03       		.uleb128 0x3
  725 0008 0E       		.uleb128 0xe
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 16
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 16
 
 
  726 0009 1B       		.uleb128 0x1b
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  780 003f 49       		.uleb128 0x49
  781 0040 13       		.uleb128 0x13
  782 0041 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 17
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 17
 
 
  783 0042 00       		.byte	0
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  837 0078 00       		.byte	0
  838 0079 03       		.uleb128 0x3
  839 007a 0E       		.uleb128 0xe
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 18
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 18
 
 
  840 007b 3A       		.uleb128 0x3a
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  894 00b1 2E       		.uleb128 0x2e
  895 00b2 01       		.byte	0x1
  896 00b3 3F       		.uleb128 0x3f
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 19
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 19
 
 
  897 00b4 19       		.uleb128 0x19
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  951 00eb 3F       		.uleb128 0x3f
  952 00ec 19       		.uleb128 0x19
  953 00ed 03       		.uleb128 0x3
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 20
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 20
 
 
  954 00ee 0E       		.uleb128 0xe
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1008 0000 34000000 		.4byte	0x34
  1009 0004 0200     		.2byte	0x2
  1010 0006 00000000 		.4byte	.Ldebug_info0
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 21
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 21
 
 
  1011 000a 04       		.byte	0x4
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1047      5454435F 
  1047      4552524F 
  1048              	.LASF31:
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 22
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 22
 
 
  1049 0066 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1069      4F4E00
  1070              	.LASF39:
  1071 0139 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 23
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 23
 
 
  1071      455F4556 
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1091      6E646C65 
  1091      00
  1092              	.LASF12:
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 24
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 24
 
 
  1093 0238 666C6F61 		.ascii	"float\000"
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1114 0320 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
  1114      455F4556 
  1114      545F4741 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 25
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 25
 
 
  1114      50505F41 
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1134      545F4741 
  1134      5454535F 
  1134      50524550 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 26
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 26
 
 
  1135              	.LASF72:
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1154      545F4741 
  1154      505F4155 
  1154      54485F52 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 27
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 27
 
 
  1155              	.LASF76:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1176 0644 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
  1176      66756E63 
  1176      74696F6E 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 28
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 28
 
 
  1176      2D736563 
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1198      6C655561 
  1198      72745478 
  1198      54726166 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 29
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 29
 
 
  1198      66696300 
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1218 085b 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
  1218      455F4556 
  1218      545F4741 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 30
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 30
 
 
  1218      5454535F 
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 1
  1238 0978 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
  1238      455F4556 
  1238      545F4741 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccIaAudb.s 			page 31
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccFqgJ7R.s 			page 31
 
 
  1238      5454535F 
