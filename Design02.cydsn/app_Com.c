@@ -50,8 +50,6 @@ void Com_Recv_Prov(void)
                     {
                         packetTXStep = Send_Lock_Info;
                     }
-                    
-                    key_touch_lock_flag_set(); //设置开锁请求标识
                     break;
                 
                 case CHECK_CODE_CMD:
@@ -81,6 +79,8 @@ void Com_Recv_Prov(void)
                 default:
                     break;
             }
+            
+            key_touch_lock_flag_set(); //设置开锁请求标识
         }
         memset(Com_Array.Rx_buff,0,sizeof(Com_Array.Rx_buff));
     }
@@ -323,8 +323,8 @@ void Set_Lock_ID(void)
     
     crc = comCalCRC16(Com_Array.Tx_buff,6);
     
-    Com_Array.Tx_buff[7] = crc / 256;
-    Com_Array.Tx_buff[8] = crc % 256;   
+    Com_Array.Tx_buff[6] = crc / 256;
+    Com_Array.Tx_buff[7] = crc % 256;   
     Com_Array.Tx_Length = 8;
     Send_Com(Com_Array.Tx_buff,Com_Array.Tx_Length);
 }

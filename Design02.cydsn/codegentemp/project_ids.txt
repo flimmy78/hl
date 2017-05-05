@@ -1,5 +1,5 @@
-E:\my_project\shhl\BLE_KEY_wuyuan\Design02.cydsn\Design02.cyprj|2c4f205a-2e50-43a1-bb19-a77a7d645d48
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|19c42488-3085-4685-80f6-18078fb85ebd
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|f6c22c91-7ae3-416b-a113-078130a231e6
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|0e16e2d1-7fd3-4342-810a-89aaec053987
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|7f985f54-ab1f-4c68-a6b1-9d7fd39872cf
+E:\my_project\shhl\BLE_KEY_wuyuan\Design02.cydsn\Design02.cyprj|3ce1f96d-371c-4550-818d-90404f9190ff
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|fb4eacce-c1b7-4dbb-b9d0-d39cfbefac1b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|b1f610f2-b1b3-461a-a50e-52a2f5b62899
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|8470396c-a445-4e35-b3fd-9b518a3ca0f5
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|2d61686a-363f-488a-b2e6-6f5f2294f92a

@@ -32,14 +32,14 @@
 /* Below are the indexes and handles of the defined Custom Services and their characteristics */
 #define CYBLE_CUSTOM_SERVICE_SERVICE_INDEX   (0x00u) /* Index of Custom Service service in the cyBle_customs array */
 #define CYBLE_CUSTOM_SERVICE_TX_TO_APP_CHAR_INDEX   (0x00u) /* Index of TX to APP characteristic */
-#define CYBLE_CUSTOM_SERVICE_TX_TO_APP_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX   (0x00u) /* Index of Client Characteristic Configuration descriptor */
+#define CYBLE_CUSTOM_SERVICE_TX_TO_APP_CUSTOM_DESCRIPTOR_DESC_INDEX   (0x00u) /* Index of Custom Descriptor descriptor */
 #define CYBLE_CUSTOM_SERVICE_RX_FROM_APP_CHAR_INDEX   (0x01u) /* Index of RX from APP characteristic */
 #define CYBLE_CUSTOM_SERVICE_RX_FROM_APP_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX   (0x00u) /* Index of Client Characteristic Configuration descriptor */
 
 
 #define CYBLE_CUSTOM_SERVICE_SERVICE_HANDLE   (0x000Eu) /* Handle of Custom Service service */
 #define CYBLE_CUSTOM_SERVICE_TX_TO_APP_CHAR_HANDLE   (0x0010u) /* Handle of TX to APP characteristic */
-#define CYBLE_CUSTOM_SERVICE_TX_TO_APP_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE   (0x0011u) /* Handle of Client Characteristic Configuration descriptor */
+#define CYBLE_CUSTOM_SERVICE_TX_TO_APP_CUSTOM_DESCRIPTOR_DESC_HANDLE   (0x0011u) /* Handle of Custom Descriptor descriptor */
 #define CYBLE_CUSTOM_SERVICE_RX_FROM_APP_CHAR_HANDLE   (0x0013u) /* Handle of RX from APP characteristic */
 #define CYBLE_CUSTOM_SERVICE_RX_FROM_APP_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE   (0x0014u) /* Handle of Client Characteristic Configuration descriptor */
 

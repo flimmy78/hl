@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
   30:app_LED.c     **** *******************************************************************************/
   31:app_LED.c     **** void HandleLeds(void)
   32:app_LED.c     **** {
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 2
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 2
 
 
   26              		.loc 1 32 0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
   51:app_LED.c     ****                 ledState    ^= LED_OFF;
   54              		.loc 1 51 0
   55 0024 084B     		ldr	r3, .L7+4
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 3
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 3
 
 
   56 0026 094A     		ldr	r2, .L7+8
@@ -151,21 +151,21 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
   79 0042 C046     		.align	2
   80              	.L7:
   81 0044 00000000 		.word	cyBle_state
-  82 0048 00000000 		.word	connLedTimer.7082
+  82 0048 00000000 		.word	connLedTimer.7084
   83 004c 50C30000 		.word	50000
-  84 0050 04000000 		.word	ledState.7081
+  84 0050 04000000 		.word	ledState.7083
   85              		.cfi_endproc
   86              	.LFE35:
   87              		.size	HandleLeds, .-HandleLeds
   88              		.data
   89              		.align	2
-  90              		.type	connLedTimer.7082, %object
-  91              		.size	connLedTimer.7082, 4
-  92              	connLedTimer.7082:
+  90              		.type	connLedTimer.7084, %object
+  91              		.size	connLedTimer.7084, 4
+  92              	connLedTimer.7084:
   93 0000 50C30000 		.word	50000
-  94              		.type	ledState.7081, %object
-  95              		.size	ledState.7081, 1
-  96              	ledState.7081:
+  94              		.type	ledState.7083, %object
+  95              		.size	ledState.7083, 1
+  96              	ledState.7083:
   97 0004 01       		.byte	1
   98 0005 000000   		.text
   99              	.Letext0:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  106 0006 00000000 		.4byte	.Ldebug_abbrev0
  107 000a 04       		.byte	0x4
  108 000b 01       		.uleb128 0x1
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 4
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 4
 
 
  109 000c 65010000 		.4byte	.LASF23
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  163 007b 02       		.byte	0x2
  164 007c C4       		.byte	0xc4
  165 007d 48000000 		.4byte	0x48
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 5
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 5
 
 
  166 0081 02       		.uleb128 0x2
@@ -298,11 +298,11 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  220 00ec 21       		.byte	0x21
  221 00ed 6B000000 		.4byte	0x6b
  222 00f1 05       		.uleb128 0x5
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 6
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 6
 
 
  223 00f2 03       		.byte	0x3
- 224 00f3 04000000 		.4byte	ledState.7081
+ 224 00f3 04000000 		.4byte	ledState.7083
  225 00f7 09       		.uleb128 0x9
  226 00f8 93000000 		.4byte	.LASF22
  227 00fc 01       		.byte	0x1
@@ -310,7 +310,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  229 00fe 76000000 		.4byte	0x76
  230 0102 05       		.uleb128 0x5
  231 0103 03       		.byte	0x3
- 232 0104 00000000 		.4byte	connLedTimer.7082
+ 232 0104 00000000 		.4byte	connLedTimer.7084
  233 0108 00       		.byte	0
  234 0109 0A       		.uleb128 0xa
  235 010a DD000000 		.4byte	.LASF27
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  277 0023 3E       		.uleb128 0x3e
  278 0024 0B       		.uleb128 0xb
  279 0025 03       		.uleb128 0x3
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 7
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 7
 
 
  280 0026 08       		.uleb128 0x8
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  334 005c 3F       		.uleb128 0x3f
  335 005d 19       		.uleb128 0x19
  336 005e 03       		.uleb128 0x3
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 8
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 8
 
 
  337 005f 0E       		.uleb128 0xe
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  391 0004 0200     		.2byte	0x2
  392 0006 00000000 		.4byte	.Ldebug_info0
  393 000a 04       		.byte	0x4
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 9
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 9
 
 
  394 000b 00       		.byte	0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  425 0063 4359424C 		.ascii	"CYBLE_STATE_INITIALIZING\000"
  425      455F5354 
  425      4154455F 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 10
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 10
 
 
  425      494E4954 
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 1
  449 0111 7369676E 		.ascii	"signed char\000"
  449      65642063 
  449      68617200 
-ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\ccVq5I3K.s 			page 11
+ARM GAS  C:\Users\ADMINI~1.SC-\AppData\Local\Temp\cc1Ox59K.s 			page 11
 
 
  450              	.LASF17:

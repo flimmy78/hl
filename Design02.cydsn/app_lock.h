@@ -53,6 +53,8 @@ typedef struct
 {
     uint8 ManageKey[16];            //管理中心密钥
     uint8 DeviceID[4];              //锁设备号
+    uint8 root_key[8];              //根密钥
+    uint8 ctrl_key[8];              //控制密钥
     uint8 IDChangeFlag;             //设备号修改标志
     uint8 sum;                      //校验码
 }SYSTEM_CFG;

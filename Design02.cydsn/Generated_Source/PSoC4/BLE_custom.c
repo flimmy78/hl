@@ -36,7 +36,7 @@ const CYBLE_CUSTOMS_T cyBle_customs[0x01u] = {
                 
                 /* Array of Descriptors handles */
                 {
-                    0x0011u, /* Handle of the Client Characteristic Configuration descriptor */ 
+                    0x0011u, /* Handle of the Custom Descriptor descriptor */ 
                 }, 
             },
 

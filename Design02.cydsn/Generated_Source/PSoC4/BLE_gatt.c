@@ -62,29 +62,24 @@ CYBLE_STATE_T cyBle_state;
         {{
             0x00u, 0x00u, 
             0x00u, 0x00u, 
-            0x00u, 0x00u, 
         },
         {
-            0x00u, 0x00u, 
-            0x00u, 0x00u, 
-            0x00u, 0x00u, 
-        },
-        {
-            0x00u, 0x00u, 
             0x00u, 0x00u, 
             0x00u, 0x00u, 
         },
         {
             0x00u, 0x00u, 
             0x00u, 0x00u, 
-            0x00u, 0x00u, 
         },
         {
             0x00u, 0x00u, 
+            0x00u, 0x00u, 
+        },
+        {
             0x00u, 0x00u, 
             0x00u, 0x00u, 
         }}, 
-        0x06u, /* CYBLE_GATT_DB_CCCD_COUNT */ 
+        0x04u, /* CYBLE_GATT_DB_CCCD_COUNT */ 
         0x05u, /* CYBLE_GAP_MAX_BONDED_DEVICE */ 
     };
 #endif /* (CYBLE_MODE_PROFILE) */
@@ -99,7 +94,7 @@ CYBLE_STATE_T cyBle_state;
     0x000Du,    /* Handle of the Client Characteristic Configuration descriptor */
 };
     
-    static uint8 cyBle_attValues[0x1Du] = {
+    static uint8 cyBle_attValues[0x2Eu] = {
     /* Device Name */
     (uint8)'T', (uint8)'K', (uint8)'L', (uint8)'-', (uint8)'0', (uint8)'0', (uint8)'0', (uint8)'0', (uint8)'0', (uint8)'1',
 (uint8)'c', (uint8)'5', 
@@ -119,6 +114,9 @@ CYBLE_STATE_T cyBle_state;
     /* TX to APP */
     0x00u, 
 
+    /* Custom Descriptor */
+    0x00u, 0xFBu, 0x34u, 0x9Bu, 0x5Fu, 0x80u, 0x00u, 0x00u, 0x80u, 0x00u, 0x10u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 
+
     /* RX from APP */
     0x00u, 
 
@@ -131,9 +129,9 @@ const uint8 cyBle_attUuid128[][16u] = {
     /* Custom Service */
     { 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0xB0u, 0x00u, 0x40u, 0x51u, 0x04u, 0xE0u, 0xC0u, 0x00u, 0xF0u },
     /* TX to APP */
-    { 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0xB0u, 0x00u, 0x40u, 0x51u, 0x04u, 0xE1u, 0xC0u, 0x00u, 0xF0u },
-    /* RX from APP */
     { 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0xB0u, 0x00u, 0x40u, 0x51u, 0x04u, 0xE2u, 0xC0u, 0x00u, 0xF0u },
+    /* RX from APP */
+    { 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0xB0u, 0x00u, 0x40u, 0x51u, 0x04u, 0xE1u, 0xC0u, 0x00u, 0xF0u },
 };
 
 CYBLE_GATTS_ATT_GEN_VAL_LEN_T cyBle_attValuesLen[CYBLE_GATT_DB_ATT_VAL_COUNT] = {
@@ -147,33 +145,33 @@ CYBLE_GATTS_ATT_GEN_VAL_LEN_T cyBle_attValuesLen[CYBLE_GATT_DB_ATT_VAL_COUNT] = 
     { 0x0010u, (void *)&cyBle_attUuid128[1] }, /* Custom Service UUID */
     { 0x0010u, (void *)&cyBle_attUuid128[2] }, /* TX to APP UUID */
     { 0x0001u, (void *)&cyBle_attValues[27] }, /* TX to APP */
-    { 0x0002u, (void *)&cyBle_attValuesCCCD[2] }, /* Client Characteristic Configuration */
+    { 0x0001u, (void *)&cyBle_attValues[28] }, /* Custom Descriptor */
     { 0x0010u, (void *)&cyBle_attUuid128[3] }, /* RX from APP UUID */
-    { 0x0001u, (void *)&cyBle_attValues[28] }, /* RX from APP */
-    { 0x0002u, (void *)&cyBle_attValuesCCCD[4] }, /* Client Characteristic Configuration */
+    { 0x0001u, (void *)&cyBle_attValues[45] }, /* RX from APP */
+    { 0x0002u, (void *)&cyBle_attValuesCCCD[2] }, /* Client Characteristic Configuration */
 };
 
 const CYBLE_GATTS_DB_T cyBle_gattDB[0x14u] = {
-    { 0x0001u, 0x2800u /* Primary service                     */, 0x00000001u /*               */, 0x0009u, {{0x1800u, NULL}}                           },
-    { 0x0002u, 0x2803u /* Characteristic                      */, 0x00000A01u /* rd,wr         */, 0x0003u, {{0x2A00u, NULL}}                           },
-    { 0x0003u, 0x2A00u /* Device Name                         */, 0x00000A0Eu /* rd,wr         */, 0x0003u, {{0x000Cu, (void *)&cyBle_attValuesLen[0]}} },
-    { 0x0004u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd            */, 0x0005u, {{0x2A01u, NULL}}                           },
-    { 0x0005u, 0x2A01u /* Appearance                          */, 0x00000201u /* rd            */, 0x0005u, {{0x0002u, (void *)&cyBle_attValuesLen[1]}} },
-    { 0x0006u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd            */, 0x0007u, {{0x2A04u, NULL}}                           },
-    { 0x0007u, 0x2A04u /* Peripheral Preferred Connection Par */, 0x00000201u /* rd            */, 0x0007u, {{0x0008u, (void *)&cyBle_attValuesLen[2]}} },
-    { 0x0008u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd            */, 0x0009u, {{0x0010u, (void *)&cyBle_attValuesLen[3]}} },
-    { 0x0009u, 0x0000u /* Custom Characteristic               */, 0x00080201u /* rd            */, 0x0009u, {{0x0001u, (void *)&cyBle_attValuesLen[4]}} },
-    { 0x000Au, 0x2800u /* Primary service                     */, 0x00000001u /*               */, 0x000Du, {{0x1801u, NULL}}                           },
-    { 0x000Bu, 0x2803u /* Characteristic                      */, 0x00002201u /* rd,ind        */, 0x000Du, {{0x2A05u, NULL}}                           },
-    { 0x000Cu, 0x2A05u /* Service Changed                     */, 0x00002201u /* rd,ind        */, 0x000Du, {{0x0004u, (void *)&cyBle_attValuesLen[5]}} },
-    { 0x000Du, 0x2902u /* Client Characteristic Configuration */, 0x00000A0Eu /* rd,wr         */, 0x000Du, {{0x0002u, (void *)&cyBle_attValuesLen[6]}} },
-    { 0x000Eu, 0x2800u /* Primary service                     */, 0x00080001u /*               */, 0x0014u, {{0x0010u, (void *)&cyBle_attValuesLen[7]}} },
-    { 0x000Fu, 0x2803u /* Characteristic                      */, 0x00001E01u /* rd,wr,wwr,ntf */, 0x0011u, {{0x0010u, (void *)&cyBle_attValuesLen[8]}} },
-    { 0x0010u, 0xC0E1u /* TX to APP                           */, 0x00091E0Fu /* rd,wr,wwr,ntf */, 0x0011u, {{0x0001u, (void *)&cyBle_attValuesLen[9]}} },
-    { 0x0011u, 0x2902u /* Client Characteristic Configuration */, 0x00010A0Eu /* rd,wr         */, 0x0011u, {{0x0002u, (void *)&cyBle_attValuesLen[10]}} },
-    { 0x0012u, 0x2803u /* Characteristic                      */, 0x00001E01u /* rd,wr,wwr,ntf */, 0x0014u, {{0x0010u, (void *)&cyBle_attValuesLen[11]}} },
-    { 0x0013u, 0xC0E2u /* RX from APP                         */, 0x00091E0Fu /* rd,wr,wwr,ntf */, 0x0014u, {{0x0001u, (void *)&cyBle_attValuesLen[12]}} },
-    { 0x0014u, 0x2902u /* Client Characteristic Configuration */, 0x00010A0Eu /* rd,wr         */, 0x0014u, {{0x0002u, (void *)&cyBle_attValuesLen[13]}} },
+    { 0x0001u, 0x2800u /* Primary service                     */, 0x00000001u /*        */, 0x0009u, {{0x1800u, NULL}}                           },
+    { 0x0002u, 0x2803u /* Characteristic                      */, 0x00000A01u /* rd,wr  */, 0x0003u, {{0x2A00u, NULL}}                           },
+    { 0x0003u, 0x2A00u /* Device Name                         */, 0x00000A0Eu /* rd,wr  */, 0x0003u, {{0x000Cu, (void *)&cyBle_attValuesLen[0]}} },
+    { 0x0004u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd     */, 0x0005u, {{0x2A01u, NULL}}                           },
+    { 0x0005u, 0x2A01u /* Appearance                          */, 0x00000201u /* rd     */, 0x0005u, {{0x0002u, (void *)&cyBle_attValuesLen[1]}} },
+    { 0x0006u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd     */, 0x0007u, {{0x2A04u, NULL}}                           },
+    { 0x0007u, 0x2A04u /* Peripheral Preferred Connection Par */, 0x00000201u /* rd     */, 0x0007u, {{0x0008u, (void *)&cyBle_attValuesLen[2]}} },
+    { 0x0008u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd     */, 0x0009u, {{0x0010u, (void *)&cyBle_attValuesLen[3]}} },
+    { 0x0009u, 0x0000u /* Custom Characteristic               */, 0x00080201u /* rd     */, 0x0009u, {{0x0001u, (void *)&cyBle_attValuesLen[4]}} },
+    { 0x000Au, 0x2800u /* Primary service                     */, 0x00000001u /*        */, 0x000Du, {{0x1801u, NULL}}                           },
+    { 0x000Bu, 0x2803u /* Characteristic                      */, 0x00002201u /* rd,ind */, 0x000Du, {{0x2A05u, NULL}}                           },
+    { 0x000Cu, 0x2A05u /* Service Changed                     */, 0x00002201u /* rd,ind */, 0x000Du, {{0x0004u, (void *)&cyBle_attValuesLen[5]}} },
+    { 0x000Du, 0x2902u /* Client Characteristic Configuration */, 0x00000A0Eu /* rd,wr  */, 0x000Du, {{0x0002u, (void *)&cyBle_attValuesLen[6]}} },
+    { 0x000Eu, 0x2800u /* Primary service                     */, 0x00080001u /*        */, 0x0014u, {{0x0010u, (void *)&cyBle_attValuesLen[7]}} },
+    { 0x000Fu, 0x2803u /* Characteristic                      */, 0x00000401u /* wwr    */, 0x0011u, {{0x0010u, (void *)&cyBle_attValuesLen[8]}} },
+    { 0x0010u, 0xC0E2u /* TX to APP                           */, 0x00090402u /* wwr    */, 0x0011u, {{0x0001u, (void *)&cyBle_attValuesLen[9]}} },
+    { 0x0011u, 0x0000u /* Custom Descriptor                   */, 0x00090001u /*        */, 0x0011u, {{0x0001u, (void *)&cyBle_attValuesLen[10]}} },
+    { 0x0012u, 0x2803u /* Characteristic                      */, 0x00001001u /* ntf    */, 0x0014u, {{0x0010u, (void *)&cyBle_attValuesLen[11]}} },
+    { 0x0013u, 0xC0E1u /* RX from APP                         */, 0x00091000u /* ntf    */, 0x0014u, {{0x0001u, (void *)&cyBle_attValuesLen[12]}} },
+    { 0x0014u, 0x2902u /* Client Characteristic Configuration */, 0x00010A04u /* rd,wr  */, 0x0014u, {{0x0002u, (void *)&cyBle_attValuesLen[13]}} },
 };
 
 

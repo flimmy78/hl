@@ -1,4 +1,4 @@
---------------- Clean Started: 04/26/2017 15:56:13 Project: Design02, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+--------------- Clean Started: 05/05/2017 12:46:18 Project: Design02, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\main.o"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\app_Ble.o"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\app_LED.o"
@@ -7,6 +7,7 @@ Deleting file ".\CortexM0\ARM_GCC_493\Debug\app_protocol.o"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\RC4.o"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\app_lock.o"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\app_Com.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\md5.o"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\cyfitter_cfg.o"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\cymetadata.o"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\Cm0Start.o"
@@ -66,4 +67,4 @@ Deleting file ".\Design02.rpt"
 Deleting file ".\Design02_timing.html"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\.deps\SOURCE_C__ARM_GCC_GENERIC.P"
 Deleting file ".\CortexM0\ARM_GCC_493\Debug\.deps\SOURCE_ASM__ARM_GCC_GENERIC.P"
---------------- Clean Succeeded: 04/26/2017 15:56:13 ---------------
+--------------- Clean Succeeded: 05/05/2017 12:46:18 ---------------

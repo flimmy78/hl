@@ -152,6 +152,8 @@ int main()
         
         Alarm_Event(Flag.Alarm_Work_Step);  //声光报警状态
   
+        key_touch_lock_process();
+        
         while(Delay_Time.Delay_1ms);        //1MS
         Delay_Time.Delay_1ms = 1;     
     }

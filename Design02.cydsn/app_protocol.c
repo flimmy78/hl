@@ -23,19 +23,20 @@ uint8 packetTXStep = 0;
 uint8 recv_buff[40];
 uint8 AppKey[8];
 
+#define LOCK_OPEN_FLAG_SET 3
 static  uint8  lock_open_flag = 0; //key_touch_lock
 static  uint8  lock_flag = 0;      //
 static  uint16 lock_timeflow = 0;  //key_touch_lock
 
 typedef struct _KEY_STR
 {
-    uint8 root_key[8]; //根密钥       a0a1a2a3a4a5a6a7
-    uint8 ctrl_key[8]; //控制密钥     b0b1b2b3b4b5b6b7
+    //uint8 root_key[8]; //根密钥       a0a1a2a3a4a5a6a7
+    //uint8 ctrl_key[8]; //控制密钥     b0b1b2b3b4b5b6b7
     uint8 dynamic_key[8]; //动态密钥  
 }KEY_STR; //
 
-struct _KEY_STR key_str = {{0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7},\
-                           {0xb0,0xb1,0xb2,0xb3,0xb4,0xb5,0xb6,0xb7,},\
+struct _KEY_STR key_str = {/*{0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7},\
+                           {0xb0,0xb1,0xb2,0xb3,0xb4,0xb5,0xb6,0xb7,},*/
                            {0}};
 
 /***********************************************
@@ -211,10 +212,10 @@ void Hl_Back_KeyInfo(void)
     packetTX[7] = Ver_L;
     
     batt_val = Get_Adc();
-    //packetTX[8] = (uint8)(batt_val >> 8);
-    //packetTX[9] = (uint8)(batt_val);
-    packetTX[8] = 0xe;
-    packetTX[9] = 0x00;
+    packetTX[8] = (uint8)(batt_val >> 8);
+    packetTX[9] = (uint8)(batt_val);
+    //packetTX[8] = 0xe;
+    //packetTX[9] = 0x00;
     
     packetTX[10] = Xor_Check(&packetTX[2], 8);
   
@@ -279,12 +280,12 @@ void Hl_Back_Lock_Info(void)
     memcmp(&packetTX[2], Lock_Info.DeviceID, 4);
     
     packetTX[6] = Ver_H;
-    packetTX[7] = Ver_L; 
+    packetTX[7] = Ver_L;
     
     packetTX[8] = 0; //锁状态
 
     memcpy(rc4_key, key_str.dynamic_key, 8);       //动态密钥做高8字节
-    memcpy(&rc4_key[8], key_str.root_key, 8);      //根密钥做低8字节
+    memcpy(&rc4_key[8], System_Config.root_key, 8);      //根密钥做低8字节
     
     App_RC4(rc4_key, 16, &packetTX[2], 7); //加密
    
@@ -330,48 +331,77 @@ void test_md5(void)
     uint8 key[16];  //hex
     char  dest_key[36];  //字符串
     
+    uint8 data[5]; 
+    
     unsigned char decrypt[16]; //生成的MD5标签
     MD5_CTX md5; 
     
+   /* key_str.dynamic_key[0] = 0xb1;
+    key_str.dynamic_key[1] = 0xe3;
+    key_str.dynamic_key[2] = 0x37;
+    key_str.dynamic_key[3] = 0xde;
+    key_str.dynamic_key[4] = 0x14;
+    key_str.dynamic_key[5] = 0xd6;
+    key_str.dynamic_key[6] = 0xe4;
+    key_str.dynamic_key[7] = 0xfe;*/
+    
     memcpy(key, key_str.dynamic_key, 8);  //high 8
-    memcpy(&key[8], key_str.ctrl_key, 8); //low 8
+    memcpy(&key[8], System_Config.ctrl_key, 8); //low 8
     
     HexToStr(dest_key, key, 16);
     
     MD5Init(&md5);                
     MD5Update(&md5, (unsigned char *)dest_key, strlen((char *)dest_key));  
     MD5Final(&md5, decrypt); //生成MD5标签
+    
+    data[0] = 0xd5;
+    data[1] = 0x59;
+    data[2] = 0x5e;
+    data[3] = 0x78;
+    data[4] = 0x6e;
+    
+    App_RC4(decrypt, 16, data, 5);
+    
+    MD5Init(&md5);    
 }
 
 /***********************************************
 * 函数名：void key_touch_lock_process(void)
-* 描述  ：当钥匙接入锁孔时 发送03包给APP
+* 描述  ：当钥匙接入锁孔时 发送03包给APP 
+          在main中被调用
 ***********************************************/
 void key_touch_lock_process(void)
 {
-    if(lock_open_flag)
+    if(lock_open_flag == LOCK_OPEN_FLAG_SET)
     {
-        if(lock_flag == 0) //允许开锁
+        if(lock_flag == 0) //允许开锁一次
         { 
-           lock_flag  = 1; //
-           lock_open_flag = 0;
+           lock_flag = 1;  //允许开锁一次
            Hl_Back_Lock_Info(); //发送03包  当钥匙接入锁孔时发送  
         }
-    }
-    
-    if(lock_timeflow) //开启超时计数
-    {
-        if(++lock_timeflow > 2000)
+        
+        if(++lock_timeflow > 1000) //钥匙离开锁孔检测
         {
-            lock_open_flag = 0; //允许再次开锁请求
-            lock_timeflow = 0;  //
+           lock_timeflow = 0;                                                                                                                                                                  
+           lock_open_flag = 0;
+           lock_flag = 0; 
         }
-    }
+    }    
 }
 
+/***********************************************
+* 函数名：void key_touch_lock_flag_set(void)
+* 描述  ：当钥匙接入锁孔时 确认并设置标识 
+          在app_com.c void Com_Recv_Prov(void)中被调用
+***********************************************/
 void key_touch_lock_flag_set(void)
 {
-    lock_open_flag = 1;
+    if(++lock_open_flag >= LOCK_OPEN_FLAG_SET) //接入确认
+    {
+       lock_open_flag = LOCK_OPEN_FLAG_SET;
+    }
+    
+    lock_timeflow = 0; //在通讯中进行清零  进行超时检测
 }
 
 
@@ -397,7 +427,7 @@ void ReceiveBleCmd(void)
         check_crc = Xor_Check(&packet_rx[2], datalen);     //检查校验
         data_crc = packet_rx[2 + datalen];
         
- //       if(check_crc == data_crc)
+ //     if(check_crc == data_crc)
         {
             switch(cmd)
             {
@@ -407,20 +437,73 @@ void ReceiveBleCmd(void)
                 
                 case CMD_DYNAMIC_KEY: 
                 memcpy(key_str.dynamic_key, &packet_rx[2], 8); //获得动态密钥
-                
                 Hl_Back_Msg(cmd, 1); //响应02包
+                             
                 break;
                 
                 case CMD_LOCK_OPEN:
-                Hl_Back_Lock_Open();
+                {
+                 /* uint8 key[16];  //hex
+                  char  dest_key[36];  //字符串 
+                  unsigned char decrypt[16]; //生成的MD5标签
+                  MD5_CTX md5; 
+                  
+                  memcpy(key, key_str.dynamic_key, 8);  //high 8
+                  memcpy(&key[8], System_Config.ctrl_key, 8); //low 8
+                  
+                  HexToStr(dest_key, key, 16);
+                  
+                  MD5Init(&md5);                
+                  MD5Update(&md5, (unsigned char *)dest_key, strlen((char *)dest_key));  
+                  MD5Final(&md5, decrypt); //生成MD5标签
+                  
+                  App_RC4(decrypt, 16, &packet_rx[2], 5); //RC4解密 
+                  if(packet_rx[2] == Lock_Info.DeviceID[0] &&
+                     packet_rx[3] == Lock_Info.DeviceID[1] &&
+                     packet_rx[4] == Lock_Info.DeviceID[2] &&
+                     packet_rx[5] == Lock_Info.DeviceID[3]){
+                        
+                        Com_Array.Tx_State = RE_CHECKCODE;     //开锁
+                  }*/
+                  
+                    
+                  Hl_Back_Lock_Open();
+                  Com_Array.Tx_State = RE_CHECKCODE;     //开锁
+                }
+                   
                 break;
                 
-                case CMD_RESET_KEY:
-                 Hl_Back_Msg(cmd, 1);
+                case CMD_RESET_KEY: //新的根密钥和控制密钥
+                {
+                   uint8 key[16];  //hex
+                   memcpy(key, key_str.dynamic_key, 8);  //high 8
+                   memcpy(&key[8], System_Config.root_key, 8); //low 8
+                   
+                   App_RC4(key, 16, &packet_rx[2], 16); //RC4解密 
+                   
+                   memcpy(System_Config.root_key, &packet_rx[2], 8); //新的根密钥
+                   memcpy(System_Config.ctrl_key, &packet_rx[6], 8); //新的控制密钥
+                   
+                   System_Config.sum = CRC_Sum((uint8 *)&System_Config,sizeof(System_Config)-1);
+                   Write_Flash((uint8 *)&System_Config, sizeof(System_Config));
+                   
+                   Hl_Back_Msg(cmd, 1);
+                }
                 break;
                 
                 case CMD_RESET_LOCKID:
-                 Hl_Back_Msg(cmd, 1);
+                {
+                    uint8 key[16];  //hex
+                    memcpy(key, key_str.dynamic_key, 8);  //high 8
+                    memcpy(&key[8], System_Config.root_key, 8); //low 8
+                   
+                    App_RC4(key, 16, &packet_rx[2], 6); //RC4解密 
+                    
+                    memcpy(Lock_Info.DeviceID, &packet_rx[2], 4);
+                    Hl_Back_Msg(cmd, 1);
+                    
+                    Set_Lock_ID(); //设置锁ID
+                }
                 break;
                 
                 case CMD_RESET_KEYID:
@@ -523,7 +606,7 @@ uint8 Xor_Check(uint8 *Data, uint8 Length)
 /***********************************************************
 * @function_name: void Load_System_Config(void)
 * @function_file: AppProtocol.c
-* @描  述：北京APP rc4加密算法
+* @描  述：APP rc4加密算法
 * @参  数：
 * @返  回： void
 **********************************************************/

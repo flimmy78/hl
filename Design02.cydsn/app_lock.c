@@ -197,8 +197,9 @@ void Power_Off(void)
 void Load_Config(void)
 {
     uint8 sum;
-    Read_Flash(SysCfg_FLASH_ADDR,(uint8 *)&System_Config,sizeof(System_Config));
-    sum = CRC_Sum((uint8 *)&System_Config,sizeof(System_Config)-1);
+
+    Read_Flash(SysCfg_FLASH_ADDR, (uint8 *)&System_Config, sizeof(System_Config));
+    sum = CRC_Sum((uint8 *)&System_Config, sizeof(System_Config)-1);
     if(sum != System_Config.sum)
     {
         memcpy(System_Config.ManageKey,Manage_Key,16);
@@ -206,8 +207,27 @@ void Load_Config(void)
         System_Config.DeviceID[1] = 0x02;
         System_Config.DeviceID[2] = 0x03;
         System_Config.DeviceID[3] = 0x04;
+        
+        System_Config.root_key[0] = 0xa0;
+        System_Config.root_key[1] = 0xa1;
+        System_Config.root_key[2] = 0xa2;
+        System_Config.root_key[3] = 0xa3;
+        System_Config.root_key[4] = 0xa4;
+        System_Config.root_key[5] = 0xa5;
+        System_Config.root_key[6] = 0xa6;
+        System_Config.root_key[7] = 0xa7;
+        
+        System_Config.ctrl_key[0] = 0xb0;
+        System_Config.ctrl_key[1] = 0xb1;
+        System_Config.ctrl_key[2] = 0xb2;
+        System_Config.ctrl_key[3] = 0xb3;
+        System_Config.ctrl_key[4] = 0xb4;
+        System_Config.ctrl_key[5] = 0xb5;
+        System_Config.ctrl_key[6] = 0xb6;
+        System_Config.ctrl_key[7] = 0xb7;
+        
         System_Config.sum = CRC_Sum((uint8 *)&System_Config,sizeof(System_Config)-1);
-        Write_Flash((uint8 *)&System_Config,sizeof(System_Config));
+        Write_Flash((uint8 *)&System_Config, sizeof(System_Config));
     }
 }
 

@@ -109,7 +109,7 @@ void AppCallBack(uint32 event, void *eventParam)
             }
             break;
         case CYBLE_EVT_GATTS_WRITE_REQ:
-            writeReqParam = (CYBLE_GATTS_WRITE_REQ_PARAM_T *) eventParam;
+           /* writeReqParam = (CYBLE_GATTS_WRITE_REQ_PARAM_T *) eventParam;
             
             if(CYBLE_CUSTOM_SERVICE_RX_FROM_APP_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == \
                                                                     writeReqParam->handleValPair.attrHandle)
@@ -123,13 +123,12 @@ void AppCallBack(uint32 event, void *eventParam)
                //     UART_UartPutString("\n\rNotifications enabled\n\r");
                //     UART_UartPutString("\n\rStart entering data:\n\r");
                 }
-            }
-           
-            //
-            packetRXSize = ((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam)->handleValPair.value.len;
-            memcpy(&packetRX[0], ((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam)->handleValPair.value.val, packetRXSize);
-            packetRXFlag = 1u;
-            
+            }*/
+                CyBle_GattsWriteRsp(cyBle_connHandle);  
+               
+                packetRXSize = ((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam)->handleValPair.value.len;
+                memcpy(&packetRX[0], ((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam)->handleValPair.value.val, packetRXSize);
+                packetRXFlag = 1u;
             break;
      
         default:
