@@ -437,8 +437,7 @@ void ReceiveBleCmd(void)
                 
                 case CMD_DYNAMIC_KEY: 
                 memcpy(key_str.dynamic_key, &packet_rx[2], 8); //获得动态密钥
-                Hl_Back_Msg(cmd, 1); //响应02包
-                             
+                Hl_Back_Msg(cmd, 1); //响应02包                         
                 break;
                 
                 case CMD_LOCK_OPEN:
