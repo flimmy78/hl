@@ -1,5 +1,0 @@
-E:\my_project\shhl\BLE_KEY_wuyuan\Design02.cydsn\Design02.cyprj|3ce1f96d-371c-4550-818d-90404f9190ff
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|fb4eacce-c1b7-4dbb-b9d0-d39cfbefac1b
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|b1f610f2-b1b3-461a-a50e-52a2f5b62899
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|8470396c-a445-4e35-b3fd-9b518a3ca0f5
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|2d61686a-363f-488a-b2e6-6f5f2294f92a
