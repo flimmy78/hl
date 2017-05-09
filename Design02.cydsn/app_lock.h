@@ -46,8 +46,17 @@
 #define DELAY_1S        1000
 
 
+/***********************************************
+** 系统参数存储地址
+************************************************/  
 #define SysCfg_FLASH_ROW       (CY_FLASH_NUMBER_ROWS - 2u)
 #define SysCfg_FLASH_ADDR      (SysCfg_FLASH_ROW * CY_FLASH_SIZEOF_ROW)
+
+/***********************************************
+** DEVICE BLE ID 
+************************************************/ 
+#define BleName_FLASH_ROW       (CY_FLASH_NUMBER_ROWS - 3u)
+#define BleName_FLASH_ADDR      (BleName_FLASH_ROW * CY_FLASH_SIZEOF_ROW)  
 
 typedef struct
 {
@@ -59,6 +68,16 @@ typedef struct
     uint8 sum;                      //校验码
 }SYSTEM_CFG;
 extern SYSTEM_CFG System_Config;    //锁系统参数
+
+typedef struct 
+{
+    uint8 KeyIdentify[12];
+    uint8 FactoryCode[2];
+    uint8 sum;
+}DeviceName;
+extern DeviceName Device_Name;
+
+
 extern SYSTEM_CFG Sys_cfg;
 extern const uint8 Manage_Key[16];
 extern const uint8 LockIdentify[16];
@@ -105,7 +124,7 @@ extern FLAG  Flag;
 
 void Power_Off(void);
 void Alarm_Event(uint8 Event);
-void Write_Flash(uint8* Data,uint8 Length);
+void Write_Flash(uint32 Addr, uint8* Data,uint8 Length);
 void Read_Flash(uint32 Addr,uint8* Data,uint8 Length);
 
 void Load_Config(void);

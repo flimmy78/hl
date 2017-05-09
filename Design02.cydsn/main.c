@@ -102,15 +102,7 @@ int main()
     ADC_Start();
 
 #if BLE_ON
-    if(System_Config.IDChangeFlag)                 //开机检测，是否更新蓝牙设备名
-    {
-        for(i=0; i<4; i++)
-        {
-            BLEDeviceName[3+2*i] = Hex_To_Ascii(System_Config.DeviceID[i] / 16);
-            BLEDeviceName[4+2*i] = Hex_To_Ascii(System_Config.DeviceID[i] % 16);
-        }
-        CyBle_GapSetLocalName(BLEDeviceName);       //修改蓝牙设备名
-    }
+    CyBle_GapSetLocalName((char *)Device_Name.KeyIdentify);
     bleApiResult = CyBle_Start(AppCallBack); 
     if(bleApiResult == CYBLE_ERROR_OK)
     {

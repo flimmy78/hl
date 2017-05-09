@@ -19,11 +19,13 @@
 const uint8 LockIdentify[16] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
 const uint8 Manage_Key[16] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00};
 
-
+//TKL-000001c5
+const uint8 KeyIdentify[12] = {'T','K','L','-','0','0','0','0','0','1','c','5'}; 
 
 DelayTime  Delay_Time = {};
 FLAG  Flag = {};
 SYSTEM_CFG System_Config = {};
+DeviceName Device_Name = {};
 LOCK_INFO Lock_Info = {};
 
 
@@ -150,11 +152,11 @@ void Alarm_Event(uint8 Event)
  * @function_name: void Write_Flash(uint32 Addr,uint8* Data,uint8 Length)
  * @描  述： 参数存储
 ************************************************************/
-void Write_Flash(uint8* Data,uint8 Length)
+void Write_Flash(uint32 Addr, uint8* Data,uint8 Length)
 {
     uint8 write_buff[0x80] = {0x00};
     memcpy(write_buff,Data,Length);
-    CySysFlashWriteRow(SysCfg_FLASH_ROW, write_buff);
+    CySysFlashWriteRow(Addr, write_buff);
 }
 
 /***********************************************************
@@ -198,6 +200,15 @@ void Load_Config(void)
 {
     uint8 sum;
 
+    Read_Flash(BleName_FLASH_ADDR,(uint8 *)&Device_Name,sizeof(Device_Name));
+    sum = CRC_Sum((uint8 *)&Device_Name,sizeof(Device_Name)-1);
+    if(sum != Device_Name.sum)
+    {
+        memcpy(Device_Name.KeyIdentify, KeyIdentify, 12);
+        Device_Name.sum = CRC_Sum((uint8 *)&Device_Name, sizeof(Device_Name)-1);
+        Write_Flash(BleName_FLASH_ROW, (uint8 *)&Device_Name, sizeof(Device_Name));
+    }
+    
     Read_Flash(SysCfg_FLASH_ADDR, (uint8 *)&System_Config, sizeof(System_Config));
     sum = CRC_Sum((uint8 *)&System_Config, sizeof(System_Config)-1);
     if(sum != System_Config.sum)
@@ -227,7 +238,7 @@ void Load_Config(void)
         System_Config.ctrl_key[7] = 0xb7;
         
         System_Config.sum = CRC_Sum((uint8 *)&System_Config,sizeof(System_Config)-1);
-        Write_Flash((uint8 *)&System_Config, sizeof(System_Config));
+        Write_Flash(SysCfg_FLASH_ADDR, (uint8 *)&System_Config, sizeof(System_Config));
     }
 }
 
