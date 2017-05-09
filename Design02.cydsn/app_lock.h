@@ -72,7 +72,7 @@ extern SYSTEM_CFG System_Config;    //锁系统参数
 typedef struct 
 {
     uint8 KeyIdentify[12];
-    uint8 FactoryCode[2];
+    uint8 version[2];
     uint8 sum;
 }DeviceName;
 extern DeviceName Device_Name;

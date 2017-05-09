@@ -508,21 +508,19 @@ void ReceiveBleCmd(void)
                 break;
                 
                 case CMD_RESET_KEYID:
-                {
-                    /*uint8 ble_key_id[20];
-                    uint8 key_id[10];
-                    uint8 version[2];
-                     
+                {                   
                     uint8 key[16];  //hex
                     memcpy(key, key_str.dynamic_key, 8);  //high 8
                     memcpy(&key[8], System_Config.root_key, 8); //low 8
                    
-                    App_RC4(key, 16, &packet_rx[2], 32); //RC4解密 
+                    App_RC4(key, 16, &packet_rx[2], 14); //RC4解密                                                        
                     
-                    memcpy(ble_key_id, &packet_rx[2], 20); //蓝牙钥匙ID
-                    memcpy(key_id, &packet_rx[22], 10);*/
+                    memcpy(Device_Name.KeyIdentify, &packet_rx[2], 12);
+                    memcpy(Device_Name.version, &packet_rx[14], 2);
                     
-                
+                    Device_Name.sum = CRC_Sum((uint8 *)&Device_Name, sizeof(Device_Name) - 1);
+                    Write_Flash(BleName_FLASH_ADDR, (uint8 *)&Device_Name, sizeof(Device_Name));
+                    
                     Hl_Back_Msg(cmd, 1);
                 }
                 break;
