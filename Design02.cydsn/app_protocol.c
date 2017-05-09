@@ -248,13 +248,13 @@ void  Hl_Back_Msg(uint8 cmd, uint8 result)
 * 函数名：void Hl_Back_Lock_Open(void)
 * 描述  ：返回开锁应答结果
 ***********************************************/
-void Hl_Back_Lock_Open(void)
+void Hl_Back_Lock_Open(uint8 r)
 {
     uint8 sendlen;
 
     packetTX[0] = CMD_LOCK_OPEN;
     packetTX[1] = 2;
-    packetTX[2] = 1; //结果
+    packetTX[2] = r; //结果
     packetTX[3] = 1; //锁状态
     
     packetTX[4] = Xor_Check(&packetTX[2], packetTX[1]);
@@ -427,7 +427,7 @@ void ReceiveBleCmd(void)
         check_crc = Xor_Check(&packet_rx[2], datalen);     //检查校验
         data_crc = packet_rx[2 + datalen];
         
- //     if(check_crc == data_crc)
+        if(check_crc == data_crc)
         {
             switch(cmd)
             {
@@ -442,7 +442,7 @@ void ReceiveBleCmd(void)
                 
                 case CMD_LOCK_OPEN:
                 {
-                 /* uint8 key[16];  //hex
+                  uint8 key[16];  //hex
                   char  dest_key[36];  //字符串 
                   unsigned char decrypt[16]; //生成的MD5标签
                   MD5_CTX md5; 
@@ -463,11 +463,13 @@ void ReceiveBleCmd(void)
                      packet_rx[5] == Lock_Info.DeviceID[3]){
                         
                         Com_Array.Tx_State = RE_CHECKCODE;     //开锁
-                  }*/
-                  
+                        Hl_Back_Lock_Open(1);
+                  }
+                  else
+                  {
                     
-                  Hl_Back_Lock_Open();
-                  Com_Array.Tx_State = RE_CHECKCODE;     //开锁
+                    Hl_Back_Lock_Open(0);
+                  }
                 }
                    
                 break;
