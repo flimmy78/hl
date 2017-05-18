@@ -73,7 +73,7 @@
 #define CMD_RESET_KEY           0x05     //重置钥匙密钥
 #define CMD_RESET_LOCKID        0x06     //重置锁设备号
 #define CMD_RESET_KEYID         0x07     //重置钥匙ID和蓝牙ID
-
+#define CMD_RECOVERY            0x08     //恢复出厂设置
 
 
 
@@ -94,4 +94,8 @@ void App_RC4(uint8 *key,uint8 key_leng, uint8 *buf, uint8 len);
 
 void key_touch_lock_process(void);
 void key_touch_lock_flag_set(void);
+
+unsigned char * HloveyRC4( unsigned char * aKey, short aKeylength, unsigned char * aInput,  short aInputlength);
+int strToHex(char *ch, char *hex);
+
 /* [] END OF FILE */

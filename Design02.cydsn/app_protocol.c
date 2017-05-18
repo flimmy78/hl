@@ -23,7 +23,7 @@ uint8 packetTXStep = 0;
 uint8 recv_buff[40];
 uint8 AppKey[8];
 
-#define LOCK_OPEN_FLAG_SET 3
+#define LOCK_OPEN_FLAG_SET 2
 static  uint8  lock_open_flag = 0; //key_touch_lock
 static  uint8  lock_flag = 0;      //
 static  uint16 lock_timeflow = 0;  //key_touch_lock
@@ -39,6 +39,7 @@ struct _KEY_STR key_str = {/*{0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7},\
                            {0xb0,0xb1,0xb2,0xb3,0xb4,0xb5,0xb6,0xb7,},*/
                            {0}};
 
+ unsigned char iOutputChar_buf[32];
 /***********************************************
 * 函数名：void SendNotification(void)
 * 描述  ：蓝牙发送函数
@@ -272,12 +273,12 @@ void Hl_Back_Lock_Info(void)
 {
     uint8 sendlen;
     uint8 rc4_key[16];
-    
+    unsigned char * buf;
     packetTX[0] = CMD_UP_LOCKINFO;
     
     packetTX[1] = 7;
     
-    memcmp(&packetTX[2], Lock_Info.DeviceID, 4);
+    memcpy(&packetTX[2], Lock_Info.DeviceID, 4);
     
     packetTX[6] = Ver_H;
     packetTX[7] = Ver_L;
@@ -287,8 +288,9 @@ void Hl_Back_Lock_Info(void)
     memcpy(rc4_key, key_str.dynamic_key, 8);       //动态密钥做高8字节
     memcpy(&rc4_key[8], System_Config.root_key, 8);      //根密钥做低8字节
     
-    App_RC4(rc4_key, 16, &packetTX[2], 7); //加密
-   
+    buf = HloveyRC4(rc4_key, 16, &packetTX[2], 7); //加密
+    memcpy(&packetTX[2], buf, 7);
+    
     packetTX[9] = Xor_Check(&packetTX[2], packetTX[1]);  //异或校验
     
     sendlen = packetTX[1] + 3;
@@ -416,6 +418,7 @@ void ReceiveBleCmd(void)
     
     uint8 packet_rx[20];
     
+     unsigned char * buf;
     if(packetRXFlag)
     {
         packetRXFlag=0;         
@@ -427,11 +430,12 @@ void ReceiveBleCmd(void)
         check_crc = Xor_Check(&packet_rx[2], datalen);     //检查校验
         data_crc = packet_rx[2 + datalen];
         
-        if(check_crc == data_crc)
+        //if(check_crc == data_crc)
         {
             switch(cmd)
             {
                 case CMD_GET_KEYINFO:
+                Delay_Time.Delay_1min = 0;
                 Hl_Back_KeyInfo();
                 break;
                 
@@ -456,7 +460,9 @@ void ReceiveBleCmd(void)
                   MD5Update(&md5, (unsigned char *)dest_key, strlen((char *)dest_key));  
                   MD5Final(&md5, decrypt); //生成MD5标签
                   
-                  App_RC4(decrypt, 16, &packet_rx[2], 5); //RC4解密 
+                
+                  buf = HloveyRC4(decrypt, 16, &packet_rx[2], 5); //RC4解密 
+                  memcpy(&packet_rx[2], buf, 5);
                   if(packet_rx[2] == Lock_Info.DeviceID[0] &&
                      packet_rx[3] == Lock_Info.DeviceID[1] &&
                      packet_rx[4] == Lock_Info.DeviceID[2] &&
@@ -467,7 +473,6 @@ void ReceiveBleCmd(void)
                   }
                   else
                   {
-                    
                     Hl_Back_Lock_Open(0);
                   }
                 }
@@ -477,16 +482,18 @@ void ReceiveBleCmd(void)
                 case CMD_RESET_KEY: //新的根密钥和控制密钥
                 {
                    uint8 key[16];  //hex
+                  
                    memcpy(key, key_str.dynamic_key, 8);  //high 8
                    memcpy(&key[8], System_Config.root_key, 8); //low 8
                    
-                   App_RC4(key, 16, &packet_rx[2], 16); //RC4解密 
+                   buf = HloveyRC4(key, 16, &packet_rx[2], 16); //RC4解密
+                   memcpy(&packet_rx[2], buf, 16);
                    
                    memcpy(System_Config.root_key, &packet_rx[2], 8); //新的根密钥
-                   memcpy(System_Config.ctrl_key, &packet_rx[6], 8); //新的控制密钥
+                   memcpy(System_Config.ctrl_key, &packet_rx[10], 8); //新的控制密钥
                    
                    System_Config.sum = CRC_Sum((uint8 *)&System_Config,sizeof(System_Config)-1);
-                   Write_Flash(SysCfg_FLASH_ADDR, (uint8 *)&System_Config, sizeof(System_Config));
+                   Write_Flash(SysCfg_FLASH_ROW, (uint8 *)&System_Config, sizeof(System_Config));
                    
                    Hl_Back_Msg(cmd, 1);
                 }
@@ -498,7 +505,8 @@ void ReceiveBleCmd(void)
                     memcpy(key, key_str.dynamic_key, 8);  //high 8
                     memcpy(&key[8], System_Config.root_key, 8); //low 8
                    
-                    App_RC4(key, 16, &packet_rx[2], 6); //RC4解密 
+                    buf = HloveyRC4(key, 16, &packet_rx[2], 6); //RC4解密 
+                    memcpy(&packet_rx[2], buf, 6);
                     
                     memcpy(Lock_Info.DeviceID, &packet_rx[2], 4);
                     Hl_Back_Msg(cmd, 1);
@@ -513,23 +521,54 @@ void ReceiveBleCmd(void)
                     memcpy(key, key_str.dynamic_key, 8);  //high 8
                     memcpy(&key[8], System_Config.root_key, 8); //low 8
                    
-                    App_RC4(key, 16, &packet_rx[2], 14); //RC4解密                                                        
+                    buf = HloveyRC4(key, 16, &packet_rx[2], 14); //RC4解密                                                        
+                    memcpy(&packet_rx[2], buf, 14);
                     
+                    memset(Device_Name.KeyIdentify, 0, 13);
                     memcpy(Device_Name.KeyIdentify, &packet_rx[2], 12);
                     memcpy(Device_Name.version, &packet_rx[14], 2);
                     
                     Device_Name.sum = CRC_Sum((uint8 *)&Device_Name, sizeof(Device_Name) - 1);
-                    Write_Flash(BleName_FLASH_ADDR, (uint8 *)&Device_Name, sizeof(Device_Name));
+                    Write_Flash(BleName_FLASH_ROW, (uint8 *)&Device_Name, sizeof(Device_Name));
                     
                     Hl_Back_Msg(cmd, 1);
                 }
+                break;
+                
+                case CMD_RECOVERY: //恢复出厂设置
+                 if(packet_rx[2] == 0x08 && packet_rx[3] == 0x08 &&
+                    packet_rx[4] == 0x08 && packet_rx[5] == 0x08)
+                 {
+                    System_Config.root_key[0] = 0xa0;
+                    System_Config.root_key[1] = 0xa1;
+                    System_Config.root_key[2] = 0xa2;
+                    System_Config.root_key[3] = 0xa3;
+                    System_Config.root_key[4] = 0xa4;
+                    System_Config.root_key[5] = 0xa5;
+                    System_Config.root_key[6] = 0xa6;
+                    System_Config.root_key[7] = 0xa7;
+                    
+                    System_Config.ctrl_key[0] = 0xb0;
+                    System_Config.ctrl_key[1] = 0xb1;
+                    System_Config.ctrl_key[2] = 0xb2;
+                    System_Config.ctrl_key[3] = 0xb3;
+                    System_Config.ctrl_key[4] = 0xb4;
+                    System_Config.ctrl_key[5] = 0xb5;
+                    System_Config.ctrl_key[6] = 0xb6;
+                    System_Config.ctrl_key[7] = 0xb7;
+                    
+                    System_Config.sum = CRC_Sum((uint8 *)&System_Config,sizeof(System_Config)-1);
+                    Write_Flash(SysCfg_FLASH_ROW, (uint8 *)&System_Config, sizeof(System_Config));
+                    
+                    Hl_Back_Msg(CMD_RECOVERY, 1);
+                 }
                 break;
                 
                 default:
                 break;
             }
         }
-
+      memset(packet_rx, 0, 20);
     }
     
     //test_03packet();
@@ -666,6 +705,61 @@ void App_RC4(uint8 *key,uint8 key_leng, uint8 *buf, uint8 len)
 		buf[index] = data[index] ^ Sbox[k]; 
 		index++;
 	}
+}
+
+
+
+
+unsigned char * HloveyRC4( unsigned char * aKey, short aKeylength, unsigned char * aInput,  short aInputlength)
+{
+    int iS_buf[256];
+    unsigned char iK_buf[256];
+   
+    
+	int i = 0, j = 0;
+    unsigned char iCY ;
+    int iY ;
+    int t;
+    int x;
+    short i1;
+    int temp;
+	int * iS = iS_buf;
+    unsigned char * iOutputChar;
+	unsigned char * iK = iK_buf;
+	for (i = 0; i < 256; i++)
+	{
+		iS[i] = i;;
+	}
+	j = 1;
+	for (i1 = 0; i1 < 256; i1++)
+	{
+		iK[i1] = aKey[(i1 % aKeylength)];
+	}
+	j = 0;
+	for (i = 0; i < 256; i++)
+	{
+		j = (j + iS[i] & 0xff + iK[i] & 0xff) % 256;
+		temp = iS[i];
+		iS[i] = iS[j];
+		iS[j] = temp;
+	}
+	i = 0;
+	j = 0;
+	iOutputChar = iOutputChar_buf;
+	for (x = 0; x < aInputlength; x++)
+	{
+		i = (i + 1) % 256;
+		j = (j + iS[i] & 0xff) % 256;
+		temp = iS[i]&0xff;
+        iS[i] = iS[j];
+        iS[j] = temp;
+        t = (iS[i] + (iS[j]&0xff % 256)) % 256;
+        iY = iS[t]&0xff;
+        iCY = (unsigned char) iY;
+        iOutputChar[x] = (unsigned char) (aInput[x] ^ iCY);
+	}
+	
+	return iOutputChar;
 }
 
 

@@ -20,7 +20,7 @@ const uint8 LockIdentify[16] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x0
 const uint8 Manage_Key[16] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00};
 
 //TKL-000001c5
-const uint8 KeyIdentify[12] = {'T','K','L','-','0','0','0','0','0','1','c','5'}; 
+const uint8 KeyIdentify[13] = {'T','K','L','-','0','0','0','0','0','1','c','5', 0}; 
 
 DelayTime  Delay_Time = {};
 FLAG  Flag = {};
@@ -238,7 +238,7 @@ void Load_Config(void)
         System_Config.ctrl_key[7] = 0xb7;
         
         System_Config.sum = CRC_Sum((uint8 *)&System_Config,sizeof(System_Config)-1);
-        Write_Flash(SysCfg_FLASH_ADDR, (uint8 *)&System_Config, sizeof(System_Config));
+        Write_Flash(SysCfg_FLASH_ROW, (uint8 *)&System_Config, sizeof(System_Config));
     }
 }
 

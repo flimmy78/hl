@@ -166,7 +166,7 @@ uint16 Get_Adc(void)
     ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
 
     adcResult = ADC_GetResult16(0x00);
-    mvolts = (4000 * adcResult) / 1849;
+    mvolts = (3960 * adcResult) / 1150;
     return (uint16)mvolts;
 }
 
