@@ -564,6 +564,20 @@ void ReceiveBleCmd(void)
                  }
                 break;
                 
+                
+  /*              case 0x55:
+                {                                                        
+                    memset(Device_Name.KeyIdentify, 0, 13);
+                    memcpy(Device_Name.KeyIdentify, &packet_rx[2], 12);
+                    memcpy(Device_Name.version, &packet_rx[14], 2);
+                    
+                    Device_Name.sum = CRC_Sum((uint8 *)&Device_Name, sizeof(Device_Name) - 1);
+                    Write_Flash(BleName_FLASH_ROW, (uint8 *)&Device_Name, sizeof(Device_Name));
+                    
+                    Hl_Back_Msg(cmd, 1);
+                }
+                break;*/
+                
                 default:
                 break;
             }
